@@ -59,10 +59,10 @@ router.put('/:_id/vote', function(req, res, next) {
   var userPriorVote = 0;
   User.findOne({_id: userId})
   .then((result)=>{
-    if (result.hasOwnProperty('voteHistory') == false) {
+    if (typeof(result.voteHistory) === 'undefined') {
       result.voteHistory = {};
     }
-    if (result.voteHistory.hasOwnProperty(postId) == false) {
+    if (!(postId in result.voteHistory)) {
       userPriorVote = 0;
       result.voteHistory[postId] = vote;
     } else {
@@ -71,17 +71,20 @@ router.put('/:_id/vote', function(req, res, next) {
     }
     result.markModified('voteHistory');
     result.save();
-    User.update({_id: userId}, result);
-  })
 
-  var scoreDiff = vote - userPriorVote;
+    User.update({_id: userId}, result)
+    .then(()=>{
 
-  Post.findOneAndUpdate({_id: postId},
-  {
-    $inc: {'score': scoreDiff}
-  })
-  .then(()=>{
-    res.send('Update complete');
+      var scoreDiff = vote - userPriorVote;
+      Post.findOneAndUpdate({_id: postId},
+      {
+        $inc: {'score': scoreDiff}
+      })
+      .then(()=>{
+        res.send('Update complete');
+      })
+
+    })
   })
 
 });
