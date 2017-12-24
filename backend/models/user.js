@@ -8,6 +8,19 @@ var userSchema = mongoose.Schema({
   },
   token: {
     type: String
+  },
+  submitted: {
+    type: Array,
+    default: []
+  },
+  voteHistory: {},
+  saved: {
+    type: Array,
+    default: []
+  },
+  comments: {
+    type: Array,
+    default: []
   }
 });
 

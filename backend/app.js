@@ -13,9 +13,10 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
 var index = require('./routes/index');
-var pokemons = require('./routes/pokemons');
+var posts = require('./routes/posts');
 
 var User = require('./models/user');
+
 
 // Server setup
 var app = express();
@@ -53,6 +54,7 @@ passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
 
+
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -68,6 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Routes
 app.get('/auth/google',
@@ -90,7 +93,7 @@ app.get('/', function(req, res) {
 });
 
 app.use('/api/', index);
-app.use('/api/pokemons', pokemons);
+app.use('/api/posts', posts);
 
 app.get('/protected',
   passport.authenticate('bearer', { session: false }),
@@ -98,12 +101,14 @@ app.get('/protected',
   res.send('Nice one')
 })
 
+
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
 
 // Error handler
 app.use(function(err, req, res, next) {
