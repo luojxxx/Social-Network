@@ -17,10 +17,6 @@ var userSchema = mongoose.Schema({
   saved: {
     type: Array,
     default: []
-  },
-  comments: {
-    type: Array,
-    default: []
   }
 });
 

@@ -18,6 +18,10 @@ var postSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  contentTag: {
+    type: String,
+    default: ''
+  },
   contentLink: {
     type: String,
     default: ''
@@ -26,7 +30,11 @@ var postSchema = mongoose.Schema({
     type: String,
     default: ''
   },
-  comments: {
+  parent: {
+    type: String,
+    default: ''
+  },
+  children: {
     type: Array,
     default: []
   }

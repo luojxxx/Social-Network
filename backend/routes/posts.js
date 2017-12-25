@@ -4,12 +4,12 @@ var router = express.Router();
 var Post = require('../models/post');
 var User = require('../models/user');
 
-router.get('/', function(req, res, next) {
-  Post.find()
-  .then((allPosts)=>{
-    res.json(allPosts);
-  });
-});
+// router.get('/', function(req, res, next) {
+//   Post.find()
+//   .then((allPosts)=>{
+//     res.json(allPosts);
+//   });
+// });
 
 router.get('/:_id', function(req, res, next) {
   var id = req.params._id;
@@ -26,20 +26,36 @@ router.get('/:_id', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var postdata = req.body;
+  var postData = req.body;
   var newPost = {
-    submittedBy: postdata.submittedBy,
-    contentTitle: postdata.contentTitle,
-    contentLink: postdata.contentLink,
-    contentDescription: postdata.contentDescription
+    submittedBy: postData.submittedBy,
+    contentTitle: postData.contentTitle,
+    contentLink: postData.contentLink,
+    contentDescription: postData.contentDescription,
+    contentTag: postData.contentTag,
+    parent: postData.parent
   };
 
   Post.create(newPost)
-  .then(()=>{
-    res.status(201);
-    res.send('Added new post');
+  .then((createdPost)=>{
+    if (postData.parent != '') {
+      Post.update(
+        {_id: postData.parent}, 
+        {$addToSet: {'children': createdPost._id}}
+        )
+      .then(()=>{
+        res.status(201);
+        res.send('Added new post');
+      })
+      .catch((err)=>{
+        res.status(400);
+        res.send(err);
+      })
+    }
+
   })
   .catch((err)=>{
+    res.status(400);
     res.send(err);
   })
 });
@@ -78,33 +94,28 @@ router.put('/:_id/vote', function(req, res, next) {
       var scoreDiff = vote - userPriorVote;
       Post.findOneAndUpdate({_id: postId},
       {
-        $inc: {'score': scoreDiff}
+        $inc: {score: scoreDiff}
       })
       .then(()=>{
+        res.status(200);
         res.send('Update complete');
       })
 
+      .catch((err)=>{
+        res.send(400);
+        res.send(err);
+      })
+    })
+    .catch((err)=>{
+      res.send(400);
+      res.send(err);
     })
   })
-
-});
-
-router.put('/:_id/comment', function(req, res, next) {
-  var id = req.params._id;
-  var updatedPost = req.body;
-
-  var query = {_id: id};
-  var update = {
-    name: updatedPost.name,
-    type: updatedPost.type
-  }
-  Post.findOneAndUpdate(query, update, {})
-  .then(()=>{
-    res.send('Update complete');
-  })
   .catch((err)=>{
+    res.send(400);
     res.send(err);
   })
+
 });
 
 router.delete('/:_id', function(req, res, next) {
@@ -117,8 +128,9 @@ router.delete('/:_id', function(req, res, next) {
     res.send('Delete complete');
   })
   .catch((err)=>{
+    res.send(400);
     res.send(err);
-  });
+  })
 });
 
 module.exports = router;
