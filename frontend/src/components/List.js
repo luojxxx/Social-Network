@@ -4,7 +4,7 @@ import ListItem from './ListItem'
 
 class List extends Component{
   componentDidMount(){
-    this.props.loadData();
+    this.props.loadFrontPageData();
   }
 
   render() {
@@ -13,13 +13,12 @@ class List extends Component{
       <div>
         {props.frontPageList.map((item, idx)=>{
           return <ListItem 
+            key={item._id}
             data={item} />
         })}
       </div>
       )}
 }
-
-// <ListItem content={item} />
 
 
 
@@ -44,6 +43,3 @@ class List extends Component{
 // }
 
 export default List
-
-
-

@@ -99,10 +99,11 @@ app.use('/api/users', users);
 app.use('/api/posts', posts);
 app.use('/api/recommendations', recommendations);
 
-app.get('/protected',
+app.get('/api/protected',
   passport.authenticate('bearer', { session: false }),
   function(req,res){
-  res.send('Nice one')
+    console.log(req.user)
+    res.send('Nice one')
 })
 
 

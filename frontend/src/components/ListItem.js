@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 
 class ListItem extends Component{
   render() {
-    var data = this.props.data;
+    var post = this.props.data;
+    console.log(post)
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
           <div className="score-block w-col w-col-1">
-            <h3>{data.score}</h3>
+            <h3>{post.score}</h3>
           </div>
           <div className="vote-block w-col w-col-1">
             <div><a href="#" className="button-2 fontawesome w-button">&#xf062;</a></div>
@@ -16,8 +17,8 @@ class ListItem extends Component{
           </div>
           <div className="content-title-options w-col w-col-10">
             <div>
-              <h4>{data.contentTitle}</h4>
-              <div>{data.submittedByUserName} - {data.dateSubmitted}  {data.contentTag}</div>
+              <h4>{post.contentTitle}</h4>
+              <div>{post.submittedByUserName} - {post.dateSubmitted}  {post.contentTag}</div>
             </div>
             <div>
               <a href="#" className="w-button">Reply</a>
@@ -31,19 +32,6 @@ class ListItem extends Component{
       )}
 }
 
-// const TodoList = (props) => {
-//   return (
-//     <div>
-//       <input type='text' value={props.fieldText} onChange={(e) => props.updateField(e.target.value)} />
-//       <button onClick={props.addTodo}> Add todo </button>
-//       <br />
-//       <ul>
-//       {props.pokemon.map((item, idx)=>{
-//         return <li key={idx} onClick={(e)=>{props.removeTodo(idx)}}>{item}</li>
-//       })}
-//       </ul>
-//     </div>
-// )}
 
 // Todo.propTypes = {
 //   onClick: PropTypes.func.isRequired,

@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-export function loadData() {
+var webserver = 'http://localhost:3000/';
+
+export function loadFrontPageData() {
   return function(dispatch){
     axios({
       method:'get',
-      url:'http://localhost:3000/api/recommendations/'
+      url:webserver+'api/recommendations/'
     })
     .then( (response) => {
       dispatch(hydrateState(response.data));

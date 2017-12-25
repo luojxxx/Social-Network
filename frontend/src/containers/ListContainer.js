@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadData, updateField, addTodo, removeTodo } from '../actions';
+import { loadFrontPageData, updateField, addTodo, removeTodo } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -7,8 +7,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadData: () => {
-    dispatch(loadData());
+  loadFrontPageData: () => {
+    dispatch(loadFrontPageData());
   },
   updateField: (text) => {
     dispatch(updateField(text));

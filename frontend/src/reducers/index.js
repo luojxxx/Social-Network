@@ -43,12 +43,16 @@ const frontPage = (state = {
     
     default:
     return state;
-}
+  }
 }
 
-const login = (state = {
-  specialme:'Ha', 
-  generalme: []
+const userAccount = (state = {
+  loggedIn: false,
+  userName: 'Anon',
+  email: '',
+  submitted: [],
+  voteHistory: {},
+  saved: []
   }, action) => {
   switch (action.type) {
       default:
@@ -59,7 +63,7 @@ const login = (state = {
 const reducers = combineReducers({
   routing,
   frontPage,
-  login
+  userAccount
 })
 
 export default reducers
