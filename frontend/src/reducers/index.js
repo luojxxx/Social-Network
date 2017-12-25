@@ -3,18 +3,15 @@ import { routerReducer } from 'react-router-redux';
 
 const routing = routerReducer;
 
-const pokemonState = (state = {
+const frontPage = (state = {
   fieldText:'', 
-  pokemon: []
+  frontPageList: []
   }, action) => {
   switch (action.type) {
     case 'HYDRATE_STATE':
-    var pokemonList = action.payload.map((ele)=>{
-      return ele.name;
-    })
     return {
       ...state,
-      pokemon: pokemonList
+      frontPageList: action.payload
     }
 
     case 'ADD_POKEMON':
@@ -61,7 +58,7 @@ const login = (state = {
 
 const reducers = combineReducers({
   routing,
-  pokemonState,
+  frontPage,
   login
 })
 

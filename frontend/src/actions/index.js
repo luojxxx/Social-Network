@@ -4,7 +4,7 @@ export function loadData() {
   return function(dispatch){
     axios({
       method:'get',
-      url:'http://localhost:3000/api/pokemons'
+      url:'http://localhost:3000/api/recommendations/'
     })
     .then( (response) => {
       dispatch(hydrateState(response.data));

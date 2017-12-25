@@ -13,6 +13,10 @@ var userSchema = mongoose.Schema({
     type: String,
     default: 'Anon'
   },
+  email: {
+    type: String,
+    default: ''
+  },
   submitted: {
     type: Array,
     default: []
@@ -21,6 +25,14 @@ var userSchema = mongoose.Schema({
   saved: {
     type: Array,
     default: []
+  },
+  lastPosted: {
+    type: Date,
+    default: Date.now
+  },
+  lastVoted: {
+    type: Date,
+    default: Date.now
   }
 });
 

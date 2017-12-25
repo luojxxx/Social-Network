@@ -1,27 +1,27 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import ListItem from './ListItem'
 
-class TodoList extends Component{
+class List extends Component{
   componentDidMount(){
     this.props.loadData();
   }
 
   render() {
     var props = this.props;
-    console.log(props)
     return (
       <div>
-        <input type='text' value={props.fieldText} onChange={(e) => props.updateField(e.target.value)} />
-        <button onClick={props.addTodo}> Add todo </button>
-        <br />
-        <ul>
-        {props.pokemon.map((item, idx)=>{
-          return <li key={idx} onClick={(e)=>{props.removeTodo(idx)}}>{item}</li>
+        {props.frontPageList.map((item, idx)=>{
+          return <ListItem 
+            data={item} />
         })}
-        </ul>
       </div>
       )}
 }
+
+// <ListItem content={item} />
+
+
 
 // const TodoList = (props) => {
 //   return (
@@ -43,7 +43,7 @@ class TodoList extends Component{
 //   text: PropTypes.string.isRequired
 // }
 
-export default TodoList
+export default List
 
 
 

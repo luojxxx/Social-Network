@@ -3,8 +3,7 @@ import { loadData, updateField, addTodo, removeTodo } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = (state, ownProps) => ({
-  fieldText: state.pokemonState.fieldText,
-  pokemon: state.pokemonState.pokemon
+  frontPageList: state.frontPage.frontPageList
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

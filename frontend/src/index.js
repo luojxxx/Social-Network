@@ -9,9 +9,8 @@ import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import reducers from './reducers';
-import App from './components/App';
-import './index.css';
 
+import App from './components/App';
 import Authtoken from './components/Authtoken';
 
 const middleware = applyMiddleware(thunk, createLogger());
