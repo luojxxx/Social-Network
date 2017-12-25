@@ -25,6 +25,20 @@ router.get('/:_id', function(req, res, next) {
   })
 });
 
+router.get('/:_id/graphtraversal', function(req, res, next) {
+  var id = req.params._id;
+  var query = {_id: id};
+
+  Post.find(query)
+  .then((post)=>{
+    res.json(post);
+  })
+  .catch((err)=>{
+    res.status(404);
+    res.send(err);
+  })
+});
+
 router.post('/', function(req, res, next) {
   var postData = req.body;
   var newPost = {
@@ -51,8 +65,10 @@ router.post('/', function(req, res, next) {
         res.status(400);
         res.send(err);
       })
+    } else {
+      res.status(200);
+      res.send('Added new post');
     }
-
   })
   .catch((err)=>{
     res.status(400);
