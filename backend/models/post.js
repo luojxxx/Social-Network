@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 
 // Post Schema
 var postSchema = mongoose.Schema({
-  submittedBy: {
+  submittedByUserId: {
+    type: String,
+    required: true
+  },
+  submittedByUserName: {
     type: String,
     required: true
   },

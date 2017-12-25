@@ -9,6 +9,10 @@ var userSchema = mongoose.Schema({
   token: {
     type: String
   },
+  userName: {
+    type: String,
+    default: 'Anon'
+  },
   submitted: {
     type: Array,
     default: []

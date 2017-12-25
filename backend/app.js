@@ -13,7 +13,9 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
 var index = require('./routes/index');
+var users = require('./routes/users');
 var posts = require('./routes/posts');
+var recommendations = require('./routes/recommendations');
 
 var User = require('./models/user');
 
@@ -93,7 +95,9 @@ app.get('/', function(req, res) {
 });
 
 app.use('/api/', index);
+app.use('/api/users', users);
 app.use('/api/posts', posts);
+app.use('/api/recommendations', recommendations);
 
 app.get('/protected',
   passport.authenticate('bearer', { session: false }),

@@ -4,13 +4,6 @@ var router = express.Router();
 var Post = require('../models/post');
 var User = require('../models/user');
 
-// router.get('/', function(req, res, next) {
-//   Post.find()
-//   .then((allPosts)=>{
-//     res.json(allPosts);
-//   });
-// });
-
 router.get('/:_id', function(req, res, next) {
   var id = req.params._id;
   var query = {_id: id};
@@ -25,7 +18,30 @@ router.get('/:_id', function(req, res, next) {
   })
 });
 
-router.get('/:_id/graphtraversal', function(req, res, next) {
+router.get('/:_id/graph', function(req, res, next) {
+  var postId = req.params._id;
+  var query = {$match: {_id: postId}};
+
+  Post.aggregate(query, {
+    $graphLookup: {
+      from: 'posts',
+      startWith: '$children',
+      connectFromField: 'children',
+      connectToField: '_id',
+      as: 'connections'
+    }
+  })
+  .then((result)=>{
+    res.status(200);
+    res.json(result);
+  })
+  .catch((err)=>{
+    res.status(400);
+    res.send(err);
+  })
+});
+
+router.get('/tag/:_id', function(req, res, next) {
   var id = req.params._id;
   var query = {_id: id};
 
@@ -42,7 +58,8 @@ router.get('/:_id/graphtraversal', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var postData = req.body;
   var newPost = {
-    submittedBy: postData.submittedBy,
+    submittedByUserId: postData.submittedByUserId,
+    submittedByUserName: postData.submittedByUserName,
     contentTitle: postData.contentTitle,
     contentLink: postData.contentLink,
     contentDescription: postData.contentDescription,
@@ -131,14 +148,18 @@ router.put('/:_id/vote', function(req, res, next) {
     res.send(400);
     res.send(err);
   })
-
 });
 
 router.delete('/:_id', function(req, res, next) {
   var id = req.params._id;
 
   var query = {_id: id};
-  Post.remove(query)
+  Post.update(query, {
+    submittedByUserName: 'deleted',
+    contentTitle: 'deleted',
+    contentDescription: '',
+    contentLink: ''
+  })
   .then(()=>{
     res.status(204);
     res.send('Delete complete');
