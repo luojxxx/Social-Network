@@ -8,7 +8,7 @@ const frontPage = (state = {
   frontPageList: []
   }, action) => {
   switch (action.type) {
-    case 'HYDRATE_STATE':
+    case 'FRONTPAGE_LOADED':
     return {
       ...state,
       frontPageList: action.payload
@@ -55,8 +55,42 @@ const userAccount = (state = {
   saved: []
   }, action) => {
   switch (action.type) {
-      default:
-      return state;
+    case 'USERDATA_LOADED':
+    return {
+      ...state,
+      loggedIn: true,
+      userName: action.payload.userName,
+      email: action.payload.email,
+      submitted: action.payload.submitted,
+      voteHistory: action.payload.voteHistory,
+      saved: action.payload.saved
+    }
+
+    case 'USERDATA_LOADFAILED':
+    return {
+      ...state,
+      loggedIn: false,
+      userName: 'Anon',
+      email: '',
+      submitted: [],
+      voteHistory: {},
+      saved: []
+    }
+
+    case 'LOGOUT':
+    localStorage.removeItem('token');
+    return {
+      ...state,
+      loggedIn: false,
+      userName: 'Anon',
+      email: '',
+      submitted: [],
+      voteHistory: {},
+      saved: []
+    }
+
+    default:
+    return state;
   }
 }
 

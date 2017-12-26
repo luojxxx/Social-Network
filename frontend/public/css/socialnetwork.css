@@ -238,6 +238,87 @@
   font-family: 'Fontawesome webfont', sans-serif;
 }
 
+.newpost {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.form {
+  display: block;
+}
+
+.field-label {
+  float: none;
+  clear: none;
+}
+
+.text-field {
+  clear: none;
+}
+
+.newpostcolumn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.newpostcolumntext {
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.newpostcolumnfield {
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  padding: 0px;
+}
+
+.newposttagfield {
+  width: 100px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.newposttagtext {
+  margin-left: 10px;
+}
+
 @font-face {
   font-family: 'Fontawesome webfont';
   src: url('../fonts/fontawesome-webfont.woff2') format('woff2'), 

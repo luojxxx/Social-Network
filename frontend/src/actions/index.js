@@ -9,27 +9,44 @@ export function loadFrontPageData() {
       url:webserver+'api/recommendations/'
     })
     .then( (response) => {
-      dispatch(hydrateState(response.data));
+      dispatch(frontPageLoaded(response.data));
     })
   }
 }
 
-export const hydrateState = (data) => ({
-  type: 'HYDRATE_STATE',
+export function loadUserData() {
+  return function(dispatch){
+    axios({
+      method:'get',
+      url:webserver+'api/users/verify',
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then( (response) => {
+      dispatch(userDataLoaded(response.data));
+    })
+    .catch( (err) => {
+      dispatch(userDataLoadFailed());
+    })
+  }
+}
+
+export const frontPageLoaded = (data) => ({
+  type: 'FRONTPAGE_LOADED',
   payload: data
 })
 
-export const addTodo = () => ({
-  type: 'ADD_POKEMON',
+export const userDataLoaded = (data) => ({
+  type: 'USERDATA_LOADED',
+  payload: data
 })
 
-export const removeTodo = (idx) => ({
-  type: 'REMOVE_POKEMON',
-  idx: idx
+export const userDataLoadFailed = () => ({
+  type: 'USERDATA_LOADFAILED'
 })
 
-export const updateField = (text) => ({
-  type: 'UPDATE_FIELD',
-  text: text
+export const logout = () => ({
+  type: 'LOGOUT'
 })
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-// import { loadData, updateField, addTodo, removeTodo } from '../actions';
+import { loadUserData, logout} from '../actions';
 import UserAccount from '../components/UserAccount';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -7,18 +7,12 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  // loadData: () => {
-  //   dispatch(loadData());
-  // },
-  // updateField: (text) => {
-  //   dispatch(updateField(text));
-  // },
-  // addTodo: () => {
-  //   dispatch(addTodo())
-  // },
-  // removeTodo: (idx) => {
-  //   dispatch(removeTodo(idx))
-  // }
+  loadUserData: () => {
+    dispatch(loadUserData());
+  },
+  logout: () => {
+    dispatch(logout());
+  }
 });
 
 export default connect(

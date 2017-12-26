@@ -3,14 +3,22 @@ import PropTypes from 'prop-types'
 
 class UserAccount extends Component{
   componentDidMount(){
+    this.props.loadUserData();
   }
 
   render() {
-    var props = this.props;
+    var userAccount = this.props.userAccount;
     return (
       <div className="username-options w-col w-col-8">
-        <a href="#" className="w-button">Username</a>
-        <a href='http://localhost:3000/auth/google/' className="w-button">Login/Out</a>
+        <a href="#" className="w-button">New Post</a>
+
+        <a href="#" className="w-button">{userAccount.userName}</a>
+
+        {(userAccount.loggedIn)? 
+        <a href='#' onClick={this.props.logout} className="w-button">Logout</a>: <span />}
+
+        {(userAccount.loggedIn)? <span /> : 
+        <a href='http://localhost:3000/auth/google/' className="w-button">Login</a>}
       </div>
       )}
 }
