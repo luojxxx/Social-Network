@@ -68,3 +68,8 @@ export function newPost(data) {
     })
   }
 }
+
+export const showPostBox = (parentId) => ({
+  type: 'SHOW_POST_BOX',
+  payload: parentId
+})

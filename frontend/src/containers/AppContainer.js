@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { newPost } from '../actions';
-import PostBox from '../components/PostBox';
+import App from '../components/App';
 
 const mapStateToProps = (state, ownProps) => ({
-  // userAccount: state.userAccount
+  showPostBoxId: state.displayState.showPostBoxId
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostBox);
+)(App);

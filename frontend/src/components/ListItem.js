@@ -1,9 +1,15 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import PostBox from './PostBox.js'
 
 class ListItem extends Component{
+  showPostBox = (e) => {
+    this.props.showPostBox(this.props.data._id)
+  }
+
   render() {
     var post = this.props.data;
+    // console.log(this.props)
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
@@ -20,13 +26,15 @@ class ListItem extends Component{
               <div>{post.submittedByUserName} - {post.dateSubmitted}  {post.contentTag}</div>
             </div>
             <div>
-              <a href="#" className="w-button">Reply</a>
+              <a onClick={this.showPostBox} href="#" className="w-button">Reply</a>
               <a href="#" className="w-button">Share</a>
               <a href="#" className="w-button">Save</a>
               <a href="#" className="w-button">Report</a>
             </div>
           </div>
         </div>
+        {(this.props.showPostBoxId === post._id) ? 
+        <PostBox newPost={this.props.newPost} parent={post._id} /> : <span/>}
       </div>
       )}
 }

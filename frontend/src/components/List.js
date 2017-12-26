@@ -14,7 +14,10 @@ class List extends Component{
         {props.frontPageList.map((item, idx)=>{
           return <ListItem 
             key={item._id}
-            data={item} />
+            data={item}
+            showPostBox={props.showPostBox}
+            showPostBoxId={props.showPostBoxId}
+            newPost={props.newPost} />
         })}
       </div>
       )}

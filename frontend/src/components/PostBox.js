@@ -10,27 +10,26 @@ class PostBox extends Component{
           contentLink: '',
           contentDescription: '',
       };
-      this.submitPost = this.submitPost.bind(this);
   }
 
-  updateTitleField(e){
+  updateTitleField = (e)=>{
     this.setState({contentTitle: e.target.value})
   }
 
-  updateTagField(e){
+  updateTagField = (e)=>{
     this.setState({contentTag: e.target.value})
   }
 
-  updateLinkField(e){
+  updateLinkField = (e)=>{
     this.setState({contentLink: e.target.value})
   }
 
-  updateDescriptionField(e){
+  updateDescriptionField = (e)=>{
     this.setState({contentDescription: e.target.value})
   }
 
-  submitPost(e){
-    var data = Object.assign({}, this.state, this.props.parent)
+  submitPost = (e) => {
+    var data = Object.assign({}, this.state, {parent:this.props.parent})
     this.props.newPost(data);
   }
 
@@ -41,7 +40,7 @@ class PostBox extends Component{
           <div className="w-col w-col-9">
             <label htmlFor="Title">Title</label>
             <input 
-            onChange={(evt)=>{this.updateTitleField(evt)}}
+            onChange={this.updateTitleField}
             type="text" 
             className="w-input" 
             maxLength="256" 
@@ -54,7 +53,7 @@ class PostBox extends Component{
           <div className="w-col w-col-3">
             <label htmlFor="tag">Tag</label>
             <input 
-            onChange={(evt)=>{this.updateTagField(evt)}}
+            onChange={this.updateTagField}
             type="text" 
             className="w-input" 
             maxLength="256" 
@@ -66,7 +65,7 @@ class PostBox extends Component{
         <div>
           <label htmlFor="link">Link</label>
           <input 
-          onChange={(evt)=>{this.updateLinkField(evt)}}
+          onChange={this.updateLinkField}
           type="text" 
           className="w-input" 
           maxLength="256" 
@@ -77,7 +76,7 @@ class PostBox extends Component{
         <div>
           <label htmlFor="description">Description</label>
           <textarea 
-          onChange={(evt)=>{this.updateDescriptionField(evt)}}
+          onChange={this.updateDescriptionField}
           id="description" 
           name="description" 
           maxLength="5000" 
@@ -88,7 +87,8 @@ class PostBox extends Component{
           <a href="#" onClick={this.submitPost} className="w-button">Submit</a>
         </div>
       </div>
-      )}
+      )
+  }
 }
 
 // Todo.propTypes = {

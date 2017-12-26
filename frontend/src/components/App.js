@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import List from '../containers/ListContainer.js';
-import PostBox from '../containers/PostBoxContainer.js';
+import PostBox from '../components/PostBox.js';
 import Header from './Header.js'
 
 class App extends Component {
@@ -8,7 +8,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header /> <br/>
-        <PostBox />
+        {this.props.showPostBoxId=='frontPage'? 
+        <PostBox newPost={this.props.newPost} parent='' /> : <span/>}
         <List />
       </div>
     );

@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { loadUserData, logout} from '../actions';
+import { loadUserData, logout, showPostBox} from '../actions';
 import UserAccount from '../components/UserAccount';
 
 const mapStateToProps = (state, ownProps) => ({
-  userAccount: state.userAccount
+  userAccount: state.userAccount,
+  showPostBoxId: state.displayState.showPostBoxId
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -12,6 +13,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   logout: () => {
     dispatch(logout());
+  },
+  showPostBox: (parentId) => {
+    dispatch(showPostBox(parentId))
   }
 });
 

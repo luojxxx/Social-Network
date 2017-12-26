@@ -94,10 +94,34 @@ const userAccount = (state = {
   }
 }
 
+const displayState = (state = {
+  showPostBoxId: ''
+}, action) => {
+  switch (action.type) {
+    case 'SHOW_POST_BOX':
+    if (state.showPostBoxId === action.payload) {
+      return {
+        ...state,
+        showPostBoxId: ''
+      }
+    } else {
+      return {
+        ...state,
+        showPostBoxId: action.payload
+      }
+    }
+    
+
+    default:
+    return state;
+  }
+}
+
 const reducers = combineReducers({
   routing,
   frontPage,
-  userAccount
+  userAccount,
+  displayState
 })
 
 export default reducers
