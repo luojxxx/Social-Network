@@ -50,3 +50,21 @@ export const logout = () => ({
   type: 'LOGOUT'
 })
 
+export function newPost(data) {
+  return function(dispatch){
+    axios({
+      method:'post',
+      url:webserver+'api/posts',
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      },
+      data
+    })
+    .then( (response) => {
+      // dispatch(userDataLoaded(response.data));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
