@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 
 var Post = require('../models/post');
 var User = require('../models/user');
@@ -55,43 +56,45 @@ router.get('/tag/:_id', function(req, res, next) {
   })
 });
 
-router.post('/', function(req, res, next) {
-  var postData = req.body;
-  var newPost = {
-    submittedByUserId: postData.submittedByUserId,
-    submittedByUserName: postData.submittedByUserName,
-    contentTitle: postData.contentTitle,
-    contentLink: postData.contentLink,
-    contentDescription: postData.contentDescription,
-    contentTag: postData.contentTag,
-    parent: postData.parent
-  };
+router.post('/', passport.authenticate('bearer', { session: false }),
+  function(req,res){
+    var allUserInfo = req.user;
+    var postData = req.body;
+    var newPost = {
+      submittedByUserId: allUserInfo._id,
+      submittedByUserName: allUserInfo.userName,
+      contentTitle: postData.contentTitle,
+      contentLink: postData.contentLink,
+      contentDescription: postData.contentDescription,
+      contentTag: postData.contentTag,
+      parent: postData.parent
+    };
 
-  Post.create(newPost)
-  .then((createdPost)=>{
-    if (postData.parent != '') {
-      Post.update(
-        {_id: postData.parent}, 
-        {$addToSet: {'children': createdPost._id}}
-        )
-      .then(()=>{
-        res.status(201);
+    Post.create(newPost)
+    .then((createdPost)=>{
+      if (postData.parent != '') {
+        Post.update(
+          {_id: postData.parent}, 
+          {$addToSet: {'children': createdPost._id}}
+          )
+        .then(()=>{
+          res.status(201);
+          res.send('Added new post');
+        })
+        .catch((err)=>{
+          res.status(400);
+          res.send(err);
+        })
+      } else {
+        res.status(200);
         res.send('Added new post');
-      })
-      .catch((err)=>{
-        res.status(400);
-        res.send(err);
-      })
-    } else {
-      res.status(200);
-      res.send('Added new post');
-    }
-  })
-  .catch((err)=>{
-    res.status(400);
-    res.send(err);
-  })
-});
+      }
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    })
+})
 
 router.put('/:_id/vote', function(req, res, next) {
   var postId = req.params._id;
