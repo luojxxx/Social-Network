@@ -96,47 +96,54 @@ router.post('/', passport.authenticate('bearer', { session: false }),
     })
 })
 
-router.put('/:_id/vote', function(req, res, next) {
-  var postId = req.params._id;
-  var putData = req.body;
-  var userId = putData.userId;
-  var vote = putData.vote;
+router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
+  function(req,res){
+    var allUserInfo = req.user;
+    var userId = allUserInfo._id;
 
-  if (vote != -1 && vote != 0 && vote !=1) {
-    res.status(400);
-    res.send('Invalid vote');
-    return
-  }
+    var postId = req.params._id;
+    var vote = req.body.vote;
 
-  var userPriorVote = 0;
-  User.findOne({_id: userId})
-  .then((result)=>{
-    if (typeof(result.voteHistory) === 'undefined') {
-      result.voteHistory = {};
+    if (vote != -1 && vote != 0 && vote !=1) {
+      res.status(400);
+      res.send('Invalid vote');
+      return
     }
-    if (!(postId in result.voteHistory)) {
-      userPriorVote = 0;
-      result.voteHistory[postId] = vote;
-    } else {
-      userPriorVote = result.voteHistory[postId];
-      result.voteHistory[postId] = vote;
-    }
-    result.markModified('voteHistory');
-    result.save();
 
-    User.update({_id: userId}, result)
-    .then(()=>{
+    var userPriorVote = 0;
+    User.findOne({_id: userId})
+    .then((result)=>{
+      if (typeof(result.voteHistory) === 'undefined') {
+        result.voteHistory = {};
+      }
+      if (!(postId in result.voteHistory)) {
+        userPriorVote = 0;
+        result.voteHistory[postId] = vote;
+      } else {
+        userPriorVote = result.voteHistory[postId];
+        result.voteHistory[postId] = vote;
+      }
+      result.markModified('voteHistory');
+      result.save();
 
-      var scoreDiff = vote - userPriorVote;
-      Post.findOneAndUpdate({_id: postId},
-      {
-        $inc: {score: scoreDiff}
-      })
+      User.update({_id: userId}, result)
       .then(()=>{
-        res.status(200);
-        res.send('Update complete');
-      })
 
+        var scoreDiff = vote - userPriorVote;
+        Post.findOneAndUpdate({_id: postId},
+        {
+          $inc: {score: scoreDiff}
+        })
+        .then(()=>{
+          res.status(200);
+          res.send('Update complete');
+        })
+
+        .catch((err)=>{
+          res.send(400);
+          res.send(err);
+        })
+      })
       .catch((err)=>{
         res.send(400);
         res.send(err);
@@ -146,12 +153,7 @@ router.put('/:_id/vote', function(req, res, next) {
       res.send(400);
       res.send(err);
     })
-  })
-  .catch((err)=>{
-    res.send(400);
-    res.send(err);
-  })
-});
+})
 
 router.delete('/:_id', function(req, res, next) {
   var id = req.params._id;

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { newPost } from '../actions';
+import { loadFrontPageData, newPost } from '../actions';
 import App from '../components/App';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -7,12 +7,12 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  loadFrontPageData: () => {
+    dispatch(loadFrontPageData());
+  },
   newPost: (data) => {
     dispatch(newPost(data));
   }
-  // logout: () => {
-  //   dispatch(logout());
-  // }
 });
 
 export default connect(

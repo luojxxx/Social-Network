@@ -4,6 +4,10 @@ import PostBox from '../components/PostBox.js';
 import Header from './Header.js'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.loadFrontPageData();
+  }
+  
   render() {
     return (
       <div className="App">

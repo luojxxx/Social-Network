@@ -12,23 +12,23 @@ class PostBox extends Component{
       };
   }
 
-  updateTitleField = (e)=>{
+  updateTitleField = (e) => {
     this.setState({contentTitle: e.target.value})
   }
 
-  updateTagField = (e)=>{
+  updateTagField = (e) => {
     this.setState({contentTag: e.target.value})
   }
 
-  updateLinkField = (e)=>{
+  updateLinkField = (e) => {
     this.setState({contentLink: e.target.value})
   }
 
-  updateDescriptionField = (e)=>{
+  updateDescriptionField = (e) => {
     this.setState({contentDescription: e.target.value})
   }
 
-  submitPost = (e) => {
+  submitPost = (e)=>{
     var data = Object.assign({}, this.state, {parent:this.props.parent})
     this.props.newPost(data);
   }

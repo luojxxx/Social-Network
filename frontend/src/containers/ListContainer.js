@@ -1,16 +1,13 @@
 import { connect } from 'react-redux';
-import { loadFrontPageData, showPostBox, newPost } from '../actions';
+import { showPostBox, newPost } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = (state, ownProps) => ({
-  frontPageList: state.frontPage.frontPageList,
+  displayedPosts: state.displayedPosts.data,
   showPostBoxId: state.displayState.showPostBoxId
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadFrontPageData: () => {
-    dispatch(loadFrontPageData());
-  },
   showPostBox: (parentId) => {
     dispatch(showPostBox(parentId));
   },

@@ -14,6 +14,11 @@ export function loadFrontPageData() {
   }
 }
 
+export const frontPageLoaded = (data) => ({
+  type: 'FRONTPAGE_LOADED',
+  payload: data
+})
+
 export function loadUserData() {
   return function(dispatch){
     axios({
@@ -32,11 +37,6 @@ export function loadUserData() {
   }
 }
 
-export const frontPageLoaded = (data) => ({
-  type: 'FRONTPAGE_LOADED',
-  payload: data
-})
-
 export const userDataLoaded = (data) => ({
   type: 'USERDATA_LOADED',
   payload: data
@@ -48,6 +48,11 @@ export const userDataLoadFailed = () => ({
 
 export const logout = () => ({
   type: 'LOGOUT'
+})
+
+export const showPostBox = (parentId) => ({
+  type: 'SHOW_POST_BOX',
+  payload: parentId
 })
 
 export function newPost(data) {
@@ -69,7 +74,31 @@ export function newPost(data) {
   }
 }
 
-export const showPostBox = (parentId) => ({
-  type: 'SHOW_POST_BOX',
-  payload: parentId
+export function vote(postId, vote) {
+  return function(dispatch){
+    axios({
+      method:'put',
+      url:webserver+'api/posts/'+postId+'/vote',
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      },
+      vote
+    })
+    .then( (response) => {
+      // dispatch(userDataLoaded(response.data));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
+
+export const upVote = (postId) => ({
+  type: 'UP_VOTE',
+  payload: postId
+})
+
+export const downVote = (postId) => ({
+  type: 'DOWN_VOTE',
+  payload: postId
 })

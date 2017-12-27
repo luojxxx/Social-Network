@@ -3,44 +3,26 @@ import { routerReducer } from 'react-router-redux';
 
 const routing = routerReducer;
 
-const frontPage = (state = {
-  fieldText:'', 
-  frontPageList: []
-  }, action) => {
+const displayedPosts = (state = {
+  data: []
+}, action) => {
   switch (action.type) {
     case 'FRONTPAGE_LOADED':
     return {
       ...state,
-      frontPageList: action.payload
+      data: action.payload
     }
 
-    case 'ADD_POKEMON':
+    case 'UP_VOTE':
     return {
       ...state,
-      pokemon: state.pokemon.concat(state.fieldText)
     }
 
-    // case 'REMOVE_TODO':
-    // return {
-    //   ...state,
-    //   todos: [
-    //   ...state.todos.slice(0,action.idx),
-    //   ...state.todos.slice(action.idx+1)
-    //   ]
-    // }
-
-    case 'REMOVE_POKEMON':
+    case 'DOWN_VOTE':
     return {
       ...state,
-      pokemon: state.pokemon.filter( (item,idx) => idx !== action.idx )
     }
 
-    case 'UPDATE_FIELD':
-    return {
-      ...state,
-      fieldText: action.text
-    }
-    
     default:
     return state;
   }
@@ -53,7 +35,7 @@ const userAccount = (state = {
   submitted: [],
   voteHistory: {},
   saved: []
-  }, action) => {
+}, action) => {
   switch (action.type) {
     case 'USERDATA_LOADED':
     return {
@@ -119,7 +101,7 @@ const displayState = (state = {
 
 const reducers = combineReducers({
   routing,
-  frontPage,
+  displayedPosts,
   userAccount,
   displayState
 })
