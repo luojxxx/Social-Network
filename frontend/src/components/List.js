@@ -7,13 +7,20 @@ class List extends Component{
     var props = this.props;
     return (
       <div>
-        {props.displayedPosts.map((item, idx) => {
+        {props.displayedPostsOrder.map((postId, idx) => {
+          var item = props.displayedPostsData[postId];
+          var voteState = 0;
+          if (typeof(props.voteHistory[postId]) !== 'undefined') {
+            voteState = props.voteHistory[postId];
+          }
           return <ListItem 
-            key={item._id}
+            key={postId}
             data={item}
+            voteState={voteState}
             showPostBox={props.showPostBox}
             showPostBoxId={props.showPostBoxId}
-            newPost={props.newPost} />
+            newPost={props.newPost}
+            vote={props.vote} />
         })}
       </div>
       )}

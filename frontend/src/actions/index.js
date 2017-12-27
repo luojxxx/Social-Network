@@ -15,7 +15,7 @@ export function loadFrontPageData() {
 }
 
 export const frontPageLoaded = (data) => ({
-  type: 'FRONTPAGE_LOADED',
+  type: 'PAGE_LOADED',
   payload: data
 })
 
@@ -72,9 +72,10 @@ export function newPost(data) {
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
-      data
+      data: data
     })
     .then( (response) => {
+      console.log(response)
       dispatch(addPostToDisplay(response.data));
       dispatch(closePostBox());
     })
@@ -84,7 +85,7 @@ export function newPost(data) {
   }
 }
 
-export function vote(postId, vote) {
+export function vote(postId, priorVote, currentVote) {
   return function(dispatch){
     axios({
       method:'put',
@@ -92,10 +93,10 @@ export function vote(postId, vote) {
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
-      vote
+      data: {vote: currentVote}
     })
     .then( (response) => {
-      // dispatch(userDataLoaded(response.data));
+      dispatch(updateVote(postId, priorVote, currentVote));
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed());
@@ -103,12 +104,11 @@ export function vote(postId, vote) {
   }
 }
 
-export const upVote = (postId) => ({
-  type: 'UP_VOTE',
-  payload: postId
-})
-
-export const downVote = (postId) => ({
-  type: 'DOWN_VOTE',
-  payload: postId
+export const updateVote = (postId, priorVote, currentVote) => ({
+  type: 'UPDATE_VOTE',
+  payload: {
+    postId: postId,
+    priorVote: priorVote,
+    currentVote: currentVote
+  }
 })

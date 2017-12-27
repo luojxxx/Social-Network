@@ -4,12 +4,20 @@ import PostBox from './PostBox.js'
 
 class ListItem extends Component{
   showPostBox = (e) => {
-    this.props.showPostBox(this.props.data._id)
+    this.props.showPostBox(this.props.data._id);
+  }
+
+  upVote = (e) => {
+    this.props.vote(this.props.data._id, this.props.voteState, 1);
+  }
+
+  downVote = (e) => {
+    this.props.vote(this.props.data._id, this.props.voteState, -1);
   }
 
   render() {
     var post = this.props.data;
-    // console.log(this.props)
+    console.log(this.props.voteState)
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
@@ -17,8 +25,18 @@ class ListItem extends Component{
             <h3>{post.score}</h3>
           </div>
           <div className="vote-block w-col w-col-1">
-            <div><a href="#" className="button-2 fontawesome w-button">&#xf062;</a></div>
-            <div><a href="#" className="button-3 fontawesome w-button">&#xf063;</a></div>
+            <div>
+              <a 
+              onClick={this.upVote}
+              href="#" 
+              className="button-2 fontawesome w-button">&#xf062;</a>
+            </div>
+            <div>
+              <a 
+              onClick={this.downVote}
+              href="#" 
+              className="button-3 fontawesome w-button">&#xf063;</a>
+            </div>
           </div>
           <div className="content-title-options w-col w-col-10">
             <div>
