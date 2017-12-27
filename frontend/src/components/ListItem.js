@@ -17,7 +17,6 @@ class ListItem extends Component{
 
   render() {
     var post = this.props.data;
-    console.log(this.props.voteState)
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">

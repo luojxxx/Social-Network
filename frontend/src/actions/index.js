@@ -86,6 +86,9 @@ export function newPost(data) {
 }
 
 export function vote(postId, priorVote, currentVote) {
+  if (priorVote === currentVote) {
+    currentVote = 0;
+  }
   return function(dispatch){
     axios({
       method:'put',

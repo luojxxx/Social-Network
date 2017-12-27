@@ -102,9 +102,9 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
     var userId = allUserInfo._id;
 
     var postId = req.params._id;
-    var vote = req.body.vote;
+    var currentVote = req.body.vote;
 
-    if (vote != -1 && vote != 0 && vote !=1) {
+    if (currentVote != -1 && currentVote != 0 && currentVote !=1) {
       res.status(400);
       res.send('Invalid vote');
       return
@@ -112,27 +112,26 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
 
     var userPriorVote = 0;
     User.findOne({_id: userId})
-    .then((result)=>{
-      if (typeof(result.voteHistory) === 'undefined') {
-        result.voteHistory = {};
+    .then((userProfile)=>{
+      if (typeof(userProfile.voteHistory) === 'undefined') {
+        userProfile.voteHistory = {};
       }
-      if (!(postId in result.voteHistory)) {
+      if (!(postId in userProfile.voteHistory)) {
         userPriorVote = 0;
-        result.voteHistory[postId] = vote;
+        userProfile.voteHistory[postId] = currentVote;
       } else {
-        userPriorVote = result.voteHistory[postId];
-        result.voteHistory[postId] = vote;
+        userPriorVote = userProfile.voteHistory[postId];
+        userProfile.voteHistory[postId] = currentVote;
       }
-      result.markModified('voteHistory');
-      result.save();
+      userProfile.markModified('voteHistory');
+      userProfile.save();
 
-      User.update({_id: userId}, result)
+      User.update({_id: userId}, userProfile)
       .then(()=>{
-
-        var scoreDiff = vote - userPriorVote;
+        var updateScore = currentVote - userPriorVote;
         Post.findOneAndUpdate({_id: postId},
         {
-          $inc: {score: scoreDiff}
+          $inc: {score: updateScore}
         })
         .then(()=>{
           res.status(200);
