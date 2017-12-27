@@ -9,6 +9,7 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var allUserInfo = req.user;
     var userInfo = {
+      _id: allUserInfo._id,
       userName: allUserInfo.userName,
       email: allUserInfo.email,
       submitted: allUserInfo.submitted,

@@ -115,3 +115,26 @@ export const updateVote = (postId, priorVote, currentVote) => ({
     currentVote: currentVote
   }
 })
+
+export function deletePost(postId) {
+  return function(dispatch){
+    axios({
+      method:'delete',
+      url:webserver+'api/posts/'+postId,
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then( (response) => {
+      dispatch(updateDeletedPost(postId));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
+
+export const updateDeletedPost = (postId) => ({
+  type: 'UPDATE_DELETED_POST',
+  payload: postId
+})

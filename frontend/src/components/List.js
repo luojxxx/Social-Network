@@ -9,18 +9,28 @@ class List extends Component{
       <div>
         {props.displayedPostsOrder.map((postId, idx) => {
           var item = props.displayedPostsData[postId];
+
           var voteState = 0;
           if (typeof(props.voteHistory[postId]) !== 'undefined') {
             voteState = props.voteHistory[postId];
           }
+
+          var submittedByCurrentUser = false;
+          if (props.userId === item.submittedByUserId) {
+            submittedByCurrentUser = true;
+          }
+
           return <ListItem 
             key={postId}
             data={item}
+            submittedByCurrentUser={submittedByCurrentUser}
             voteState={voteState}
             showPostBox={props.showPostBox}
             showPostBoxId={props.showPostBoxId}
             newPost={props.newPost}
-            vote={props.vote} />
+            deletePost={props.deletePost}
+            vote={props.vote} 
+             />
         })}
       </div>
       )}

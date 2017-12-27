@@ -15,6 +15,10 @@ class ListItem extends Component{
     this.props.vote(this.props.data._id, this.props.voteState, -1);
   }
 
+  deletePost = (e) => {
+    this.props.deletePost(this.props.data._id);
+  }
+
   render() {
     var post = this.props.data;
     return (
@@ -43,15 +47,35 @@ class ListItem extends Component{
               <div>{post.submittedByUserName} - {post.dateSubmitted}  {post.contentTag}</div>
             </div>
             <div>
-              <a onClick={this.showPostBox} href="#" className="w-button">Reply</a>
-              <a href="#" className="w-button">Share</a>
-              <a href="#" className="w-button">Save</a>
-              <a href="#" className="w-button">Report</a>
+              <a 
+              onClick={this.showPostBox} 
+              href="#" 
+              className="w-button">
+              Reply</a>
+              <a 
+              href="#" 
+              className="w-button">
+              Share</a>
+              <a 
+              href="#" 
+              className="w-button">
+              Save</a>
+              {(this.props.submittedByCurrentUser? 
+                <a 
+                onClick={this.deletePost} 
+                href="#" 
+                className="w-button">
+                Delete
+                </a>:'')}
+              <a 
+              href="#" 
+              className="w-button">
+              Report</a>
             </div>
           </div>
         </div>
         {(this.props.showPostBoxId === post._id) ? 
-        <PostBox newPost={this.props.newPost} parent={post._id} /> : <span/>}
+        <PostBox newPost={this.props.newPost} parent={post._id} /> : ''}
       </div>
       )}
 }

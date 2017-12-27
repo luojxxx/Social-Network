@@ -19,9 +19,9 @@ class UserAccount extends Component{
         <a href="#" className="w-button">{userAccount.userName}</a>
 
         {(userAccount.loggedIn)? 
-        <a onClick={this.props.logout} href='#' className="w-button">Logout</a>: <span />}
+        <a onClick={this.props.logout} href='#' className="w-button">Logout</a>:''}
 
-        {(userAccount.loggedIn)? <span /> : 
+        {(userAccount.loggedIn)? '': 
         <a href='http://localhost:3000/auth/google/' className="w-button">Login</a>}
       </div>
       )}

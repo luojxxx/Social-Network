@@ -53,6 +53,21 @@ const displayedPosts = (state = {
       data: newData
     }
 
+    case 'UPDATE_DELETED_POST':
+    var newData = Object.assign({}, state.data);
+    var postId = action.payload;
+
+    newData[postId].submittedByUserName = 'deleted';
+    newData[postId].contentTitle = 'deleted';
+    newData[postId].contentTag = '';
+    newData[postId].contentLink = '';
+    newData[postId].contentDescription = '';
+
+    return {
+      ...state,
+      data: newData
+    }
+
     default:
     return state;
   }
@@ -60,6 +75,7 @@ const displayedPosts = (state = {
 
 const userAccount = (state = {
   loggedIn: false,
+  userId: '',
   userName: 'Anon',
   email: '',
   submitted: [],
@@ -71,6 +87,7 @@ const userAccount = (state = {
     return {
       ...state,
       loggedIn: true,
+      userId: action.payload._id,
       userName: action.payload.userName,
       email: action.payload.email,
       submitted: action.payload.submitted,
@@ -82,6 +99,7 @@ const userAccount = (state = {
     return {
       ...state,
       loggedIn: false,
+      userId: '',
       userName: 'Anon',
       email: '',
       submitted: [],
@@ -94,6 +112,7 @@ const userAccount = (state = {
     return {
       ...state,
       loggedIn: false,
+      userId: '',
       userName: 'Anon',
       email: '',
       submitted: [],

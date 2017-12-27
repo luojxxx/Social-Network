@@ -160,24 +160,40 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
     })
 })
 
-router.delete('/:_id', function(req, res, next) {
-  var id = req.params._id;
+router.delete('/:_id', passport.authenticate('bearer', { session: false }),
+  function(req,res){
+    var userId = String(req.user._id);
+    var postId = String(req.params._id);
 
-  var query = {_id: id};
-  Post.update(query, {
-    submittedByUserName: 'deleted',
-    contentTitle: 'deleted',
-    contentDescription: '',
-    contentLink: ''
-  })
-  .then(()=>{
-    res.status(204);
-    res.send('Delete complete');
-  })
-  .catch((err)=>{
-    res.send(400);
-    res.send(err);
-  })
-});
+    Post.findOne({_id: postId})
+    .then((postToDelete)=>{
+      if (postToDelete.submittedByUserId === userId) {
+        Post.update({_id: postId}, {
+          submittedByUserName: 'deleted',
+          contentTitle: 'deleted',
+          contentTag: '',
+          contentLink: '',
+          contentDescription: ''
+        })
+        .then(()=>{
+          res.status(204);
+          res.send('Delete complete');
+        })
+        .catch((err)=>{
+          res.status(400);
+          res.send(err);
+        })
+      } else {
+        res.status(401);
+        res.send(err);
+      }
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    })
+
+    
+})
 
 module.exports = router;
