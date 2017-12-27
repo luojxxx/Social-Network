@@ -21,22 +21,33 @@ class ListItem extends Component{
 
   render() {
     var post = this.props.data;
+    var scoreColor = {};
+    if (this.props.voteState === 1) {
+      scoreColor['color'] = 'orange';
+    } else if (this.props.voteState === -1) {
+      scoreColor['color'] = 'blue';
+    }
+    
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
           <div className="score-block w-col w-col-1">
-            <h3>{post.score}</h3>
+            <h3
+            style={scoreColor}>
+            {post.score}</h3>
           </div>
           <div className="vote-block w-col w-col-1">
             <div>
               <a 
               onClick={this.upVote}
+              style={(this.props.voteState===1)?{color:'orange'}:{}}
               href="#" 
               className="button-2 fontawesome w-button">&#xf062;</a>
             </div>
             <div>
               <a 
               onClick={this.downVote}
+              style={(this.props.voteState===-1)?{color:'blue'}:{}}
               href="#" 
               className="button-3 fontawesome w-button">&#xf063;</a>
             </div>
@@ -49,6 +60,7 @@ class ListItem extends Component{
             <div>
               <a 
               onClick={this.showPostBox} 
+              style={(this.props.showPostBoxId===post._id)?{color:'blue'}:{}}
               href="#" 
               className="w-button">
               Reply</a>
