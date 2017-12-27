@@ -58,11 +58,12 @@ router.get('/tag/:_id', function(req, res, next) {
 
 router.post('/', passport.authenticate('bearer', { session: false }),
   function(req,res){
-    var allUserInfo = req.user;
+    var userId = req.user._id;
+    var userName = req.user.userName;
     var postData = req.body;
     var newPost = {
-      submittedByUserId: allUserInfo._id,
-      submittedByUserName: allUserInfo.userName,
+      submittedByUserId: userId,
+      submittedByUserName: userName,
       contentTitle: postData.contentTitle,
       contentLink: postData.contentLink,
       contentDescription: postData.contentDescription,
@@ -75,20 +76,25 @@ router.post('/', passport.authenticate('bearer', { session: false }),
       if (postData.parent != '') {
         Post.update(
           {_id: postData.parent}, 
-          {$addToSet: {'children': createdPost._id}}
-          )
-        .then(()=>{
-          res.status(201);
-          res.json(createdPost);
-        })
+          {$addToSet: {'children': createdPost._id}})
         .catch((err)=>{
           res.status(400);
           res.send(err);
         })
-      } else {
-        res.status(200);
-        res.json(createdPost);
       }
+
+      User.update(
+        {_id: userId},
+        {$addToSet: {'submitted': createdPost._id}})
+      .then(()=>{
+        res.status(201);
+        res.json(createdPost);
+      })
+      .catch((err)=>{
+        res.status(400);
+        res.send(err);
+      })
+
     })
     .catch((err)=>{
       res.status(400);
