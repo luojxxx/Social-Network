@@ -55,6 +55,15 @@ export const showPostBox = (parentId) => ({
   payload: parentId
 })
 
+export const closePostBox = () => ({
+  type: 'CLOSE_POST_BOX'
+})
+
+export const addPostToDisplay = (data) => ({
+  type: 'ADD_POST_TO_DISPLAY',
+  payload: data
+})
+
 export function newPost(data) {
   return function(dispatch){
     axios({
@@ -66,7 +75,8 @@ export function newPost(data) {
       data
     })
     .then( (response) => {
-      // dispatch(userDataLoaded(response.data));
+      dispatch(addPostToDisplay(response.data));
+      dispatch(closePostBox());
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed());

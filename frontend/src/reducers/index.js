@@ -13,6 +13,12 @@ const displayedPosts = (state = {
       data: action.payload
     }
 
+    case 'ADD_POST_TO_DISPLAY':
+    return {
+      ...state,
+      data: [action.payload, ...state.data]
+    }
+
     case 'UP_VOTE':
     return {
       ...state,
@@ -93,6 +99,11 @@ const displayState = (state = {
       }
     }
     
+    case 'CLOSE_POST_BOX':
+    return {
+      ...state,
+      showPostBoxId: ''
+    }
 
     default:
     return state;

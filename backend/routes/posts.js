@@ -79,7 +79,7 @@ router.post('/', passport.authenticate('bearer', { session: false }),
           )
         .then(()=>{
           res.status(201);
-          res.send('Added new post');
+          res.json(createdPost);
         })
         .catch((err)=>{
           res.status(400);
@@ -87,7 +87,7 @@ router.post('/', passport.authenticate('bearer', { session: false }),
         })
       } else {
         res.status(200);
-        res.send('Added new post');
+        res.json(createdPost);
       }
     })
     .catch((err)=>{
