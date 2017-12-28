@@ -15,6 +15,13 @@ class List extends Component{
             voteState = props.voteHistory[postId];
           }
 
+          var savedState = false;
+          if (typeof(props.saved) !== 'undefined') {
+            if (props.saved.includes(postId)) {
+              savedState = true;
+            }
+          }
+
           var submittedByCurrentUser = false;
           if (props.userId === item.submittedByUserId) {
             submittedByCurrentUser = true;
@@ -23,12 +30,14 @@ class List extends Component{
           return <ListItem 
             key={postId}
             data={item}
-            submittedByCurrentUser={submittedByCurrentUser}
             voteState={voteState}
-            showPostBox={props.showPostBox}
+            savedState={savedState}
+            submittedByCurrentUser={submittedByCurrentUser}
             showPostBoxId={props.showPostBoxId}
+            showPostBox={props.showPostBox}
             newPost={props.newPost}
-            deletePost={props.deletePost}
+            deletePost={props.deletePost} 
+            savePost={props.savePost}
             vote={props.vote} 
              />
         })}

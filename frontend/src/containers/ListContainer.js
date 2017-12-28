@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
-import { showPostBox, newPost, vote, deletePost } from '../actions';
+import { showPostBox, newPost, vote, deletePost, savePost } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = (state, ownProps) => ({
   displayedPostsData: state.displayedPosts.data,
   displayedPostsOrder: state.displayedPosts.dataOrder,
-  voteHistory: state.userAccount.voteHistory,
   userId: state.userAccount.userId,
+  voteHistory: state.userAccount.voteHistory,
+  saved: state.userAccount.saved,
   showPostBoxId: state.displayState.showPostBoxId
 });
 
@@ -22,6 +23,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   deletePost: (postId) => {
     dispatch(deletePost(postId));
+  },
+  savePost: (postId) => {
+    dispatch(savePost(postId));
   }
 });
 

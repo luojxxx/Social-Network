@@ -139,6 +139,23 @@ const userAccount = (state = {
       voteHistory: newVoteHistory
     }
 
+    case 'UPDATE_USERPROFILE_SAVEDPOST':
+    var postId = action.payload;
+
+    var newSaved = [];
+    if (state.saved.includes(postId)) {
+      newSaved = state.saved.filter(item => {
+        return item !== postId;
+      })
+    } else {
+      newSaved = [...state.saved, postId]
+    }
+    
+    return {
+      ...state,
+      saved: newSaved
+    }
+
     default:
     return state;
   }

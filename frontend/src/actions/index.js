@@ -2,6 +2,12 @@ import axios from 'axios';
 
 var webserver = 'http://localhost:3000/';
 
+// PAGE LOADING FUNCTIONS
+export const frontPageLoaded = (data) => ({
+  type: 'PAGE_LOADED',
+  payload: data
+})
+
 export function loadFrontPageData() {
   return function(dispatch){
     axios({
@@ -14,9 +20,14 @@ export function loadFrontPageData() {
   }
 }
 
-export const frontPageLoaded = (data) => ({
-  type: 'PAGE_LOADED',
+// USER ACCOUNT FUNCTIONS
+export const userDataLoaded = (data) => ({
+  type: 'USERDATA_LOADED',
   payload: data
+})
+
+export const userDataLoadFailed = () => ({
+  type: 'USERDATA_LOADFAILED'
 })
 
 export function loadUserData() {
@@ -37,19 +48,11 @@ export function loadUserData() {
   }
 }
 
-export const userDataLoaded = (data) => ({
-  type: 'USERDATA_LOADED',
-  payload: data
-})
-
-export const userDataLoadFailed = () => ({
-  type: 'USERDATA_LOADFAILED'
-})
-
 export const logout = () => ({
   type: 'LOGOUT'
 })
 
+// NEW POST FUNCTIONS
 export const showPostBox = (parentId) => ({
   type: 'SHOW_POST_BOX',
   payload: parentId
@@ -85,6 +88,7 @@ export function newPost(data) {
   }
 }
 
+// POST VOTING FUNCTIONS
 export function vote(postId, priorVote, currentVote) {
   if (priorVote === currentVote) {
     currentVote = 0;
@@ -116,6 +120,7 @@ export const updateVote = (postId, priorVote, currentVote) => ({
   }
 })
 
+// DELETING POST FUNCTIONS
 export function deletePost(postId) {
   return function(dispatch){
     axios({
@@ -136,5 +141,29 @@ export function deletePost(postId) {
 
 export const updateDeletedPost = (postId) => ({
   type: 'UPDATE_DELETED_POST',
+  payload: postId
+})
+
+// SAVE POST FUNCTIONS
+export function savePost(postId) {
+  return function(dispatch){
+    axios({
+      method:'put',
+      url:webserver+'api/users/saved/'+postId,
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then( (response) => {
+      dispatch(updateUserProfileSavedPost(postId));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
+
+export const updateUserProfileSavedPost = (postId) => ({
+  type: 'UPDATE_USERPROFILE_SAVEDPOST',
   payload: postId
 })

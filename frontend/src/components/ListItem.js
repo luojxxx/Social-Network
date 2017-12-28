@@ -19,6 +19,10 @@ class ListItem extends Component{
     this.props.deletePost(this.props.data._id);
   }
 
+  savePost = (e) => {
+    this.props.savePost(this.props.data._id);
+  }
+
   render() {
     var post = this.props.data;
     var scoreColor = {};
@@ -27,7 +31,7 @@ class ListItem extends Component{
     } else if (this.props.voteState === -1) {
       scoreColor['color'] = 'blue';
     }
-    
+
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
@@ -64,14 +68,18 @@ class ListItem extends Component{
               href="#" 
               className="w-button">
               Reply</a>
+
               <a 
               href="#" 
               className="w-button">
               Share</a>
+
               <a 
+              onClick={this.savePost}
               href="#" 
               className="w-button">
-              Save</a>
+              {(this.props.savedState===true)?'Unsave':'Save'}</a>
+
               {(this.props.submittedByCurrentUser? 
                 <a 
                 onClick={this.deletePost} 
@@ -79,10 +87,12 @@ class ListItem extends Component{
                 className="w-button">
                 Delete
                 </a>:'')}
+
               <a 
               href="#" 
               className="w-button">
               Report</a>
+
             </div>
           </div>
         </div>
