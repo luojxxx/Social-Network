@@ -23,6 +23,14 @@ class ListItem extends Component{
     this.props.savePost(this.props.data._id);
   }
 
+  showReportConfirmation = (e) => {
+    this.props.showReportConfirmation(this.props.data._id);
+  }
+
+  reportPost = (e) => {
+    this.props.reportPost(this.props.data._id);
+  }
+
   render() {
     var post = this.props.data;
     var scoreColor = {};
@@ -80,6 +88,18 @@ class ListItem extends Component{
               className="w-button">
               {(this.props.savedState===true)?'Unsave':'Save'}</a>
 
+              {(this.props.showReportConfirmationState===true)?
+              <a 
+              onClick={this.reportPost} 
+              href="#" 
+              className="w-button">
+              Report Confirm?</a>:
+              <a 
+              onClick={this.showReportConfirmation} 
+              href="#" 
+              className="w-button">
+              Report</a>}
+
               {(this.props.submittedByCurrentUser? 
                 <a 
                 onClick={this.deletePost} 
@@ -87,11 +107,6 @@ class ListItem extends Component{
                 className="w-button">
                 Delete
                 </a>:'')}
-
-              <a 
-              href="#" 
-              className="w-button">
-              Report</a>
 
             </div>
           </div>

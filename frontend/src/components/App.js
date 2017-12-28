@@ -7,12 +7,12 @@ class App extends Component {
   componentDidMount() {
     this.props.loadFrontPageData();
   }
-  
+
   render() {
     return (
       <div className="App">
         <Header /> <br/>
-        {this.props.showPostBoxId=='frontPage'? 
+        {this.props.showPostBoxId==='frontPage'? 
         <PostBox newPost={this.props.newPost} parent='' /> : <span/>}
         <List />
       </div>

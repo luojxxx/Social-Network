@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { showPostBox, newPost, vote, deletePost, savePost } from '../actions';
+import { showPostBox, newPost, vote, deletePost, savePost, reportPost, showReportConfirmation } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
   userId: state.userAccount.userId,
   voteHistory: state.userAccount.voteHistory,
   saved: state.userAccount.saved,
-  showPostBoxId: state.displayState.showPostBoxId
+  showPostBoxId: state.displayState.showPostBoxId,
+  reportConfirmationId: state.displayState.reportConfirmationId
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -26,6 +27,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   savePost: (postId) => {
     dispatch(savePost(postId));
+  },
+  showReportConfirmation: (postId) => {
+    dispatch(showReportConfirmation(postId));
+  },
+  reportPost: (postId) => {
+    dispatch(reportPost(postId));
   }
 });
 

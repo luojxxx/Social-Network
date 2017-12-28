@@ -162,7 +162,8 @@ const userAccount = (state = {
 }
 
 const displayState = (state = {
-  showPostBoxId: ''
+  showPostBoxId: '',
+  reportConfirmationId: ''
 }, action) => {
   switch (action.type) {
     case 'SHOW_POST_BOX':
@@ -182,6 +183,19 @@ const displayState = (state = {
     return {
       ...state,
       showPostBoxId: ''
+    }
+
+    case 'SHOW_REPORT_CONFIRMATION':
+    if (state.reportConfirmationId === action.payload) {
+      return {
+        ...state,
+        reportConfirmationId: ''
+      }
+    } else {
+      return {
+        ...state,
+        reportConfirmationId: action.payload
+      }
     }
 
     default:

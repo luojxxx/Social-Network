@@ -78,7 +78,6 @@ export function newPost(data) {
       data: data
     })
     .then( (response) => {
-      console.log(response)
       dispatch(addPostToDisplay(response.data));
       dispatch(closePostBox());
     })
@@ -165,5 +164,29 @@ export function savePost(postId) {
 
 export const updateUserProfileSavedPost = (postId) => ({
   type: 'UPDATE_USERPROFILE_SAVEDPOST',
+  payload: postId
+})
+
+// REPORT POST FUNCTIONS
+export function reportPost(postId) {
+  return function(dispatch){
+    axios({
+      method:'post',
+      url:webserver+'api/reports/'+postId,
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then( (response) => {
+      dispatch(showReportConfirmation(postId));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
+
+export const showReportConfirmation = (postId) => ({
+  type: 'SHOW_REPORT_CONFIRMATION',
   payload: postId
 })

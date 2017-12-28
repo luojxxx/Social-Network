@@ -22,22 +22,30 @@ class List extends Component{
             }
           }
 
+          var showReportConfirmationState = false;
+          if (props.reportConfirmationId === postId) {
+            showReportConfirmationState = true;
+          }
+
           var submittedByCurrentUser = false;
           if (props.userId === item.submittedByUserId) {
             submittedByCurrentUser = true;
           }
 
           return <ListItem 
-            key={postId}
-            data={item}
-            voteState={voteState}
-            savedState={savedState}
+            key={postId} 
+            data={item} 
+            voteState={voteState} 
+            savedState={savedState} 
+            showReportConfirmationState={showReportConfirmationState} 
             submittedByCurrentUser={submittedByCurrentUser}
-            showPostBoxId={props.showPostBoxId}
-            showPostBox={props.showPostBox}
-            newPost={props.newPost}
+            showPostBoxId={props.showPostBoxId} 
+            showPostBox={props.showPostBox} 
+            newPost={props.newPost} 
             deletePost={props.deletePost} 
-            savePost={props.savePost}
+            savePost={props.savePost} 
+            showReportConfirmation={props.showReportConfirmation} 
+            reportPost={props.reportPost} 
             vote={props.vote} 
              />
         })}
