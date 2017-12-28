@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import MenuBar from '../containers/MenuBarContainer.js';
+import PostBox from '../components/PostBox.js';
 
 const Header = (props) => {
   return (
@@ -17,6 +18,8 @@ const Header = (props) => {
         </div>
         <MenuBar />
       </div>
+      {props.showPostBoxId==='frontPage'? 
+      <PostBox newPost={props.newPost} parent='' /> : ''}
     </div>
 )}
 

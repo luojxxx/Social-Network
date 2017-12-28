@@ -3,6 +3,12 @@ import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 
 class List extends Component{
+  componentWillMount() {
+    if (this.props.loadPage==='frontPage') {
+      this.props.loadFrontPageData();
+    }
+  }
+
   render() {
     var props = this.props;
     return (

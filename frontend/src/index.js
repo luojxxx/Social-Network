@@ -10,7 +10,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import reducers from './reducers';
 
-import App from './containers/AppContainer.js';
+import App from './components/App.js';
 import UserProfile from './containers/UserProfileContainer.js';
 import Authtoken from './components/Authtoken';
 
