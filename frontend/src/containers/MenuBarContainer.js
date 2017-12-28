@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { loadUserData, logout, showPostBox} from '../actions';
-import UserAccount from '../components/UserAccount';
+import MenuBar from '../components/MenuBar';
 
 const mapStateToProps = (state, ownProps) => ({
   userAccount: state.userAccount,
@@ -22,4 +22,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserAccount);
+)(MenuBar);

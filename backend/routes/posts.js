@@ -42,19 +42,19 @@ router.get('/:_id/graph', function(req, res, next) {
   })
 });
 
-router.get('/tag/:_id', function(req, res, next) {
-  var id = req.params._id;
-  var query = {_id: id};
+// router.get('/tag/:_id', function(req, res, next) {
+//   var id = req.params._id;
+//   var query = {_id: id};
 
-  Post.find(query)
-  .then((post)=>{
-    res.json(post);
-  })
-  .catch((err)=>{
-    res.status(404);
-    res.send(err);
-  })
-});
+//   Post.find(query)
+//   .then((post)=>{
+//     res.json(post);
+//   })
+//   .catch((err)=>{
+//     res.status(404);
+//     res.send(err);
+//   })
+// });
 
 router.post('/', passport.authenticate('bearer', { session: false }),
   function(req,res){
@@ -169,6 +169,7 @@ router.delete('/:_id', passport.authenticate('bearer', { session: false }),
     .then((postToDelete)=>{
       if (postToDelete.submittedByUserId === userId) {
         Post.update({_id: postId}, {
+          submittedByUserId: '',
           submittedByUserName: 'deleted',
           contentTitle: 'deleted',
           contentTag: '',

@@ -76,11 +76,12 @@ const displayedPosts = (state = {
 const userAccount = (state = {
   loggedIn: false,
   userId: '',
-  userName: 'Anon',
+  userName: 'Guest',
   email: '',
   submitted: [],
   voteHistory: {},
-  saved: []
+  saved: [],
+  totalVotes: 0
 }, action) => {
   switch (action.type) {
     case 'USERDATA_LOADED':
@@ -92,7 +93,8 @@ const userAccount = (state = {
       email: action.payload.email,
       submitted: action.payload.submitted,
       voteHistory: (typeof(action.payload.voteHistory) === 'undefined')? {} : action.payload.voteHistory,
-      saved: action.payload.saved
+      saved: action.payload.saved,
+      totalVotes: action.payload.totalVotes
     }
 
     case 'USERDATA_LOADFAILED':
@@ -100,11 +102,12 @@ const userAccount = (state = {
       ...state,
       loggedIn: false,
       userId: '',
-      userName: 'Anon',
+      userName: 'Guest',
       email: '',
       submitted: [],
       voteHistory: {},
-      saved: []
+      saved: [],
+      totalVotes: 0
     }
 
     case 'LOGOUT':
@@ -113,11 +116,12 @@ const userAccount = (state = {
       ...state,
       loggedIn: false,
       userId: '',
-      userName: 'Anon',
+      userName: 'Guest',
       email: '',
       submitted: [],
       voteHistory: {},
-      saved: []
+      saved: [],
+      totalVotes: 0
     }
 
     case 'UPDATE_VOTE':

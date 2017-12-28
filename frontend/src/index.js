@@ -10,7 +10,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import reducers from './reducers';
 
-import App from './containers/AppContainer.js'
+import App from './containers/AppContainer.js';
+import UserProfile from './containers/UserProfileContainer.js';
 import Authtoken from './components/Authtoken';
 
 const middleware = applyMiddleware(thunk, createLogger());
@@ -23,6 +24,7 @@ render(
       <Route path="/" component={App}>
       </Route>
       <Route path="/authtoken" component={Authtoken} />
+      <Route path="/userprofile" component={UserProfile} />
     </Router>
   </Provider>,
   document.getElementById('root')

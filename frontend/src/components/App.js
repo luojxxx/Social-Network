@@ -4,7 +4,7 @@ import PostBox from '../components/PostBox.js';
 import Header from './Header.js'
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadFrontPageData();
   }
 
@@ -13,7 +13,7 @@ class App extends Component {
       <div className="App">
         <Header /> <br/>
         {this.props.showPostBoxId==='frontPage'? 
-        <PostBox newPost={this.props.newPost} parent='' /> : <span/>}
+        <PostBox newPost={this.props.newPost} parent='' /> : ''}
         <List />
       </div>
     );

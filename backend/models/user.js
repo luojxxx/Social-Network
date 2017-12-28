@@ -26,6 +26,14 @@ var userSchema = mongoose.Schema({
     type: Array,
     default: []
   },
+  totalVotes: {
+    type: Number,
+    default: 0
+  },
+  lastLogin: {
+    type: Date,
+    default: Date.now
+  },
   lastPosted: {
     type: Date,
     default: Date.now

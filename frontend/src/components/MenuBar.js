@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
-class UserAccount extends Component{
-  componentDidMount(){
+class MenuBar extends Component{
+  componentWillMount(){
     this.props.loadUserData();
   }
 
@@ -21,7 +22,7 @@ class UserAccount extends Component{
         className="w-button">
         New Post</a>
 
-        <a href="#" className="w-button">{userAccount.userName}</a>
+        <Link to='/userprofile' className="w-button">{userAccount.userName}</Link>
 
         {(userAccount.loggedIn)? 
         <a onClick={this.props.logout} href='#' className="w-button">Logout</a>:''}
@@ -38,4 +39,4 @@ class UserAccount extends Component{
 //   text: PropTypes.string.isRequired
 // }
 
-export default UserAccount
+export default MenuBar
