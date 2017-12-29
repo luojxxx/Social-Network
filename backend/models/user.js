@@ -51,18 +51,19 @@ module.exports.findOrCreate = function(googleId, callback) {
 
   User.find(googleId, function(err, results){
     if (results.length == 0) {
-      User.create(googleId, callback(err, results));
+      User.create(googleId, callback(err, googleId));
     } else {
-      callback(err, results);
+      callback(err, googleId);
     }
   });
 };
 
-module.exports.authToken = function(_id, token, callback) {
-  var query = {_id: _id};
+module.exports.authToken = function(googleId, token, callback) {
+  var query = {googleId: googleId};
   var update = {
     token: token
   };
 
   User.findOneAndUpdate(query, update, callback);
 }
+

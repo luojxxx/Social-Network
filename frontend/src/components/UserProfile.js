@@ -39,7 +39,7 @@ class UserProfile extends Component {
         <div>
           <Header /> <br/>
           {this.props.showPostBoxId==='frontPage'? 
-          <PostBox newPost={this.props.newPost} parent='' /> : <span/>}
+          <PostBox newPost={this.props.newPost} parent='' /> : ''}
           <div className="w-container">
             <div className="userprofilemetrics w-row">
               <div className="w-col w-col-4">
@@ -69,7 +69,7 @@ class UserProfile extends Component {
         <div>
           <Header /> <br/>
           {this.props.showPostBoxId==='frontPage'? 
-          <PostBox newPost={this.props.newPost} parent='' /> : <span/>}
+          <PostBox newPost={this.props.newPost} parent='' /> : ''}
           <div className="w-container">
             <div className="userprofilemetrics w-row">
               <div className="w-col w-col-4">

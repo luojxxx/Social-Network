@@ -83,30 +83,18 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/auth/google/' }),
   function(req, res) {
     // Successful authentication, redirect to page that will record token
-    var userId = req.user[0]._id;
-    // var token = jwt.encode(userId, 'secretrandomizersecret');
-    var token = userId+makeToken();
-    User.authToken(userId, token, ()=>{
+    var googleId = req.user.googleId;
+    var token = googleId+makeToken();
+    User.authToken(googleId, token, ()=>{
       res.redirect('http://localhost:3001/authtoken?token='+token);
     })
   });
-
-app.get('/', function(req, res) {
-    res.send('Home');
-});
 
 app.use('/api/', index);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
 app.use('/api/reports', reports);
 app.use('/api/recommendations', recommendations);
-
-app.get('/api/protected',
-  passport.authenticate('bearer', { session: false }),
-  function(req,res){
-    console.log(req.user)
-    res.send('Nice one')
-})
 
 
 // Catch 404 and forward to error handler
@@ -135,7 +123,7 @@ function makeToken() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < 15; i++)
+  for (var i = 0; i < 25; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
   return text;
