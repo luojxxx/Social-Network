@@ -24,7 +24,7 @@ render(
       <Route path="/" component={App}>
       </Route>
       <Route path="/authtoken" component={Authtoken} />
-      <Route path="/userprofile" component={UserProfile} />
+      <Route path="/userprofile/:userId" component={UserProfile} />
     </Router>
   </Provider>,
   document.getElementById('root')

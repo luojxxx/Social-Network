@@ -9,10 +9,11 @@ const displayedPosts = (state = {
 }, action) => {
   switch (action.type) {
     case 'PAGE_LOADED':
+    var pageData = action.payload;
     var data = {};
     var dataOrder = [];
-    for (var idx in action.payload) {
-      var item = action.payload[idx];
+    for (var idx in pageData) {
+      var item = pageData[idx];
       dataOrder.push(item._id);
       data[item._id] = item;
     }
@@ -143,7 +144,7 @@ const userAccount = (state = {
       voteHistory: newVoteHistory
     }
 
-    case 'UPDATE_USERPROFILE_SAVEDPOST':
+    case 'UPDATE_USERACCOUNT_SAVEDPOST':
     var postId = action.payload;
 
     var newSaved = [];
@@ -158,6 +159,25 @@ const userAccount = (state = {
     return {
       ...state,
       saved: newSaved
+    }
+
+    default:
+    return state;
+  }
+}
+
+const userProfile = (state = {
+  userName: 'Guest',
+  submitted: [],
+  totalVotes: 0
+}, action) => {
+  switch (action.type) {
+    case 'USER_PROFILE_LOADED':
+    return {
+      ...state,
+      userName: action.payload.userName,
+      submitted: action.payload.submitted,
+      totalVotes: action.payload.totalVotes
     }
 
     default:
@@ -211,6 +231,7 @@ const reducers = combineReducers({
   routing,
   displayedPosts,
   userAccount,
+  userProfile,
   displayState
 })
 

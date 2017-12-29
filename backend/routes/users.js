@@ -66,24 +66,20 @@ router.get('/:_id', function(req, res, next) {
 
   User.findOne(query)
   .then((userProfile)=>{
-    var upVotedPosts = [];
-    var downVotedPosts = [];
-    for (key in userProfile.voteHistory) {
-      if (userProfile.voteHistory[key] === 1) {
-        upVotedPosts.push(key);
-      } else if (userProfile.voteHistory[key] === -1) {
-        downVotedPosts.push(key);
+    Post.find({submittedByUserId: userProfile._id})
+    .then((allSubmitedPosts)=>{
+      var filteredUserProfile = {
+        userName: userProfile.userName,
+        submitted: allSubmitedPosts,
+        totalVotes: userProfile.totalVotes
       }
-    }
-
-    var filteredUserProfile = {
-      userName: userProfile.userName,
-      submitted: userProfile.submitted,
-      totalVotes: userProfile.totalVotes
-    }
-    res.status(200);
-    res.json(filteredUserProfile);
-
+      res.status(200);
+      res.json(filteredUserProfile);
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    })
   })
   .catch((err)=>{
     res.status(404);
@@ -92,3 +88,44 @@ router.get('/:_id', function(req, res, next) {
 });
 
 module.exports = router;
+
+router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
+  function(req,res){
+    var userProfile = req.user;
+    var field = req.params.field;
+
+    var saved = userProfile.saved;
+    var upVoted = [];
+    var downVoted = [];
+    for (var key in userProfile.voteHistory) {
+      let item = userProfile.voteHistory[key];
+      if (item === 1) {
+        upVoted.push(key);
+      }
+      if (item === -1) {
+        downVoted.push(key);
+      }
+    }
+
+    var searchQuery = [];
+    if (field === 'saved') {
+      searchQuery = saved;
+    } else if (field === 'upvoted') {
+      searchQuery = upVoted;
+    } else if (field === 'downVoted') {
+      searchQuery = downVoted;
+    }
+
+    Post.find({
+      '_id': {$in: searchQuery}
+    })
+    .then((results)=>{
+      res.status(200);
+      res.json(result);
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    })
+
+})

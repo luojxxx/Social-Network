@@ -22,8 +22,9 @@ class MenuBar extends Component{
         className="w-button">
         New Post</a>
 
-        <Link to='/userprofile' className="w-button">{userAccount.userName}</Link>
-
+        {(userAccount.loggedIn)?<Link to={'/userprofile/'+userAccount.userId} className="w-button">
+        {userAccount.userName}</Link>: ''}
+        
         {(userAccount.loggedIn)? 
         <a onClick={this.props.logout} href='#' className="w-button">Logout</a>:''}
 

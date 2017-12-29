@@ -67,6 +67,8 @@ class ListItem extends Component{
           <div className="content-title-options w-col w-col-10">
             <div>
               <h4>{post.contentTitle}</h4>
+              <div>{post.contentLink}</div>
+              <div>{post.contentDescription}</div>
               <div>{post.submittedByUserName} - {post.dateSubmitted}  {post.contentTag}</div>
             </div>
             <div>

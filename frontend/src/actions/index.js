@@ -3,7 +3,7 @@ import axios from 'axios';
 var webserver = 'http://localhost:3000/';
 
 // PAGE LOADING FUNCTIONS
-export const frontPageLoaded = (data) => ({
+export const pageLoaded = (data) => ({
   type: 'PAGE_LOADED',
   payload: data
 })
@@ -15,7 +15,7 @@ export function loadFrontPageData() {
       url:webserver+'api/recommendations/'
     })
     .then( (response) => {
-      dispatch(frontPageLoaded(response.data));
+      dispatch(pageLoaded(response.data));
     })
   }
 }
@@ -51,6 +51,30 @@ export function loadUserData() {
 export const logout = () => ({
   type: 'LOGOUT'
 })
+
+export const userProfileLoaded = (data) => ({
+  type: 'USER_PROFILE_LOADED',
+  payload: data
+})
+
+export function loadUserProfile(userId) {
+  return function(dispatch){
+    axios({
+      method:'get',
+      url:webserver+'api/users/'+userId,
+      headers: {
+        // Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then( (response) => {
+      dispatch(userProfileLoaded(response.data));
+      dispatch(pageLoaded(response.data.submitted));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
 
 // NEW POST FUNCTIONS
 export const showPostBox = (parentId) => ({
@@ -154,7 +178,7 @@ export function savePost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(updateUserProfileSavedPost(postId));
+      dispatch(updateUserAccountSavedPost(postId));
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed());
@@ -162,8 +186,8 @@ export function savePost(postId) {
   }
 }
 
-export const updateUserProfileSavedPost = (postId) => ({
-  type: 'UPDATE_USERPROFILE_SAVEDPOST',
+export const updateUserAccountSavedPost = (postId) => ({
+  type: 'UPDATE_USERACCOUNT_SAVEDPOST',
   payload: postId
 })
 
