@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadUserProfile, newPost } from '../actions';
+import { loadUserProfile, loadUserHistoryByField, newPost } from '../actions';
 import UserProfile from '../components/UserProfile';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -11,6 +11,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   loadUserProfile: (userId) => {
     dispatch(loadUserProfile(userId))
+  },
+  loadUserHistoryByField: (userId, field) => {
+    dispatch(loadUserHistoryByField(userId, field))
   },
   newPost: (data) => {
     dispatch(newPost(data));

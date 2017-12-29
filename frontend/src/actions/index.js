@@ -52,6 +52,7 @@ export const logout = () => ({
   type: 'LOGOUT'
 })
 
+// USER PROFILE FUNCTIONS
 export const userProfileLoaded = (data) => ({
   type: 'USER_PROFILE_LOADED',
   payload: data
@@ -69,6 +70,24 @@ export function loadUserProfile(userId) {
     .then( (response) => {
       dispatch(userProfileLoaded(response.data));
       dispatch(pageLoaded(response.data.submitted));
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed());
+    })
+  }
+}
+
+export function loadUserHistoryByField(userId, field)  {
+  return function(dispatch){
+    axios({
+      method:'get',
+      url:webserver+'api/users/'+userId+'/'+field,
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then( (response) => {
+      dispatch(pageLoaded(response.data));
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed());

@@ -112,8 +112,11 @@ router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
       searchQuery = saved;
     } else if (field === 'upvoted') {
       searchQuery = upVoted;
-    } else if (field === 'downVoted') {
+    } else if (field === 'downvoted') {
       searchQuery = downVoted;
+    } else {
+      res.status(400);
+      res.send('Not a field user sub-field');
     }
 
     Post.find({
@@ -121,7 +124,7 @@ router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
     })
     .then((results)=>{
       res.status(200);
-      res.json(result);
+      res.json(results);
     })
     .catch((err)=>{
       res.status(400);
