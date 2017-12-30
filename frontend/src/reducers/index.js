@@ -7,17 +7,11 @@ const routing = routerReducer;
 //     return array.filter(e => e !== element);
 // }
 
-// const convertArrayToDic = (arr) => {
-//   var dic = {};
-//   for (let idx in arr) {
-//     let item = arr[idx];
-//     dic[item] = {};
-//   }
-//   return dic;
-// }
-
 const getTree = (data, startId) => {
   var tree = {};
+  if (!(startId in data)) {
+    return tree;
+  }
   var children = data[startId].children;
   if (children.length > 0) {
     for (var idx in children) {
@@ -28,7 +22,22 @@ const getTree = (data, startId) => {
   return tree
 }
 
-const generatePostGraph = (data) => {
+const getListofList = (data, startId) => {
+  var listOfList = [startId, []];
+
+  var children = data[startId].children;
+  if (children.length > 0) {
+    for (var idx in children) {
+      var postId = children[idx];
+      if (postId in data) {
+        listOfList[1].push(getListofList(data, postId))
+      }
+    }
+  }
+  return listOfList
+}
+
+const generateThreadedPosts = (data) => {
   var dataDic = {};
   for (let idx in data) {
     let item = data[idx];
@@ -42,9 +51,12 @@ const generatePostGraph = (data) => {
       graph[item._id] = getTree(dataDic, item._id);
     }
   }
-  
-  console.log('graph')
-  console.log(graph);
+
+  var listOfList = [];
+  for (let key in graph) {
+    listOfList.push(getListofList(dataDic, key));
+  }
+  return listOfList
 }
 
 const displayedPosts = (state = {
@@ -54,12 +66,11 @@ const displayedPosts = (state = {
   switch (action.type) {
     case 'PAGE_LOADED':
     var pageData = action.payload;
-    generatePostGraph(action.payload)
     var data = {};
-    var dataOrder = [];
+    var dataOrder = generateThreadedPosts(pageData);
+    console.log(dataOrder)
     for (var idx in pageData) {
       var item = pageData[idx];
-      dataOrder.push(item._id);
       data[item._id] = item;
     }
     return {
