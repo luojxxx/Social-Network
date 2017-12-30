@@ -1,22 +1,22 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
-import thunk from 'redux-thunk';
+import React from 'react'
+import { render } from 'react-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
 
-import { Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
-import reducers from './reducers';
+import reducers from './reducers'
 
-import App from './components/App.js';
-import UserProfile from './containers/UserProfileContainer.js';
-import Authtoken from './components/Authtoken';
+import App from './components/App.js'
+import UserProfile from './containers/UserProfileContainer.js'
+import Authtoken from './components/Authtoken'
 
-const middleware = applyMiddleware(thunk, createLogger());
-const store = createStore(reducers, middleware);
-const history = syncHistoryWithStore(browserHistory, store);
+const middleware = applyMiddleware(thunk, createLogger())
+const store = createStore(reducers, middleware)
+const history = syncHistoryWithStore(browserHistory, store)
 
 render(
   <Provider store={store}>
@@ -28,4 +28,4 @@ render(
     </Router>
   </Provider>,
   document.getElementById('root')
-);
+)

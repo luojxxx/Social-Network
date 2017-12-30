@@ -1,18 +1,18 @@
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 
-const routing = routerReducer;
+const routing = routerReducer
 
 const getTree = (data, startId) => {
-  var tree = {};
+  var tree = {}
   if (!(startId in data)) {
-    return tree;
+    return tree
   }
-  var children = data[startId].children;
+  var children = data[startId].children
   if (children.length > 0) {
     for (var idx in children) {
-      var postId = children[idx];
-      tree[postId] = getTree(data, postId);
+      var postId = children[idx]
+      tree[postId] = getTree(data, postId)
     }
   }
   return tree
@@ -20,64 +20,64 @@ const getTree = (data, startId) => {
 
 const navigateTree = (data, startId) => {
   while (data[startId].parent !== '' && data[startId].parent in data) {
-    startId = data[startId].parent;
+    startId = data[startId].parent
   }
-  return getTree(data, startId);
+  return getTree(data, startId)
 }
 
 function getKeys(obj) {
-  var all = {};
-  var seen = [];
-  checkValue(obj);
-  return Object.keys(all);
+  var all = {}
+  var seen = []
+  checkValue(obj)
+  return Object.keys(all)
   function checkValue(value) {
-    if (Array.isArray(value)) return checkArray(value);
-    if (value instanceof Object) return checkObject(value);
+    if (Array.isArray(value)) return checkArray(value)
+    if (value instanceof Object) return checkObject(value)
   }
   function checkArray(array) {
-    if (seen.indexOf(array) >= 0) return;
-    seen.push(array);
+    if (seen.indexOf(array) >= 0) return
+    seen.push(array)
     for (var i = 0, l = array.length; i < l; i++) {
-      checkValue(array[i]);
+      checkValue(array[i])
     }
   }
   function checkObject(obj) {
-    if (seen.indexOf(obj) >= 0) return;
-    seen.push(obj);
-    var keys = Object.keys(obj);
+    if (seen.indexOf(obj) >= 0) return
+    seen.push(obj)
+    var keys = Object.keys(obj)
     for (var i = 0, l = keys.length; i < l; i++) {
-      var key = keys[i];
-      all[key] = true;
-      checkValue(obj[key]);
+      var key = keys[i]
+      all[key] = true
+      checkValue(obj[key])
     }
   }
 }
 
 var remove = (array, targetArr) => {
-    return array.filter(e => !targetArr.includes(e));
+    return array.filter(e => !targetArr.includes(e))
 }
 
 const getForest = (data, allIds) => {
-  var forest = {};
+  var forest = {}
   while (allIds.length !== 0) {
-    var tree = navigateTree(data, allIds[0]);
-    forest[allIds[0]] = tree;
+    var tree = navigateTree(data, allIds[0])
+    forest[allIds[0]] = tree
 
     var tempTree = {}
-    tempTree[allIds[0]] = tree;
+    tempTree[allIds[0]] = tree
     var idsInTree = getKeys(tempTree)
-    allIds = remove(allIds, idsInTree);
+    allIds = remove(allIds, idsInTree)
   }
-  return forest;
+  return forest
 }
 
 const getListofList = (data, startId) => {
-  var listOfList = [startId, []];
+  var listOfList = [startId, []]
 
-  var children = data[startId].children;
+  var children = data[startId].children
   if (children.length > 0) {
     for (var idx in children) {
-      var postId = children[idx];
+      var postId = children[idx]
       if (postId in data) {
         listOfList[1].push(getListofList(data, postId))
       }
@@ -87,64 +87,71 @@ const getListofList = (data, startId) => {
 }
 
 const generateThreadedPosts = (data) => {
-  var dataDic = {};
-  var allPostIds = [];
+  var dataDic = {}
+  var allPostIds = []
   for (var idx in data) {
-    var item = data[idx];
-    dataDic[item._id] = item;
-    allPostIds.push(item._id);
+    var item = data[idx]
+    dataDic[item._id] = item
+    allPostIds.push(item._id)
   }
 
-  var graph = getForest(dataDic, allPostIds);
+  var graph = getForest(dataDic, allPostIds)
 
-  var listOfList = [];
+  var listOfList = []
   for (var key in graph) {
-    listOfList.push(getListofList(dataDic, key));
+    listOfList.push(getListofList(dataDic, key))
   }
   return [dataDic, listOfList]
 }
 
 const displayedPosts = (state = {
+  pageData: [],
   data: {},
   dataOrder: []
 }, action) => {
   switch (action.type) {
     case 'PAGE_LOADED':
-    var pageData = action.payload;
-    var threadedPosts = generateThreadedPosts(pageData);
-    var data = threadedPosts[0];
-    var dataOrder = threadedPosts[1];
+    var pageData = action.payload
+    console.log(pageData)
+    var threadedPosts = generateThreadedPosts(pageData)
+    var data = threadedPosts[0]
+    var dataOrder = threadedPosts[1]
     return {
       ...state,
+      pageData: pageData,
       data: data,
       dataOrder: dataOrder
     }
 
-    case 'ADD_POST_TO_DISPLAY':
-    var newPostData = action.payload;
-    var newData = Object.assign({}, state.data);
-    newData[newPostData._id] = newPostData;
-    var newDataOrder = [newPostData._id, ...state.dataOrder];
+    case 'ADD_POST_TO_STATE':
+    var newPostData = action.payload
+    console.log(state.pageData)
+    var pageData = [newPostData, ...state.pageData]
+    console.log(pageData)
+    var threadedPosts = generateThreadedPosts(pageData)
+    var data = threadedPosts[0]
+    var dataOrder = threadedPosts[1]
     return {
       ...state,
-      data: newData,
-      dataOrder: newDataOrder
+      pageData: pageData,
+      data: data,
+      dataOrder: dataOrder
     }
 
     case 'UPDATE_VOTE':
-    var newData = Object.assign({}, state.data);
-    var postId = action.payload.postId;
-    var priorVote = action.payload.priorVote;
-    var currentVote = action.payload.currentVote;
+    var newData = Object.assign({}, state.data)
+    var postId = action.payload.postId
+    var priorVote = action.payload.priorVote
+    var currentVote = action.payload.currentVote
 
-    var updateScore = 0;
+    var updateScore = 0
     if (currentVote === priorVote) {
-      updateScore = (-1*priorVote);
+      updateScore = (-1*priorVote)
     } else {
-      updateScore = currentVote - priorVote;
+      updateScore = currentVote - priorVote
     }
 
-    newData[postId].score += updateScore;
+    newData[postId].score += updateScore
 
     return {
       ...state,
@@ -152,14 +159,14 @@ const displayedPosts = (state = {
     }
 
     case 'UPDATE_DELETED_POST':
-    var newData = Object.assign({}, state.data);
-    var postId = action.payload;
+    var newData = Object.assign({}, state.data)
+    var postId = action.payload
 
-    newData[postId].submittedByUserName = 'deleted';
-    newData[postId].contentTitle = 'deleted';
-    newData[postId].contentTag = '';
-    newData[postId].contentLink = '';
-    newData[postId].contentDescription = '';
+    newData[postId].submittedByUserName = 'deleted'
+    newData[postId].contentTitle = 'deleted'
+    newData[postId].contentTag = ''
+    newData[postId].contentLink = ''
+    newData[postId].contentDescription = ''
 
     return {
       ...state,
@@ -167,7 +174,7 @@ const displayedPosts = (state = {
     }
 
     default:
-    return state;
+    return state
   }
 }
 
@@ -209,7 +216,7 @@ const userAccount = (state = {
     }
 
     case 'LOGOUT':
-    localStorage.removeItem('token');
+    localStorage.removeItem('token')
     return {
       ...state,
       loggedIn: false,
@@ -222,18 +229,24 @@ const userAccount = (state = {
       totalVotes: 0
     }
 
+    // case 'ADD_POST_TO_STATE':
+    // return {
+    //   ...state,
+    //   submitted: [action.payload._id, ...state.submitted]
+    // }
+
     case 'UPDATE_VOTE':
-    var newVoteHistory = Object.assign({}, state.voteHistory);
-    var postId = action.payload.postId;
-    var vote = action.payload.currentVote;
+    var newVoteHistory = Object.assign({}, state.voteHistory)
+    var postId = action.payload.postId
+    var vote = action.payload.currentVote
     if (postId in newVoteHistory) {
       if (vote === newVoteHistory[postId]) {
-        newVoteHistory[postId] = 0;
+        newVoteHistory[postId] = 0
       } else {
-        newVoteHistory[postId] = vote;
+        newVoteHistory[postId] = vote
       }
     } else {
-      newVoteHistory[postId] = vote;
+      newVoteHistory[postId] = vote
     }
 
     return {
@@ -242,12 +255,12 @@ const userAccount = (state = {
     }
 
     case 'UPDATE_USERACCOUNT_SAVEDPOST':
-    var postId = action.payload;
+    var postId = action.payload
 
-    var newSaved = [];
+    var newSaved = []
     if (state.saved.includes(postId)) {
       newSaved = state.saved.filter(item => {
-        return item !== postId;
+        return item !== postId
       })
     } else {
       newSaved = [...state.saved, postId]
@@ -259,7 +272,7 @@ const userAccount = (state = {
     }
 
     default:
-    return state;
+    return state
   }
 }
 
@@ -278,7 +291,7 @@ const userProfile = (state = {
     }
 
     default:
-    return state;
+    return state
   }
 }
 
@@ -320,7 +333,7 @@ const displayState = (state = {
     }
 
     default:
-    return state;
+    return state
   }
 }
 

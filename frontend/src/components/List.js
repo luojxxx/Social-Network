@@ -5,34 +5,34 @@ import ListItem from './ListItem'
 class List extends Component{
   componentWillMount() {
     if (this.props.loadPage==='frontPage') {
-      this.props.loadFrontPageData();
+      this.props.loadFrontPageData()
     }
   }
 
   listItem = (postId, depth) => {
-    var props = this.props;    
-    var item = props.displayedPostsData[postId];
+    var props = this.props    
+    var item = props.displayedPostsData[postId]
 
-    var voteState = 0;
+    var voteState = 0
     if (typeof(props.voteHistory[postId]) !== 'undefined') {
-      voteState = props.voteHistory[postId];
+      voteState = props.voteHistory[postId]
     }
 
-    var savedState = false;
+    var savedState = false
     if (typeof(props.saved) !== 'undefined') {
       if (props.saved.includes(postId)) {
-        savedState = true;
+        savedState = true
       }
     }
 
-    var showReportConfirmationState = false;
+    var showReportConfirmationState = false
     if (props.reportConfirmationId === postId) {
-      showReportConfirmationState = true;
+      showReportConfirmationState = true
     }
 
-    var submittedByCurrentUser = false;
+    var submittedByCurrentUser = false
     if (props.userId === item.submittedByUserId) {
-      submittedByCurrentUser = true;
+      submittedByCurrentUser = true
     }
 
     return <ListItem 
@@ -56,9 +56,9 @@ class List extends Component{
 
   recursiveComponent = (dataDic, listOfList, depth) => {
     return listOfList.map((ele, idx) => {
-      var item = listOfList[idx];
-      var postId = item[0];
-      var children = item[1];
+      var item = listOfList[idx]
+      var postId = item[0]
+      var children = item[1]
 
       return (<div 
         style={{

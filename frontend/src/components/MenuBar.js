@@ -4,15 +4,15 @@ import { Link } from 'react-router'
 
 class MenuBar extends Component{
   componentWillMount(){
-    this.props.loadUserData();
+    this.props.loadUserData()
   }
 
   showPostBox = (e) => {
-    this.props.showPostBox('frontPage');
+    this.props.showPostBox('frontPage')
   }
 
   render() {
-    var userAccount = this.props.userAccount;
+    var userAccount = this.props.userAccount
     return (
       <div className="username-options w-col w-col-8">
         <a 

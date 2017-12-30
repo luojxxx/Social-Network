@@ -5,40 +5,46 @@ import PostBox from './PostBox.js'
 
 class ListItem extends Component{
   showPostBox = (e) => {
-    this.props.showPostBox(this.props.post._id);
+    this.props.showPostBox(this.props.post._id)
   }
 
   upVote = (e) => {
-    this.props.vote(this.props.post._id, this.props.voteState, 1);
+    e.preventDefault()
+    this.props.vote(this.props.post._id, this.props.voteState, 1)
   }
 
   downVote = (e) => {
-    this.props.vote(this.props.post._id, this.props.voteState, -1);
+    e.preventDefault()
+    this.props.vote(this.props.post._id, this.props.voteState, -1)
   }
 
   deletePost = (e) => {
-    this.props.deletePost(this.props.post._id);
+    e.preventDefault()
+    this.props.deletePost(this.props.post._id)
   }
 
   savePost = (e) => {
-    this.props.savePost(this.props.post._id);
+    e.preventDefault()
+    this.props.savePost(this.props.post._id)
   }
 
   showReportConfirmation = (e) => {
-    this.props.showReportConfirmation(this.props.post._id);
+    e.preventDefault()
+    this.props.showReportConfirmation(this.props.post._id)
   }
 
   reportPost = (e) => {
-    this.props.reportPost(this.props.post._id);
+    e.preventDefault()
+    this.props.reportPost(this.props.post._id)
   }
 
   render() {
-    var post = this.props.post;
-    var scoreColor = {};
+    var post = this.props.post
+    var scoreColor = {}
     if (this.props.voteState === 1) {
-      scoreColor['color'] = 'orange';
+      scoreColor['color'] = 'orange'
     } else if (this.props.voteState === -1) {
-      scoreColor['color'] = 'blue';
+      scoreColor['color'] = 'blue'
     }
 
     return (

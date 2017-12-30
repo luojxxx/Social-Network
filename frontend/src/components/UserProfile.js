@@ -1,38 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {Link} from 'react-router'
-import List from '../containers/ListContainer.js';
-import PostBox from '../components/PostBox.js';
+import List from '../containers/ListContainer.js'
+import PostBox from '../components/PostBox.js'
 import Header from './Header.js'
 
 class UserProfile extends Component {
   componentWillMount() {
-    this.props.loadUserProfile(this.props.params.userId);
+    this.props.loadUserProfile(this.props.params.userId)
   }
 
   loadSubmittedPosts = (e) => {
-    var userAccount = this.props.userAccount;
-    this.props.loadUserProfile(this.props.params.userId);
+    var userAccount = this.props.userAccount
+    this.props.loadUserProfile(this.props.params.userId)
   }
 
   loadUpvotedPosts = (e) => {
-    var userAccount = this.props.userAccount;
-    this.props.loadUserHistoryByField(userAccount.userId, 'upvoted');
+    var userAccount = this.props.userAccount
+    this.props.loadUserHistoryByField(userAccount.userId, 'upvoted')
   }
 
   loadDownvotedPosts = (e) => {
-    var userAccount = this.props.userAccount;
-    this.props.loadUserHistoryByField(userAccount.userId, 'downvoted');
+    var userAccount = this.props.userAccount
+    this.props.loadUserHistoryByField(userAccount.userId, 'downvoted')
   }
 
   loadSavedPosts = (e) => {
-    var userAccount = this.props.userAccount;
-    this.props.loadUserHistoryByField(userAccount.userId, 'saved');
+    var userAccount = this.props.userAccount
+    this.props.loadUserHistoryByField(userAccount.userId, 'saved')
   }
 
   render() {
-    var userAccount = this.props.userAccount;
-    var userProfile = this.props.userProfile;
-    var userProfileId = this.props.params.userId;
+    var userAccount = this.props.userAccount
+    var userProfile = this.props.userProfile
+    var userProfileId = this.props.params.userId
 
     if (userProfileId === userAccount.userId) {
       return (
@@ -62,9 +62,9 @@ class UserProfile extends Component {
           </div>
           <List />
         </div>
-      );
+      )
     } else {
-      userAccount = userProfile;
+      userAccount = userProfile
       return (
         <div>
           <Header /> <br/>
@@ -88,9 +88,9 @@ class UserProfile extends Component {
           </div>
           <List />
         </div>
-      );
+      )
     }
   }
 }
 
-export default UserProfile;
+export default UserProfile

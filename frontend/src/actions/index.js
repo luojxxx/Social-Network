@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
-var webserver = 'http://localhost:3000/';
+var webserver = 'http://localhost:3000/'
 
 // PAGE LOADING FUNCTIONS
 export const pageLoaded = (data) => ({
@@ -15,7 +15,7 @@ export function loadFrontPageData() {
       url:webserver+'api/recommendations/'
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data));
+      dispatch(pageLoaded(response.data))
     })
   }
 }
@@ -40,10 +40,10 @@ export function loadUserData() {
       }
     })
     .then( (response) => {
-      dispatch(userDataLoaded(response.data));
+      dispatch(userDataLoaded(response.data))
     })
     .catch( (err) => {
-      dispatch(userDataLoadFailed());
+      dispatch(userDataLoadFailed())
     })
   }
 }
@@ -68,11 +68,11 @@ export function loadUserProfile(userId) {
       }
     })
     .then( (response) => {
-      dispatch(userProfileLoaded(response.data));
-      dispatch(pageLoaded(response.data.submitted));
+      dispatch(userProfileLoaded(response.data))
+      dispatch(pageLoaded(response.data.submitted))
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }
@@ -87,10 +87,10 @@ export function loadUserHistoryByField(userId, field)  {
       }
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data));
+      dispatch(pageLoaded(response.data))
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }
@@ -105,8 +105,8 @@ export const closePostBox = () => ({
   type: 'CLOSE_POST_BOX'
 })
 
-export const addPostToDisplay = (data) => ({
-  type: 'ADD_POST_TO_DISPLAY',
+export const addPostToState = (data) => ({
+  type: 'ADD_POST_TO_STATE',
   payload: data
 })
 
@@ -121,11 +121,11 @@ export function newPost(data) {
       data: data
     })
     .then( (response) => {
-      dispatch(addPostToDisplay(response.data));
-      dispatch(closePostBox());
+      dispatch(addPostToState(response.data))
+      dispatch(closePostBox())
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }
@@ -133,7 +133,7 @@ export function newPost(data) {
 // POST VOTING FUNCTIONS
 export function vote(postId, priorVote, currentVote) {
   if (priorVote === currentVote) {
-    currentVote = 0;
+    currentVote = 0
   }
   return function(dispatch){
     axios({
@@ -145,10 +145,10 @@ export function vote(postId, priorVote, currentVote) {
       data: {vote: currentVote}
     })
     .then( (response) => {
-      dispatch(updateVote(postId, priorVote, currentVote));
+      dispatch(updateVote(postId, priorVote, currentVote))
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }
@@ -173,10 +173,10 @@ export function deletePost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(updateDeletedPost(postId));
+      dispatch(updateDeletedPost(postId))
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }
@@ -197,10 +197,10 @@ export function savePost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(updateUserAccountSavedPost(postId));
+      dispatch(updateUserAccountSavedPost(postId))
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }
@@ -221,10 +221,10 @@ export function reportPost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(showReportConfirmation(postId));
+      dispatch(showReportConfirmation(postId))
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed());
+      // dispatch(userDataLoadFailed())
     })
   }
 }

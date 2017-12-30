@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import List from '../containers/ListContainer.js';
+import React, { Component } from 'react'
+import List from '../containers/ListContainer.js'
 import Header from '../containers/HeaderContainer.js'
 
 class App extends Component {
@@ -9,8 +9,8 @@ class App extends Component {
         <Header /> <br/>
         <List loadPage='frontPage' />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

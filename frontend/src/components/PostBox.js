@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 class PostBox extends Component{
   constructor(props) {
-      super(props);
+      super(props)
       this.state={
           contentTitle: '',
           contentTag: '',
           contentLink: '',
           contentDescription: '',
-      };
+      }
   }
 
   updateTitleField = (e) => {
@@ -30,7 +30,7 @@ class PostBox extends Component{
 
   submitPost = (e)=>{
     var data = Object.assign({}, this.state, {parent:this.props.parent})
-    this.props.newPost(data);
+    this.props.newPost(data)
   }
 
   render() {
@@ -97,4 +97,4 @@ class PostBox extends Component{
 //   text: PropTypes.string.isRequired
 // }
 
-export default PostBox;
+export default PostBox
