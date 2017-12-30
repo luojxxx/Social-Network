@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadFrontPageData, newPost } from '../actions';
+import { newPost } from '../actions';
 import Header from '../components/Header';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -7,9 +7,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadFrontPageData: () => {
-    dispatch(loadFrontPageData());
-  },
   newPost: (data) => {
     dispatch(newPost(data));
   }

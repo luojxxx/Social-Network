@@ -15,17 +15,17 @@ class UserProfile extends Component {
   }
 
   loadUpvotedPosts = (e) => {
-    var userAccount = this.props. userAccount;
+    var userAccount = this.props.userAccount;
     this.props.loadUserHistoryByField(userAccount.userId, 'upvoted');
   }
 
   loadDownvotedPosts = (e) => {
-    var userAccount = this.props. userAccount;
+    var userAccount = this.props.userAccount;
     this.props.loadUserHistoryByField(userAccount.userId, 'downvoted');
   }
 
   loadSavedPosts = (e) => {
-    var userAccount = this.props. userAccount;
+    var userAccount = this.props.userAccount;
     this.props.loadUserHistoryByField(userAccount.userId, 'saved');
   }
 

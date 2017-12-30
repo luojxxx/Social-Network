@@ -3,6 +3,50 @@ import { routerReducer } from 'react-router-redux';
 
 const routing = routerReducer;
 
+// const remove = (array, element) => {
+//     return array.filter(e => e !== element);
+// }
+
+// const convertArrayToDic = (arr) => {
+//   var dic = {};
+//   for (let idx in arr) {
+//     let item = arr[idx];
+//     dic[item] = {};
+//   }
+//   return dic;
+// }
+
+const getTree = (data, startId) => {
+  var tree = {};
+  var children = data[startId].children;
+  if (children.length > 0) {
+    for (var idx in children) {
+      var postId = children[idx];
+      tree[postId] = getTree(data, postId);
+    }
+  }
+  return tree
+}
+
+const generatePostGraph = (data) => {
+  var dataDic = {};
+  for (let idx in data) {
+    let item = data[idx];
+    dataDic[item._id] = item;
+  }
+
+  var graph = {};
+  for (let idx in data) {
+    let item = data[idx];
+    if (item.parent==='') {
+      graph[item._id] = getTree(dataDic, item._id);
+    }
+  }
+  
+  console.log('graph')
+  console.log(graph);
+}
+
 const displayedPosts = (state = {
   data: {},
   dataOrder: []
@@ -10,6 +54,7 @@ const displayedPosts = (state = {
   switch (action.type) {
     case 'PAGE_LOADED':
     var pageData = action.payload;
+    generatePostGraph(action.payload)
     var data = {};
     var dataOrder = [];
     for (var idx in pageData) {
