@@ -5,6 +5,7 @@ import PostBox from './PostBox.js'
 
 class ListItem extends Component{
   showPostBox = (e) => {
+    e.preventDefault()
     this.props.showPostBox(this.props.post._id)
   }
 

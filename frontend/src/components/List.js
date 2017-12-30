@@ -61,6 +61,7 @@ class List extends Component{
       var children = item[1]
 
       return (<div 
+        key={'wrapper'+postId}
         style={{
           margin: '10px',
           border: '1px dotted black',
