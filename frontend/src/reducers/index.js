@@ -3,10 +3,6 @@ import { routerReducer } from 'react-router-redux';
 
 const routing = routerReducer;
 
-// const remove = (array, element) => {
-//     return array.filter(e => e !== element);
-// }
-
 const getTree = (data, startId) => {
   var tree = {};
   if (!(startId in data)) {
@@ -20,6 +16,59 @@ const getTree = (data, startId) => {
     }
   }
   return tree
+}
+
+const navigateTree = (data, startId) => {
+  while (data[startId].parent !== '' && data[startId].parent in data) {
+    startId = data[startId].parent;
+  }
+  return getTree(data, startId);
+}
+
+function getKeys(obj) {
+  var all = {};
+  var seen = [];
+  checkValue(obj);
+  return Object.keys(all);
+  function checkValue(value) {
+    if (Array.isArray(value)) return checkArray(value);
+    if (value instanceof Object) return checkObject(value);
+  }
+  function checkArray(array) {
+    if (seen.indexOf(array) >= 0) return;
+    seen.push(array);
+    for (var i = 0, l = array.length; i < l; i++) {
+      checkValue(array[i]);
+    }
+  }
+  function checkObject(obj) {
+    if (seen.indexOf(obj) >= 0) return;
+    seen.push(obj);
+    var keys = Object.keys(obj);
+    for (var i = 0, l = keys.length; i < l; i++) {
+      var key = keys[i];
+      all[key] = true;
+      checkValue(obj[key]);
+    }
+  }
+}
+
+var remove = (array, targetArr) => {
+    return array.filter(e => !targetArr.includes(e));
+}
+
+const getForest = (data, allIds) => {
+  var forest = {};
+  while (allIds.length !== 0) {
+    var tree = navigateTree(data, allIds[0]);
+    forest[allIds[0]] = tree;
+
+    var tempTree = {}
+    tempTree[allIds[0]] = tree;
+    var idsInTree = getKeys(tempTree)
+    allIds = remove(allIds, idsInTree);
+  }
+  return forest;
 }
 
 const getListofList = (data, startId) => {
@@ -39,24 +88,20 @@ const getListofList = (data, startId) => {
 
 const generateThreadedPosts = (data) => {
   var dataDic = {};
-  for (let idx in data) {
-    let item = data[idx];
+  var allPostIds = [];
+  for (var idx in data) {
+    var item = data[idx];
     dataDic[item._id] = item;
+    allPostIds.push(item._id);
   }
 
-  var graph = {};
-  for (let idx in data) {
-    let item = data[idx];
-    if (item.parent==='') {
-      graph[item._id] = getTree(dataDic, item._id);
-    }
-  }
+  var graph = getForest(dataDic, allPostIds);
 
   var listOfList = [];
-  for (let key in graph) {
+  for (var key in graph) {
     listOfList.push(getListofList(dataDic, key));
   }
-  return listOfList
+  return [dataDic, listOfList]
 }
 
 const displayedPosts = (state = {
@@ -66,13 +111,9 @@ const displayedPosts = (state = {
   switch (action.type) {
     case 'PAGE_LOADED':
     var pageData = action.payload;
-    var data = {};
-    var dataOrder = generateThreadedPosts(pageData);
-    console.log(dataOrder)
-    for (var idx in pageData) {
-      var item = pageData[idx];
-      data[item._id] = item;
-    }
+    var threadedPosts = generateThreadedPosts(pageData);
+    var data = threadedPosts[0];
+    var dataOrder = threadedPosts[1];
     return {
       ...state,
       data: data,
