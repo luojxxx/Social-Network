@@ -86,8 +86,12 @@ class ListItem extends Component{
             <div>
               <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
               <a href={post.contentLink}>{post.contentLink}</a>
-              {(post.contentDescription!=='')?<button onClick={this.showPostDescription}>Show more</button>:''}
-              {(this.props.showPostDescriptionState)?<div>{post.contentDescription}</div>:''}
+              {(post.contentDescription!=='')
+                ?<button onClick={this.showPostDescription}>Show more</button>
+                :''}
+              {(this.props.showPostDescriptionState)
+                ?<div>{post.contentDescription}</div>
+                :''}
               <div>
               <Link to={'/userprofile/'+post.submittedByUserId}>{post.submittedByUserName}
               </Link> - {post.dateSubmitted}  {post.contentTag}</div>
@@ -100,42 +104,30 @@ class ListItem extends Component{
               className="w-button">
               Reply</a>
 
-              <a 
-              href="#" 
-              className="w-button">
-              Share</a>
+              <a href="#" className="w-button">Share</a>
 
-              <a 
-              onClick={this.savePost}
-              href="#" 
-              className="w-button">
-              {(this.props.savedState===true)?'Unsave':'Save'}</a>
+              <a onClick={this.savePost} href="#" className="w-button">
+              {(this.props.savedState===true)
+                ?'Unsave'
+                :'Save'}</a>
 
-              {(this.props.showReportConfirmationState===true)?
-              <a 
-              onClick={this.reportPost} 
-              href="#" 
-              className="w-button">
-              Report Confirm?</a>:
-              <a 
-              onClick={this.showReportConfirmation} 
-              href="#" 
-              className="w-button">
-              Report</a>}
+              {(this.props.showReportConfirmationState===true)
+                ?<a onClick={this.reportPost} href="#" className="w-button">
+                Report Confirm?</a>
+                :<a onClick={this.showReportConfirmation} href="#" className="w-button">
+                Report</a>}
 
-              {(this.props.submittedByCurrentUser? 
-                <a 
-                onClick={this.deletePost} 
-                href="#" 
-                className="w-button">
-                Delete
-                </a>:'')}
+              {(this.props.submittedByCurrentUser
+                ?<a onClick={this.deletePost} href="#" className="w-button">
+                Delete</a>
+                :'')}
 
             </div>
           </div>
         </div>
-        {(this.props.showPostBoxId === post._id) ? 
-        <PostBox newPost={this.props.newPost} parent={post._id} /> : ''}
+        {(this.props.showPostBoxId === post._id) 
+          ?<PostBox newPost={this.props.newPost} parent={post._id} /> 
+          : ''}
       </div>
       )}
 }

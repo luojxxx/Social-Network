@@ -24,14 +24,18 @@ class MenuBar extends Component{
         className="w-button">
         New Post</a>
 
-        {(userAccount.loggedIn)?<Link to={'/userprofile/'+userAccount.userId} className="w-button">
-        {userAccount.userName}</Link>: ''}
+        {(userAccount.loggedIn)
+          ?<Link to={'/userprofile/'+userAccount.userId} className="w-button">
+          {userAccount.userName}</Link>
+          :''}
         
-        {(userAccount.loggedIn)? 
-        <a onClick={this.props.logout} href='#' className="w-button">Logout</a>:''}
+        {(userAccount.loggedIn)
+          ?<a onClick={this.props.logout} href='#' className="w-button">Logout</a>
+          :''}
 
-        {(userAccount.loggedIn)? '': 
-        <a href='http://localhost:3000/auth/google/' className="w-button">Login</a>}
+        {(userAccount.loggedIn)
+          ?''
+          :<a href='http://localhost:3000/auth/google/' className="w-button">Login</a>}
       </div>
       )}
 }
