@@ -49,6 +49,9 @@ router.get('/:_id/graph', function(req, res, next) {
   Post.findOne({'_id': postId})
   .then((post)=>{
     children.push(post)
+    if (post.children === '') {
+      res.json(children)
+    }
     Post.find({
       '_id': {$in: post.children}
     })
@@ -56,30 +59,6 @@ router.get('/:_id/graph', function(req, res, next) {
       for (var idx in results) {
         post = results[idx];
         children.push(post)
-        Post.find({
-          '_id': {$in: post.children}
-        })
-        .then((results)=>{
-          for (var idx in results) {
-            post = results[idx];
-            children.push(post)
-            Post.find({
-              '_id': {$in: post.children}
-            })
-            .then((results)=>{
-              res.status(200);
-              res.json(children);
-            })
-            .catch((err)=>{
-              res.status(400);
-              res.send(err);
-            })
-          }
-        })
-        .catch((err)=>{
-          res.status(400);
-          res.send(err);
-        })
       }
     })
     .catch((err)=>{
