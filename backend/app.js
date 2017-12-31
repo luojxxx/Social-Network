@@ -24,12 +24,12 @@ var User = require('./models/user');
 // Server setup
 var app = express();
 
-mongoose.connect('mongodb://cloudjing:1quT7UbzaTQWhTIQ@cluster0-shard-00-00-njrb5.mongodb.net:27017,cluster0-shard-00-01-njrb5.mongodb.net:27017,cluster0-shard-00-02-njrb5.mongodb.net:27017/Testdata?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin')
+mongoose.connect('mongodb://'+process.env.DATABASE_USERNAME+':'+process.env.DATABASE_PASSWORD+process.env.DATABASE_STRING)
 var db = mongoose.connection;
 
 passport.use(new GoogleStrategy({
-    clientID: '621988682029-ht1leobitvdckn2nu390lkkbtvolqefc.apps.googleusercontent.com',
-    clientSecret: 'RD7x4w6QbmsI8B7-7_jcfwcH',
+    clientID: process.env.CLIENT_ID+'.apps.googleusercontent.com',
+    clientSecret: process.env.CLIENT_SECRET,
     callbackURL: 'http://localhost:3000/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, cb) {
