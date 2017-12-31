@@ -106,7 +106,7 @@ export const closePostBox = () => ({
 })
 
 export const addPostToState = (data) => ({
-  type: 'ADD_POST_TO_STATE',
+  type: 'UPDATE_NEW_POST',
   payload: data
 })
 
@@ -145,7 +145,7 @@ export function vote(postId, priorVote, currentVote) {
       data: {vote: currentVote}
     })
     .then( (response) => {
-      dispatch(updateVote(postId, priorVote, currentVote))
+      dispatch(updateNewVote(postId, priorVote, currentVote))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -153,8 +153,8 @@ export function vote(postId, priorVote, currentVote) {
   }
 }
 
-export const updateVote = (postId, priorVote, currentVote) => ({
-  type: 'UPDATE_VOTE',
+export const updateNewVote = (postId, priorVote, currentVote) => ({
+  type: 'UPDATE_NEW_VOTE',
   payload: {
     postId: postId,
     priorVote: priorVote,
@@ -173,7 +173,7 @@ export function deletePost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(updateDeletedPost(postId))
+      dispatch(updateNewDeletedPost(postId))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -181,8 +181,8 @@ export function deletePost(postId) {
   }
 }
 
-export const updateDeletedPost = (postId) => ({
-  type: 'UPDATE_DELETED_POST',
+export const updateNewDeletedPost = (postId) => ({
+  type: 'UPDATE_NEW_DELETED_POST',
   payload: postId
 })
 
@@ -197,7 +197,7 @@ export function savePost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(updateUserAccountSavedPost(postId))
+      dispatch(updateNewSavedPost(postId))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -205,8 +205,8 @@ export function savePost(postId) {
   }
 }
 
-export const updateUserAccountSavedPost = (postId) => ({
-  type: 'UPDATE_USERACCOUNT_SAVEDPOST',
+export const updateNewSavedPost = (postId) => ({
+  type: 'UPDATE_NEW_SAVED_POST',
   payload: postId
 })
 

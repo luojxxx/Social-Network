@@ -123,7 +123,7 @@ const displayedPosts = (state = {
       dataOrder: dataOrder
     }
 
-    case 'ADD_POST_TO_STATE':
+    case 'UPDATE_NEW_POST':
     var newPostData = action.payload
     console.log(state.pageData)
     var pageData = [newPostData, ...state.pageData]
@@ -138,7 +138,7 @@ const displayedPosts = (state = {
       dataOrder: dataOrder
     }
 
-    case 'UPDATE_VOTE':
+    case 'UPDATE_NEW_VOTE':
     var newData = Object.assign({}, state.data)
     var postId = action.payload.postId
     var priorVote = action.payload.priorVote
@@ -158,7 +158,7 @@ const displayedPosts = (state = {
       data: newData
     }
 
-    case 'UPDATE_DELETED_POST':
+    case 'UPDATE_NEW_DELETED_POST':
     var newData = Object.assign({}, state.data)
     var postId = action.payload
 
@@ -229,13 +229,13 @@ const userAccount = (state = {
       totalVotes: 0
     }
 
-    // case 'ADD_POST_TO_STATE':
-    // return {
-    //   ...state,
-    //   submitted: [action.payload._id, ...state.submitted]
-    // }
+    case 'UPDATE_NEW_POST':
+    return {
+      ...state,
+      submitted: [action.payload._id, ...state.submitted]
+    }
 
-    case 'UPDATE_VOTE':
+    case 'UPDATE_NEW_VOTE':
     var newVoteHistory = Object.assign({}, state.voteHistory)
     var postId = action.payload.postId
     var vote = action.payload.currentVote
@@ -254,7 +254,7 @@ const userAccount = (state = {
       voteHistory: newVoteHistory
     }
 
-    case 'UPDATE_USERACCOUNT_SAVEDPOST':
+    case 'UPDATE_NEW_SAVED_POST':
     var postId = action.payload
 
     var newSaved = []
