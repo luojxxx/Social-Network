@@ -80,7 +80,7 @@ class ListItem extends Component{
           </div>
           <div className="content-title-options w-col w-col-10">
             <div>
-              <h4>{post.contentTitle}</h4>
+              <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
               <a href={post.contentLink}>{post.contentLink}</a>
               <div>{post.contentDescription} {this.props.depth}</div>
               <div>

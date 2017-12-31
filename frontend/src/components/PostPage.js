@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import Header from '../containers/HeaderContainer.js'
 import List from '../containers/ListContainer.js'
 
-class App extends Component {
+class PostPage extends Component {
   render() {
     return (
       <div>
         <Header /> <br/>
-        <List loadPage='frontPage' />
+        <List loadPage='postPage' params={this.props.params} />
       </div>
     )
   }
 }
 
-export default App
+export default PostPage

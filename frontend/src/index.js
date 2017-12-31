@@ -10,9 +10,11 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import reducers from './reducers'
 
+import Authtoken from './components/Authtoken'
 import App from './components/App.js'
 import UserProfile from './containers/UserProfileContainer.js'
-import Authtoken from './components/Authtoken'
+import PostPage from './components/PostPage.js'
+
 
 const middleware = applyMiddleware(thunk, createLogger())
 const store = createStore(reducers, middleware)
@@ -21,10 +23,10 @@ const history = syncHistoryWithStore(browserHistory, store)
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}>
-      </Route>
       <Route path="/authtoken" component={Authtoken} />
+      <Route path="/" component={App}></Route>
       <Route path="/userprofile/:userId" component={UserProfile} />
+      <Route path="/post/:postId" component={PostPage} />
     </Router>
   </Provider>,
   document.getElementById('root')

@@ -60,6 +60,7 @@ router.get('/:_id/graph', function(req, res, next) {
         post = results[idx];
         children.push(post)
       }
+      res.json(children)
     })
     .catch((err)=>{
       res.status(400);

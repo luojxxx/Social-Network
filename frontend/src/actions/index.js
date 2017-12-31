@@ -233,3 +233,16 @@ export const showReportConfirmation = (postId) => ({
   type: 'SHOW_REPORT_CONFIRMATION',
   payload: postId
 })
+
+// LOAD POST FUNCTIONS
+export function loadPost(postId) {
+  return function(dispatch){
+    axios({
+      method:'get',
+      url:webserver+'api/posts/'+postId+'/graph'
+    })
+    .then( (response) => {
+      dispatch(pageLoaded(response.data))
+    })
+  }
+}

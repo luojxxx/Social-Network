@@ -112,7 +112,6 @@ const displayedPosts = (state = {
   switch (action.type) {
     case 'PAGE_LOADED':
     var pageData = action.payload
-    console.log(pageData)
     var threadedPosts = generateThreadedPosts(pageData)
     var data = threadedPosts[0]
     var dataOrder = threadedPosts[1]

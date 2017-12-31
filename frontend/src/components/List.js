@@ -7,6 +7,17 @@ class List extends Component{
     if (this.props.loadPage==='frontPage') {
       this.props.loadFrontPageData()
     }
+    if (this.props.loadPage==='postPage') {
+      this.props.loadPost(this.props.params.postId)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.loadPage==='postPage') {
+      if (this.props.params.postId !== nextProps.params.postId) {
+        this.props.loadPost(nextProps.params.postId)
+      }
+    }
   }
 
   listItem = (postId, depth) => {
@@ -83,11 +94,6 @@ class List extends Component{
       </div>
       )}
 }
-
-      // <br/>
-      //   {props.displayedPostsOrder.map((postId, idx) => {
-      //     return this.listItem(postId)
-      //   })}
 
 // Todo.propTypes = {
 //   onClick: PropTypes.func.isRequired,
