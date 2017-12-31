@@ -19,28 +19,79 @@ router.get('/:_id', function(req, res, next) {
   })
 });
 
+// router.get('/:_id/graph', function(req, res, next) {
+//   var postId = req.params._id;
+//   var query = {$match: {_id: postId}};
+
+//   Post.aggregate(query, {
+//     $graphLookup: {
+//       from: 'posts',
+//       startWith: '$children',
+//       connectFromField: 'children',
+//       connectToField: '_id',
+//       as: 'connections'
+//     }
+//   })
+//   .then((result)=>{
+//     res.status(200);
+//     res.json(result);
+//   })
+//   .catch((err)=>{
+//     res.status(400);
+//     res.send(err);
+//   })
+// });
+
 router.get('/:_id/graph', function(req, res, next) {
   var postId = req.params._id;
-  var query = {$match: {_id: postId}};
 
-  Post.aggregate(query, {
-    $graphLookup: {
-      from: 'posts',
-      startWith: '$children',
-      connectFromField: 'children',
-      connectToField: '_id',
-      as: 'connections'
-    }
-  })
-  .then((result)=>{
-    res.status(200);
-    res.json(result);
-  })
+  var children = [];
+  Post.findOne({'_id': postId})
+  .then((post)=>{
+    children.push(post)
+    Post.find({
+      '_id': {$in: post.children}
+    })
+    .then((results)=>{
+      for (var idx in results) {
+        post = results[idx];
+        children.push(post)
+        Post.find({
+          '_id': {$in: post.children}
+        })
+        .then((results)=>{
+          for (var idx in results) {
+            post = results[idx];
+            children.push(post)
+            Post.find({
+              '_id': {$in: post.children}
+            })
+            .then((results)=>{
+              res.status(200);
+              res.json(children);
+            })
+            .catch((err)=>{
+              res.status(400);
+              res.send(err);
+            })
+          }
+        })
+        .catch((err)=>{
+          res.status(400);
+          res.send(err);
+        })
+      }
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    })
   .catch((err)=>{
     res.status(400);
     res.send(err);
   })
-});
+})
+})
 
 // router.get('/tag/:_id', function(req, res, next) {
 //   var id = req.params._id;
