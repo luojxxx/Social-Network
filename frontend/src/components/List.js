@@ -29,6 +29,11 @@ class List extends Component{
       voteState = props.voteHistory[postId]
     }
 
+    var showPostDescriptionState = false
+    if (props.showPostDescriptionIds.includes(postId)) {
+      showPostDescriptionState = true
+    }
+
     var savedState = false
     if (typeof(props.saved) !== 'undefined') {
       if (props.saved.includes(postId)) {
@@ -51,9 +56,11 @@ class List extends Component{
       post={item} 
       depth={depth}
       voteState={voteState} 
+      showPostDescriptionState={showPostDescriptionState}
       savedState={savedState} 
       showReportConfirmationState={showReportConfirmationState} 
       submittedByCurrentUser={submittedByCurrentUser} 
+      showPostDescription={props.showPostDescription}
       showPostBoxId={props.showPostBoxId} 
       showPostBox={props.showPostBox} 
       newPost={props.newPost} 

@@ -296,7 +296,8 @@ const userProfile = (state = {
 
 const displayState = (state = {
   showPostBoxId: '',
-  reportConfirmationId: ''
+  reportConfirmationId: '',
+  showPostDescriptionIds: []
 }, action) => {
   switch (action.type) {
     case 'SHOW_POST_BOX':
@@ -329,6 +330,19 @@ const displayState = (state = {
         ...state,
         reportConfirmationId: action.payload
       }
+    }
+
+    case 'SHOW_POST_DESCRIPTION':
+    var postId = action.payload
+    var newShowPostDescriptionIds = []
+    if (state.showPostDescriptionIds.includes(postId)) {
+      newShowPostDescriptionIds = remove(state.showPostDescriptionIds, [postId])
+    } else {
+      newShowPostDescriptionIds = [...newShowPostDescriptionIds, postId]
+    }
+    return {
+      ...state,
+      showPostDescriptionIds: newShowPostDescriptionIds
     }
 
     default:

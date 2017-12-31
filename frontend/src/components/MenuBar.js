@@ -15,6 +15,8 @@ class MenuBar extends Component{
     var userAccount = this.props.userAccount
     return (
       <div className="username-options w-col w-col-8">
+        <input type='text' name='searchField' />
+        <button className='w-button'>Search</button>
         <a 
         onClick={this.showPostBox} 
         style={(this.props.showPostBoxId==='frontPage')?{color:'blue'}:{}}

@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
-import { loadFrontPageData, loadPost, showPostBox, newPost, vote, deletePost, savePost, reportPost, showReportConfirmation } from '../actions'
+import { loadFrontPageData, loadPost, showPostBox, 
+  newPost, vote, deletePost, savePost, reportPost,
+   showReportConfirmation, showPostDescription } from '../actions'
 import List from '../components/List'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -9,6 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
   voteHistory: state.userAccount.voteHistory,
   saved: state.userAccount.saved,
   showPostBoxId: state.displayState.showPostBoxId,
+  showPostDescriptionIds: state.displayState.showPostDescriptionIds,
   reportConfirmationId: state.displayState.reportConfirmationId
 })
 
@@ -21,6 +24,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   vote: (postId, priorVote, currentVote) => {
     dispatch(vote(postId, priorVote, currentVote))
+  },
+  showPostDescription: (postId) => {
+    dispatch(showPostDescription(postId))
   },
   deletePost: (postId) => {
     dispatch(deletePost(postId))

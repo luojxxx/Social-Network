@@ -24,7 +24,10 @@ var User = require('./models/user');
 // Server setup
 var app = express();
 
-mongoose.connect('mongodb://'+process.env.DATABASE_USERNAME+':'+process.env.DATABASE_PASSWORD+process.env.DATABASE_STRING)
+var databaseConnectionString = 'mongodb://'+process.env.DATABASE_USERNAME+':'+process.env.DATABASE_PASSWORD+process.env.DATABASE_STRING+process.env.DATABASE_NAME+process.env.DATABASE_OPTIONS
+
+console.log(databaseConnectionString)
+mongoose.connect(databaseConnectionString)
 var db = mongoose.connection;
 
 passport.use(new GoogleStrategy({

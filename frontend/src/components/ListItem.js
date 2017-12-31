@@ -19,6 +19,10 @@ class ListItem extends Component{
     this.props.vote(this.props.post._id, this.props.voteState, -1)
   }
 
+  showPostDescription = (e) => {
+    this.props.showPostDescription(this.props.post._id)
+  }
+
   deletePost = (e) => {
     e.preventDefault()
     this.props.deletePost(this.props.post._id)
@@ -82,7 +86,8 @@ class ListItem extends Component{
             <div>
               <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
               <a href={post.contentLink}>{post.contentLink}</a>
-              <div>{post.contentDescription} {this.props.depth}</div>
+              {(post.contentDescription!=='')?<button onClick={this.showPostDescription}>Show more</button>:''}
+              {(this.props.showPostDescriptionState)?<div>{post.contentDescription}</div>:''}
               <div>
               <Link to={'/userprofile/'+post.submittedByUserId}>{post.submittedByUserName}
               </Link> - {post.dateSubmitted}  {post.contentTag}</div>

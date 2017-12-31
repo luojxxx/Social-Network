@@ -234,6 +234,12 @@ export const showReportConfirmation = (postId) => ({
   payload: postId
 })
 
+// SHOW POST DESCRIPTION FUNCTION
+export const showPostDescription = (postId) => ({
+  type: 'SHOW_POST_DESCRIPTION',
+  payload: postId
+})
+
 // LOAD POST FUNCTIONS
 export function loadPost(postId) {
   return function(dispatch){
