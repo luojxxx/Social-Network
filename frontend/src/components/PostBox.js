@@ -56,7 +56,7 @@ class PostBox extends Component{
             onChange={this.updateTagField}
             type="text" 
             className="w-input" 
-            maxLength="256" 
+            maxLength="64" 
             name="tag" 
             data-name="tag" 
             id="tag" />
@@ -68,7 +68,7 @@ class PostBox extends Component{
           onChange={this.updateLinkField}
           type="text" 
           className="w-input" 
-          maxLength="256" 
+          maxLength="512" 
           name="link" 
           data-name="link" 
           id="link" />
@@ -79,7 +79,7 @@ class PostBox extends Component{
           onChange={this.updateDescriptionField}
           id="description" 
           name="description" 
-          maxLength="5000" 
+          maxLength="10000" 
           data-name="description" 
           className="w-input"></textarea>
         </div>

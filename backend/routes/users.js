@@ -39,7 +39,8 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = req.user._id;
     var saved = req.user.saved;
-    var postId = String(req.params._id);
+    var postId = req.params._id;
+    postId.substring(0,513)
 
     if (saved.includes(postId)) {
       saved = saved.filter(e => e !== postId);
@@ -62,6 +63,7 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
 
 router.get('/:_id', function(req, res, next) {
   var userId = req.params._id;
+  userId.substring(0,513)
   var query = {_id: userId};
 
   User.findOne(query)
@@ -137,6 +139,7 @@ router.put('/:id/username', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = String(req.user._id);
     var newUserName = req.body.userName;
+    newUserName.substring(0,33)
 
     if (req.params.id === userId) {
       User.find({userName: newUserName})

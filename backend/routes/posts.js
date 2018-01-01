@@ -92,13 +92,18 @@ router.post('/', passport.authenticate('bearer', { session: false }),
     var userId = req.user._id;
     var userName = req.user.userName;
     var postData = req.body;
+    postData.contentTitle = postData.contentTitle.substring(0,257)
+    postData.contentTag = postData.contentTag.substring(0,65)
+    postData.contentLink = postData.contentLink.substring(0,513)
+    postData.contentDescription = postData.contentDescription.substring(0,10001)
+    postData.parent = postData.parent.substring(0,513)
     var newPost = {
       submittedByUserId: userId,
       submittedByUserName: userName,
       contentTitle: postData.contentTitle,
+      contentTag: postData.contentTag,
       contentLink: postData.contentLink,
       contentDescription: postData.contentDescription,
-      contentTag: postData.contentTag,
       parent: postData.parent
     };
 
