@@ -48,7 +48,7 @@ class UserProfile extends Component {
                 <div onClick={this.loadUpvotedPosts}>Upvoted posts</div>
                 <div onClick={this.loadDownvotedPosts}>Downvoted Posts</div>
                 <div onClick={this.loadSavedPosts}>Saved Posts</div>
-                <div>Settings</div>
+                <div><Link to='/settings'>Settings</Link></div>
               </div>
               <div className="w-col w-col-4">
                 <h1>Total Posts</h1>

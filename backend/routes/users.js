@@ -132,3 +132,34 @@ router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
     })
 
 })
+
+router.put('/:id/username', passport.authenticate('bearer', { session: false }),
+  function(req,res){
+    var userId = String(req.user._id);
+    var newUserName = req.body.userName;
+
+    if (req.params.id === userId) {
+      User.find({userName: newUserName})
+      .then((results)=>{
+        if (results.length ===0) {
+          User.findOneAndUpdate({_id: userId},
+            {userName: newUserName})
+          .then((success)=>{
+            res.status(200)
+            res.json({changed:'true', userName: newUserName})
+          })
+          .catch((err)=>{
+            res.status(400)
+            res.send(err)
+          })
+        } else {
+          res.status(200)
+          res.json({changed:'false', })
+        }
+      })
+      .catch((err)=>{
+        res.status(400)
+        res.send(err)
+      })
+    }
+})

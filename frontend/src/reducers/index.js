@@ -270,6 +270,13 @@ const userAccount = (state = {
       saved: newSaved
     }
 
+    case 'UPDATE_USER_NAME':
+    console.log('action me: payload')
+    return {
+      ...state,
+      userName: action.payload
+    }
+
     default:
     return state
   }
