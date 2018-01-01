@@ -10,7 +10,23 @@ class SortingDropDown extends Component {
 
   fieldChange = (e) => {
     e.preventDefault()
-    this.setState({selectedField:e.target.value})
+    var newSort = e.target.value
+    this.setState({selectedField:newSort})
+    if (newSort === 'hotness_down') {
+      this.props.sortPosts('hotness', 'down')
+    } else if (newSort === 'hotness_up') {
+      this.props.sortPosts('hotness', 'up')
+
+    } else if (newSort === 'time_down') {
+      this.props.sortPosts('dateSubmitted', 'down')
+    } else if (newSort === 'time_up') {
+      this.props.sortPosts('dateSubmitted', 'up')
+
+    } else if (newSort === 'score_down') {
+      this.props.sortPosts('score', 'down')
+    } else if (newSort === 'score_up') {
+      this.props.sortPosts('score', 'up')
+    }
   }
 
   render() {
@@ -19,8 +35,8 @@ class SortingDropDown extends Component {
         <select value={this.state.selectedField} onChange={this.fieldChange}>
           <option value="hotness_down">Hotness: Descending</option>
           <option value="hotness_up">Hotness: Ascending</option>
-          <option value="time_down">Time Submitted: Descending</option>
-          <option value="time_up">Time Submitted: Ascending</option>
+          <option value="time_down">Time Submitted: Newest First</option>
+          <option value="time_up">Time Submitted: Oldest First</option>
           <option value="score_down">Score: Descending</option>
           <option value="score_up">Score: Ascending</option>
         </select>

@@ -6,8 +6,9 @@ var Post = require('../models/post');
 var User = require('../models/user');
 
 router.get('/:_id', function(req, res, next) {
-  var id = req.params._id;
-  var query = {_id: id};
+  var postId = req.params._id;
+  postId = postId.substring(0,257)
+  var query = {_id: postId};
 
   Post.find(query)
   .then((post)=>{
@@ -44,6 +45,7 @@ router.get('/:_id', function(req, res, next) {
 
 router.get('/:_id/graph', function(req, res, next) {
   var postId = req.params._id;
+  postId = postId.substring(0,257)
 
   var children = [];
   Post.findOne({'_id': postId})

@@ -1,20 +1,26 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import {generateThreadedPosts, remove} from '../libraryHelper'
+import {generateThreadedPosts, remove, postSorter} from '../libraryHelper'
 
 const routing = routerReducer
 
 const displayedPosts = (state = {
   pageData: [],
   data: {},
-  dataOrder: []
+  dataOrder: [],
+  sortBy: 'score',
+  sortDirection: 'down'
 }, action) => {
   switch (action.type) {
     case 'PAGE_LOADED':
     var pageData = action.payload
     var threadedPosts = generateThreadedPosts(pageData)
     var data = threadedPosts[0]
+    for (let key in data) {
+      data[key]['dateSubmitted'] = Date.parse(data[key]['dateSubmitted'])
+    }
     var dataOrder = threadedPosts[1]
+    postSorter(data, dataOrder, state.sortBy, state.sortDirection)
     return {
       ...state,
       pageData: pageData,
@@ -70,6 +76,18 @@ const displayedPosts = (state = {
     return {
       ...state,
       data: newData
+    }
+
+    case 'SORT_POSTS':
+    var sortBy = action.payload.sortBy
+    var sortDirection = action.payload.sortDirection
+    var dataOrder = Object.assign([], state.dataOrder)
+    postSorter(state.data, dataOrder, sortBy, sortDirection)
+    return {
+      ...state,
+      dataOrder: dataOrder,
+      sortBy: sortBy,
+      sortDirection: sortDirection
     }
 
     default:

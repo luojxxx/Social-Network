@@ -20,6 +20,27 @@ export function loadFrontPageData() {
   }
 }
 
+export function loadPost(postId) {
+  return function(dispatch){
+    axios({
+      method:'get',
+      url:webserver+'api/posts/'+postId+'/graph'
+    })
+    .then( (response) => {
+      dispatch(pageLoaded(response.data))
+    })
+  }
+}
+
+export const sortPosts = (sortBy, sortDirection) => ({
+  type: 'SORT_POSTS',
+  payload: {
+    sortBy: sortBy,
+    sortDirection: sortDirection
+  }
+})
+
+
 // USER ACCOUNT FUNCTIONS
 export const userDataLoaded = (data) => ({
   type: 'USERDATA_LOADED',
@@ -120,6 +141,7 @@ export function loadUserHistoryByField(userId, field)  {
     })
   }
 }
+
 
 // NEW POST FUNCTIONS
 export const showPostBox = (parentId) => ({
@@ -266,15 +288,3 @@ export const showPostDescription = (postId) => ({
   payload: postId
 })
 
-// LOAD POST FUNCTIONS
-export function loadPost(postId) {
-  return function(dispatch){
-    axios({
-      method:'get',
-      url:webserver+'api/posts/'+postId+'/graph'
-    })
-    .then( (response) => {
-      dispatch(pageLoaded(response.data))
-    })
-  }
-}

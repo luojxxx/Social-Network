@@ -95,7 +95,7 @@ class List extends Component{
   render() {
     return (
       <div>
-      <SortingDropDown />
+      <SortingDropDown sortPosts={this.props.sortPosts} />
       {this.recursiveComponent(
         this.props.displayedPostsData, 
         this.props.displayedPostsOrder, 

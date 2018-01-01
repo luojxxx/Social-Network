@@ -44,4 +44,8 @@ var postSchema = mongoose.Schema({
   }
 });
 
+// postSchema.virtual('dateSubmittedMS').get(function() {
+//   return this.dateSubmitted.getTime();
+// })
+
 var Post = module.exports = mongoose.model('post', postSchema);

@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import PropTypes from 'prop-types'
-import PostBox from './PostBox.js'
+import PostBox from './PostBox'
+import {convertToTimePassed} from '../libraryHelper'
 
 class ListItem extends Component{
   showPostBox = (e) => {
@@ -93,8 +94,10 @@ class ListItem extends Component{
                 ?<div>{post.contentDescription}</div>
                 :''}
               <div>
-              <Link to={'/userprofile/'+post.submittedByUserId}>{post.submittedByUserName}
-              </Link> - {post.dateSubmitted}  {post.contentTag}</div>
+                Posted by{' '}
+                <Link to={'/userprofile/'+post.submittedByUserId}>{post.submittedByUserName}</Link> 
+                {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}  {post.contentTag}
+              </div>
             </div>
             <div>
               <a 

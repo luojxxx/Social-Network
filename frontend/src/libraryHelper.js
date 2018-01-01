@@ -98,3 +98,67 @@ export const generateThreadedPosts = (data) => {
   }
   return [dataDic, listOfList]
 }
+
+export const convertToTimePassed = (time) => {
+  var timeDiff = (Date.now() - time)/1000
+  var displayTime = ''
+
+  if (timeDiff>31104000) {
+    let calcTime = Math.floor(timeDiff/31104000)
+    let plural = (calcTime>1)?'s':''
+    displayTime = String(calcTime)+' year'+plural
+  } else if (timeDiff>2592000) {
+    let calcTime = Math.floor(timeDiff/2592000)
+    let plural = (calcTime>1)?'s':''
+      displayTime = String(calcTime)+' month'+plural
+  } else if (timeDiff>86400) {
+    let calcTime = Math.floor(timeDiff/86400)
+    let plural = (calcTime>1)?'s':''
+      displayTime = String(calcTime)+' day'+plural
+  } else if (timeDiff>3600) {
+    let calcTime = Math.floor(timeDiff/3600)
+    let plural = (calcTime>1)?'s':''
+      displayTime = String(calcTime)+' hour'+plural
+  } else if (timeDiff>60) {
+    let calcTime = Math.floor(timeDiff/60)
+    let plural = (calcTime>1)?'s':''
+      displayTime = String(calcTime)+' minute'+plural
+  } else {
+    let plural = (timeDiff>1)?'s':''
+    displayTime = String(timeDiff)+' second'+plural
+  }
+
+  return displayTime
+}
+
+// Sorting function
+export const sortLayer = (dataDic, dataOrder, sortBy, sortDirection) => {
+  var stableArray = Object.assign([], dataOrder)
+
+  dataOrder.sort( (a,b) => {
+    const aValue = dataDic[a[0]][sortBy]
+    const bValue = dataDic[b[0]][sortBy]
+    if (aValue < bValue) {
+      return 1
+    } else {
+      return -1
+    }
+    return stableArray.indexOf(a) - stableArray.indexOf(b)
+  })
+  if (sortDirection === 'down') {
+    return dataOrder
+  } else if (sortDirection === 'up') {
+    dataOrder.reverse()
+    return dataOrder
+  }
+  
+}
+
+export const postSorter = (dataDic, dataOrder, sortBy, sortDirection) => {
+  sortLayer(dataDic, dataOrder, sortBy, sortDirection)
+  for (let idx in dataOrder) {
+    if (dataOrder[idx][1].length > 0) {
+      postSorter(dataDic, dataOrder[idx][1], sortBy, sortDirection)
+    }
+  }
+}
