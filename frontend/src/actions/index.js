@@ -74,25 +74,6 @@ export const updateUserName = (userName) => ({
   payload: userName
 })
 
-// export function changeUserEmail(userId, userEmail) {
-//   return function(dispatch){
-//     axios({
-//       method:'put',
-//       url:webserver+'api/users/'+userId+'/useremail',
-//       headers: {
-//         Authorization: 'Bearer '+localStorage.getItem('token')
-//       },
-//       data: {userEmail: userEmail}
-//     })
-//     .then( (response) => {
-//       // dispatch(userDataLoaded(response.data))
-//     })
-//     .catch( (err) => {
-//       // dispatch(userDataLoadFailed())
-//     })
-//   }
-// }
-
 export const logout = () => ({
   type: 'LOGOUT'
 })

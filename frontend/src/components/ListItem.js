@@ -104,7 +104,7 @@ class ListItem extends Component{
               className="w-button">
               Reply</a>
 
-              <a href="#" className="w-button">Share</a>
+              <Link to={'/share/'+post._id}>Share</Link>
 
               <a onClick={this.savePost} href="#" className="w-button">
               {(this.props.savedState===true)

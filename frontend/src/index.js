@@ -15,6 +15,7 @@ import App from './components/App.js'
 import UserProfile from './containers/UserProfileContainer.js'
 import Settings from './containers/SettingsContainer.js'
 import PostPage from './components/PostPage.js'
+import SharePage from './containers/SharePageContainer.js'
 import Page404 from './components/Page404.js'
 
 
@@ -30,6 +31,7 @@ render(
       <Route path="/userprofile/:userId" component={UserProfile} />
       <Route path="/settings" component={Settings} />
       <Route path="/post/:postId" component={PostPage} />
+      <Route path="/share/:postId" component={SharePage} />
       <Route path="*" component={Page404} />
     </Router>
   </Provider>,

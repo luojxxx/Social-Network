@@ -12,6 +12,7 @@ var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var mongoSanitize = require('express-mongo-sanitize');
+var seedrandom = require('seedrandom');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -60,6 +61,8 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
+
+var rng = seedrandom();
 
 
 // View engine setup
@@ -129,7 +132,7 @@ function makeToken() {
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   for (var i = 0; i < 25; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    text += possible.charAt(Math.floor(rng() * possible.length));
 
   return text;
 }

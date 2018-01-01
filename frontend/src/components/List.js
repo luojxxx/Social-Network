@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ListItem from './ListItem'
+import SortingDropDown from './SortingDropDown'
 
 class List extends Component{
   componentWillMount() {
@@ -94,6 +95,7 @@ class List extends Component{
   render() {
     return (
       <div>
+      <SortingDropDown />
       {this.recursiveComponent(
         this.props.displayedPostsData, 
         this.props.displayedPostsOrder, 
