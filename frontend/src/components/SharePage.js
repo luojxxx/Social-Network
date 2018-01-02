@@ -44,8 +44,6 @@ class SharePage extends Component {
     render() {
       var postId = this.props.params.postId
       var postData = this.props.displayedPostsData[postId]
-      console.log(this.props.params)
-      console.log(this.props.displayedPostsData)
 
       const shareUrl = 'www.host.com'+'/post/'+postId
       const title = postData.contentTitle

@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import PropTypes from 'prop-types'
-import PostBox from './PostBox'
+
 import {convertToTimePassed} from '../libraryHelper'
+import PostBox from './PostBox'
+import ContentPreview from './ContentPreview'
 
 class ListItem extends Component{
   showPostBox = (e) => {
@@ -87,6 +89,7 @@ class ListItem extends Component{
             <div>
               <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
               <a href={post.contentLink}>{post.contentLink}</a>
+              <ContentPreview url={post.contentLink} />
               {(post.contentDescription!=='')
                 ?<button onClick={this.showPostDescription}>Show more</button>
                 :''}

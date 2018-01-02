@@ -4,12 +4,10 @@ import {generateThreadedPosts, remove, postSorter, insertIntoNestedList} from '.
 
 const routing = routerReducer
 
-
-
 const displayedPosts = (state = {
   data: {},
   dataOrder: [],
-  sortBy: 'score',
+  sortBy: 'dateSubmitted',
   sortDirection: 'down'
 }, action) => {
   switch (action.type) {
@@ -31,6 +29,8 @@ const displayedPosts = (state = {
 
     case 'UPDATE_NEW_POST':
     var newPostData = action.payload
+    newPostData.dateSubmitted = Date.parse(newPostData.dateSubmitted)
+    console.log(newPostData.dateSubmitted)
     var data = Object.assign({}, state.data)
     data[newPostData._id] = newPostData
 

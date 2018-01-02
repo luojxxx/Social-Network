@@ -168,6 +168,9 @@ export const postSorter = (dataDic, dataOrder, sortBy, sortDirection) => {
 // FUNCTIONS TO HELP INSERT NEW POST INTO NESTED DATA ORDER
 export const insertIntoNestedList = (dataOrder, newPostParent, newPostId) => {
   var newDataOrder = []
+  if (newPostParent === '') {
+    newDataOrder.push({postId: newPostId, children: []})
+  }
   for (let idx in dataOrder) {
     let post = dataOrder[idx]
     let pushedPost = {postId: post.postId, children: []}
