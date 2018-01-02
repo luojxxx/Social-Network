@@ -67,14 +67,14 @@ export const getForest = (data, allIds) => {
 }
 
 export const getListofList = (data, startId) => {
-  var listOfList = [startId, []]
+  var listOfList = {postId: startId, children: []}
 
   var children = data[startId].children
   if (children.length > 0) {
     for (var idx in children) {
       var postId = children[idx]
       if (postId in data) {
-        listOfList[1].push(getListofList(data, postId))
+        listOfList.children.push(getListofList(data, postId))
       }
     }
   }
@@ -137,8 +137,8 @@ export const sortLayer = (dataDic, dataOrder, sortBy, sortDirection) => {
   var stableArray = Object.assign([], dataOrder)
 
   dataOrder.sort( (a,b) => {
-    const aValue = dataDic[a[0]][sortBy]
-    const bValue = dataDic[b[0]][sortBy]
+    const aValue = dataDic[a.postId][sortBy]
+    const bValue = dataDic[b.postId][sortBy]
     if (aValue < bValue) {
       return 1
     } else {
@@ -157,8 +157,8 @@ export const sortLayer = (dataDic, dataOrder, sortBy, sortDirection) => {
 export const postSorter = (dataDic, dataOrder, sortBy, sortDirection) => {
   sortLayer(dataDic, dataOrder, sortBy, sortDirection)
   for (let idx in dataOrder) {
-    if (dataOrder[idx][1].length > 0) {
-      postSorter(dataDic, dataOrder[idx][1], sortBy, sortDirection)
+    if (dataOrder[idx].children.length > 0) {
+      postSorter(dataDic, dataOrder[idx].children, sortBy, sortDirection)
     }
   }
 }

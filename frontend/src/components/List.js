@@ -76,8 +76,8 @@ class List extends Component{
   recursiveComponent = (dataDic, listOfList, depth) => {
     return listOfList.map((ele, idx) => {
       var item = listOfList[idx]
-      var postId = item[0]
-      var children = item[1]
+      var postId = item.postId
+      var children = item.children
 
       return (<div 
         key={'wrapper'+postId}

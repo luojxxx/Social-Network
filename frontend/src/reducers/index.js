@@ -4,6 +4,8 @@ import {generateThreadedPosts, remove, postSorter} from '../libraryHelper'
 
 const routing = routerReducer
 
+// findAllParents(temp1, '5a49c111754f408d60e119c3')
+
 const findAllParents = (dataDic, startId) => {
   var allParents = []
   while (dataDic[startId].parent in dataDic) {
@@ -11,6 +13,7 @@ const findAllParents = (dataDic, startId) => {
     allParents.push(parent)
     startId = parent
   }
+  allParents.reverse()
   return allParents
 }
 
