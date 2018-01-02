@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../containers/HeaderContainer.js'
+import Header from '../containers/HeaderContainer'
 
 class Page404 extends Component {
   render() {

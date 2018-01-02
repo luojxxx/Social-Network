@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import MenuBar from '../containers/MenuBarContainer.js'
-import PostBox from '../components/PostBox.js'
+import MenuBar from '../containers/MenuBarContainer'
+import PostBox from '../components/PostBox'
 
 const Header = (props) => {
   return (

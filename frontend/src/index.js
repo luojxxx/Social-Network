@@ -11,12 +11,12 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import reducers from './reducers'
 
 import Authtoken from './components/Authtoken'
-import App from './components/App.js'
-import UserProfile from './containers/UserProfileContainer.js'
-import Settings from './containers/SettingsContainer.js'
-import PostPage from './components/PostPage.js'
-import SharePage from './containers/SharePageContainer.js'
-import Page404 from './components/Page404.js'
+import App from './components/App'
+import UserProfile from './containers/UserProfileContainer'
+import Settings from './containers/SettingsContainer'
+import PostPage from './components/PostPage'
+import SharePage from './containers/SharePageContainer'
+import Page404 from './components/Page404'
 
 
 const middleware = applyMiddleware(thunk, createLogger())

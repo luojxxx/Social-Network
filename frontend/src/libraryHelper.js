@@ -185,7 +185,6 @@ export const insertIntoNestedList = (dataOrder, newPostParent, newPostId) => {
   return newDataOrder
 }
 
-// When I figure out how to mutate variable-depth nested objects
 // const findAllParents = (dataDic, startId) => {
 //   var allParents = []
 //   while (dataDic[startId]['parent'] in dataDic) {

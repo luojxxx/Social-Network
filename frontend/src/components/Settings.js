@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import Header from '../containers/HeaderContainer.js'
+import Header from '../containers/HeaderContainer'
 
 class Settings extends Component{
   constructor(props) {

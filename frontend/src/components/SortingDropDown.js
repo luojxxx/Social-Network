@@ -4,7 +4,7 @@ class SortingDropDown extends Component {
   constructor(props) {
       super(props)
       this.state={
-          selectedField: 'score_down'
+          selectedField: 'time_down'
       }
   }
 
@@ -33,8 +33,7 @@ class SortingDropDown extends Component {
     return (
       <div>
         <select value={this.state.selectedField} onChange={this.fieldChange}>
-          <option value="hotness_down">Hotness: Descending</option>
-          <option value="hotness_up">Hotness: Ascending</option>
+
           <option value="time_down">Time Submitted: Newest First</option>
           <option value="time_up">Time Submitted: Oldest First</option>
           <option value="score_down">Score: Descending</option>
@@ -44,5 +43,8 @@ class SortingDropDown extends Component {
     )
   }
 }
+
+          // <option value="hotness_down">Hotness: Descending</option>
+          // <option value="hotness_up">Hotness: Ascending</option>
 
 export default SortingDropDown

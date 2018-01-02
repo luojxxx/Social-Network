@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router'
-import List from '../containers/ListContainer.js'
-import PostBox from '../components/PostBox.js'
-import Header from './Header.js'
+import List from '../containers/ListContainer'
+import PostBox from '../components/PostBox'
+import Header from './Header'
 
 class UserProfile extends Component {
   componentWillMount() {

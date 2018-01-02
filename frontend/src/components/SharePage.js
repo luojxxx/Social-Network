@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Header from '../containers/HeaderContainer.js'
-import List from '../containers/ListContainer.js'
+import Header from '../containers/HeaderContainer'
+import List from '../containers/ListContainer'
 
 import {
   ShareButtons,
