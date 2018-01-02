@@ -34,29 +34,76 @@ class ContentPreview extends Component{
     }
   }
 
-  renderPreview = (url) => {
-    if (this.extractHostname(url)==='imgur.com') {
+  renderThumbnail = (url) => {
+    if (this.extractHostname(url).includes('imgur')) {
+      return this.renderImgurThumbnail(url)
+    }
+    if (this.extractHostname(url).includes('youtube')) {
+      return this.renderYouTubeThumbnail(url)
+    }
+  }
+
+  renderContent = (url) => {
+    if (this.extractHostname(url).includes('imgur')) {
       return this.renderImgur(url)
     }
+    if (this.extractHostname(url).includes('youtube')) {
+      return this.renderYouTube(url)
+    }
+  }
+  
+
+  renderImgurThumbnail = (url) => {
+    url = url.slice(0,8)+'i.'+url.slice(8)+'s.jpg'
+    return <div><img src={url} /></div>
   }
 
   renderImgur = (url) => {
     url = url.slice(0,8)+'i.'+url.slice(8)+'.jpg'
+    return <div><img src={url} /></div>
+  }
+
+  getYouTubeVideoId = (url) => {
+    var videoId = ''
+    if (url.includes('https://www.youtube.com/watch?v=')) {
+      videoId = url.slice(32)
+    }
+
+    if (url.includes('https://youtu.be/')) {
+      videoId = url.slice(17)
+    }
+    return videoId
+  }
+
+  renderYouTubeThumbnail = (url) => {
+    var videoId = this.getYouTubeVideoId(url)
+    var url = 'https://img.youtube.com/vi/'+videoId+'/default.jpg'
+    return <div><img src={url} /></div>
+  }
+
+  renderYouTube = (url) => {
+    var youtubePlayerUrl = 'https://www.youtube.com/embed/'
+    youtubePlayerUrl += this.getYouTubeVideoId(url)
+
     return (
       <div>
-        <img src={url} />
+        <iframe width="560" height="315" 
+        src={youtubePlayerUrl}
+        frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
       </div>
       )
   }
 
   render() {
+    var url = this.props.url
     return (
       <div>
-      {(this.props.url !== '')
-        ?<button onClick={this.updateShowPreview}>ShowPreview</button>
+      {this.renderThumbnail(url)}
+      {(url!=='')
+        ?<button onClick={this.updateShowPreview}>Show</button>
         :''}
       {(this.state.showPreview===true)
-        ?this.renderPreview(this.props.url)
+        ?this.renderContent(url)
         :''}
       </div>
     )}
