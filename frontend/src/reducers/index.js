@@ -1,32 +1,19 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import {generateThreadedPosts, remove, postSorter} from '../libraryHelper'
+import {generateThreadedPosts, remove, postSorter, insertIntoNestedList} from '../libraryHelper'
 
 const routing = routerReducer
 
-// findAllParents(temp1, '5a49c111754f408d60e119c3')
 
-const findAllParents = (dataDic, startId) => {
-  var allParents = []
-  while (dataDic[startId].parent in dataDic) {
-    let parent = dataDic[startId].parent
-    allParents.push(parent)
-    startId = parent
-  }
-  allParents.reverse()
-  return allParents
-}
-
-// const insertIntoNestedList = ()
 
 const displayedPosts = (state = {
-  pageData: [],
   data: {},
   dataOrder: [],
   sortBy: 'score',
   sortDirection: 'down'
 }, action) => {
   switch (action.type) {
+
     case 'PAGE_LOADED':
     var pageData = action.payload
     var threadedPosts = generateThreadedPosts(pageData)
@@ -38,24 +25,20 @@ const displayedPosts = (state = {
     postSorter(data, dataOrder, state.sortBy, state.sortDirection)
     return {
       ...state,
-      pageData: pageData,
       data: data,
       dataOrder: dataOrder
     }
 
     case 'UPDATE_NEW_POST':
     var newPostData = action.payload
+    var data = Object.assign({}, state.data)
+    data[newPostData._id] = newPostData
 
+    var dataOrder = Object.assign([], state.dataOrder)
+    dataOrder = insertIntoNestedList(dataOrder, newPostData.parent, newPostData._id)
 
-    console.log(state.pageData)
-    var pageData = [newPostData, ...state.pageData]
-    console.log(pageData)
-    var threadedPosts = generateThreadedPosts(pageData)
-    var data = threadedPosts[0]
-    var dataOrder = threadedPosts[1]
     return {
       ...state,
-      pageData: pageData,
       data: data,
       dataOrder: dataOrder
     }
@@ -123,6 +106,7 @@ const userAccount = (state = {
   totalVotes: 0
 }, action) => {
   switch (action.type) {
+
     case 'USERDATA_LOADED':
     return {
       ...state,
@@ -223,6 +207,7 @@ const userProfile = (state = {
   totalVotes: 0
 }, action) => {
   switch (action.type) {
+
     case 'USER_PROFILE_LOADED':
     return {
       ...state,
@@ -242,6 +227,7 @@ const displayState = (state = {
   showPostDescriptionIds: []
 }, action) => {
   switch (action.type) {
+
     case 'SHOW_POST_BOX':
     if (state.showPostBoxId === action.payload) {
       return {

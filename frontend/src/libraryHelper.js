@@ -1,3 +1,9 @@
+// GENERIC HELPER FUNCTIONS
+export const remove = (array, targetArr) => {
+    return array.filter(e => !targetArr.includes(e))
+}
+
+// FUNCTIONS FOR GENERATING THREADED POSTS
 export const getTree = (data, startId) => {
   var tree = {}
   if (!(startId in data)) {
@@ -48,10 +54,6 @@ function getKeys(obj) {
   }
 }
 
-export const remove = (array, targetArr) => {
-    return array.filter(e => !targetArr.includes(e))
-}
-
 export const getForest = (data, allIds) => {
   var forest = {}
   while (allIds.length !== 0) {
@@ -99,7 +101,7 @@ export const generateThreadedPosts = (data) => {
   return [dataDic, listOfList]
 }
 
-// Date formatting functions
+// DATE FORMATTING FUNCTIONS
 export const convertToTimePassed = (time) => {
   var timeDiff = (Date.now() - time)/1000
   var displayTime = ''
@@ -132,7 +134,7 @@ export const convertToTimePassed = (time) => {
   return displayTime
 }
 
-// Sorting function
+// SORTING FUNCTIONS
 export const sortLayer = (dataDic, dataOrder, sortBy, sortDirection) => {
   var stableArray = Object.assign([], dataOrder)
 
@@ -162,3 +164,47 @@ export const postSorter = (dataDic, dataOrder, sortBy, sortDirection) => {
     }
   }
 }
+
+// FUNCTIONS TO HELP INSERT NEW POST INTO NESTED DATA ORDER
+export const insertIntoNestedList = (dataOrder, newPostParent, newPostId) => {
+  var newDataOrder = []
+  for (let idx in dataOrder) {
+    let post = dataOrder[idx]
+    let pushedPost = {postId: post.postId, children: []}
+    if (post.children.length > 0) {
+      pushedPost.children = insertIntoNestedList(post.children, newPostParent, newPostId)
+    }
+    if (post.postId === newPostParent) {
+      pushedPost.children = [{postId: newPostId, children: []}, ...pushedPost.children]
+    }
+    newDataOrder.push(pushedPost)
+  }
+  return newDataOrder
+}
+
+// When I figure out how to mutate variable-depth nested objects
+// const findAllParents = (dataDic, startId) => {
+//   var allParents = []
+//   while (dataDic[startId]['parent'] in dataDic) {
+//     let parent = dataDic[startId]['parent']
+//     allParents.push(parent)
+//     startId = parent
+//   }
+//   allParents.reverse()
+//   return allParents
+// }
+
+
+// var insertIntoNestedList = (dataOrder, allParents, newPostId) => {
+//   var parent = allParents[0]
+//   remove(allParents, [parent])
+//   if (allParents.length === 0) {
+//     parent.children.push({postId: newPostId, children: []})
+//   }
+//   for (let idx in dataOrder) {
+//     let item = dataOrder[idx]
+//     if (item.postId===parent) {
+//       insertIntoNestedList(item.children, allParents, newPostId)
+//     }
+//   }
+// }

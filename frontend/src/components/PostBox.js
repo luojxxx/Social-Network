@@ -29,6 +29,7 @@ class PostBox extends Component{
   }
 
   submitPost = (e)=>{
+    e.preventDefault()
     var data = Object.assign({}, this.state, {parent:this.props.parent})
     this.props.newPost(data)
   }
