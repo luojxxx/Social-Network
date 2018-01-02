@@ -40,7 +40,7 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
     var userId = req.user._id;
     var saved = req.user.saved;
     var postId = req.params._id;
-    postId.substring(0,513)
+    postId = postId.substring(0,257)
 
     if (saved.includes(postId)) {
       saved = saved.filter(e => e !== postId);
@@ -63,7 +63,7 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
 
 router.get('/:_id', function(req, res, next) {
   var userId = req.params._id;
-  userId.substring(0,513)
+  userId = userId.substring(0,257)
   var query = {_id: userId};
 
   User.findOne(query)
@@ -95,6 +95,7 @@ router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userProfile = req.user;
     var field = req.params.field;
+    field = field.substring(0,65)
 
     var saved = userProfile.saved;
     var upVoted = [];
@@ -139,7 +140,7 @@ router.put('/:id/username', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = String(req.user._id);
     var newUserName = req.body.userName;
-    newUserName.substring(0,33)
+    newUserName = newUserName.substring(0,33)
 
     if (req.params.id === userId) {
       User.find({userName: newUserName})

@@ -9,6 +9,7 @@ router.post('/:_id', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = req.user._id;
     var postId = String(req.params._id);
+    postId = postId.substring(0,257)
 
     Report.findOne({postId:postId})
     .then((searchResults)=>{

@@ -99,6 +99,7 @@ export const generateThreadedPosts = (data) => {
   return [dataDic, listOfList]
 }
 
+// Date formatting functions
 export const convertToTimePassed = (time) => {
   var timeDiff = (Date.now() - time)/1000
   var displayTime = ''
@@ -151,7 +152,6 @@ export const sortLayer = (dataDic, dataOrder, sortBy, sortDirection) => {
     dataOrder.reverse()
     return dataOrder
   }
-  
 }
 
 export const postSorter = (dataDic, dataOrder, sortBy, sortDirection) => {

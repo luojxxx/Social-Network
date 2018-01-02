@@ -4,6 +4,18 @@ import {generateThreadedPosts, remove, postSorter} from '../libraryHelper'
 
 const routing = routerReducer
 
+const findAllParents = (dataDic, startId) => {
+  var allParents = []
+  while (dataDic[startId].parent in dataDic) {
+    let parent = dataDic[startId].parent
+    allParents.push(parent)
+    startId = parent
+  }
+  return allParents
+}
+
+// const insertIntoNestedList = ()
+
 const displayedPosts = (state = {
   pageData: [],
   data: {},
@@ -30,6 +42,8 @@ const displayedPosts = (state = {
 
     case 'UPDATE_NEW_POST':
     var newPostData = action.payload
+
+
     console.log(state.pageData)
     var pageData = [newPostData, ...state.pageData]
     console.log(pageData)

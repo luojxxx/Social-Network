@@ -98,7 +98,7 @@ router.post('/', passport.authenticate('bearer', { session: false }),
     postData.contentTag = postData.contentTag.substring(0,65)
     postData.contentLink = postData.contentLink.substring(0,513)
     postData.contentDescription = postData.contentDescription.substring(0,10001)
-    postData.parent = postData.parent.substring(0,513)
+    postData.parent = postData.parent.substring(0,257)
     var newPost = {
       submittedByUserId: userId,
       submittedByUserName: userName,
@@ -146,6 +146,7 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
     var userId = allUserInfo._id;
 
     var postId = req.params._id;
+    postId = postId.substring(0,257)
     var currentVote = req.body.vote;
 
     if (currentVote != -1 && currentVote != 0 && currentVote !=1) {
@@ -202,6 +203,7 @@ router.delete('/:_id', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = String(req.user._id);
     var postId = String(req.params._id);
+    postId = postId.substring(0,257)
 
     Post.findOne({_id: postId})
     .then((postToDelete)=>{
