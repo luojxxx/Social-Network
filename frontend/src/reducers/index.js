@@ -278,12 +278,12 @@ const displayState = (state = {
   }
 }
 
-const reducers = combineReducers({
+const reducers = {
   routing,
   displayedPosts,
   userAccount,
   userProfile,
   displayState
-})
+}
 
 export default reducers

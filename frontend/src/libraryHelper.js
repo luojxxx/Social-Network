@@ -127,8 +127,9 @@ export const convertToTimePassed = (time) => {
     let plural = (calcTime>1)?'s':''
       displayTime = String(calcTime)+' minute'+plural
   } else {
+    let calcTime = Math.floor(timeDiff)
     let plural = (timeDiff>1)?'s':''
-    displayTime = String(timeDiff)+' second'+plural
+    displayTime = String(calcTime)+' second'+plural
   }
 
   return displayTime

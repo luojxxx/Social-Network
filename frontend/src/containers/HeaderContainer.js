@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newPost } from '../actions'
+import { newPost, search } from '../actions'
 import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -9,6 +9,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   newPost: (data) => {
     dispatch(newPost(data))
+  },
+  search: (searchQuery) => {
+    dispatch(search(searchQuery))
   }
 })
 

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var mongoose = require('mongoose');
 
 var Post = require('../models/post');
 var User = require('../models/user');
@@ -20,60 +21,30 @@ router.get('/:_id', function(req, res, next) {
   })
 });
 
-// router.get('/:_id/graph', function(req, res, next) {
-//   var postId = req.params._id;
-//   var query = {$match: {_id: postId}};
-
-//   Post.aggregate(query, {
-//     $graphLookup: {
-//       from: 'posts',
-//       startWith: '$children',
-//       connectFromField: 'children',
-//       connectToField: '_id',
-//       as: 'connections'
-//     }
-//   })
-//   .then((result)=>{
-//     res.status(200);
-//     res.json(result);
-//   })
-//   .catch((err)=>{
-//     res.status(400);
-//     res.send(err);
-//   })
-// });
-
 router.get('/:_id/graph', function(req, res, next) {
   var postId = req.params._id;
-  postId = postId.substring(0,257)
 
-  var children = [];
-  Post.findOne({'_id': postId})
-  .then((post)=>{
-    children.push(post)
-    if (post.children === '') {
-      res.json(children)
-    }
-    Post.find({
-      '_id': {$in: post.children}
-    })
-    .then((results)=>{
-      for (var idx in results) {
-        post = results[idx];
-        children.push(post)
-      }
-      res.json(children)
-    })
-    .catch((err)=>{
-      res.status(400);
-      res.send(err);
-    })
+  Post.aggregate([
+    {$match: {_id: mongoose.Types.ObjectId(postId)}}, 
+    {$graphLookup: {
+      from: 'posts',
+      startWith: '$children',
+      connectFromField: 'children',
+      connectToField: '_id',
+      as: 'connections'}}
+    ])
+  .then((result)=>{
+    var connections = result[0].connections;
+    result = result.concat(connections);
+    delete result[0].connections;
+    res.status(200);
+    res.json(result);
+  })
   .catch((err)=>{
     res.status(400);
     res.send(err);
   })
-})
-})
+});
 
 // router.get('/tag/:_id', function(req, res, next) {
 //   var id = req.params._id;

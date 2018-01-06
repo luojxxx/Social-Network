@@ -17,6 +17,7 @@ var seedrandom = require('seedrandom');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
+var search = require('./routes/search');
 var reports = require('./routes/reports');
 var recommendations = require('./routes/recommendations');
 
@@ -28,7 +29,6 @@ var app = express();
 
 var databaseConnectionString = 'mongodb://'+process.env.DATABASE_USERNAME+':'+process.env.DATABASE_PASSWORD+process.env.DATABASE_STRING+process.env.DATABASE_NAME+process.env.DATABASE_OPTIONS
 
-console.log(databaseConnectionString)
 mongoose.connect(databaseConnectionString)
 var db = mongoose.connection;
 
@@ -101,6 +101,7 @@ app.get('/auth/google/callback',
 app.use('/api/', index);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
+app.use('/api/search', search);
 app.use('/api/reports', reports);
 app.use('/api/recommendations', recommendations);
 
