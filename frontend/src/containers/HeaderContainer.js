@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
-import { newPost, search } from '../actions'
+import { newPost, search, loadUserData, logout, showPostBox } from '../actions'
 import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({
+  userAccount: state.userAccount,
   showPostBoxId: state.displayState.showPostBoxId
 })
 
@@ -12,6 +13,15 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   search: (searchQuery) => {
     dispatch(search(searchQuery))
+  }, 
+  loadUserData: () => {
+    dispatch(loadUserData())
+  },
+  logout: () => {
+    dispatch(logout())
+  },
+  showPostBox: (parentId) => {
+    dispatch(showPostBox(parentId))
   }
 })
 
