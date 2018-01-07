@@ -10,7 +10,7 @@ class PostPage extends Component {
   render() {
     return (
       <div>
-        <Header /> <br/>
+        <Header subheader='Post Page' /> <br/>
         <List />
       </div>
     )

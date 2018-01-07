@@ -10,7 +10,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <Header /> <br/>
+        <Header subheader='Front Page' /> <br/>
         <List />
       </div>
     )

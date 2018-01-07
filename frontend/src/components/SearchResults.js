@@ -10,7 +10,7 @@ class SearchResults extends Component {
   render() {
     return (
       <div>
-        <Header /> <br/>
+        <Header subheader='Search Results' /> <br/>
         <List />
       </div>
     )

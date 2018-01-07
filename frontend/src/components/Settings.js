@@ -25,7 +25,7 @@ class Settings extends Component{
     var userAccount = this.props.userAccount
     return (
       <div>
-        <Header /> <br/>
+        <Header subheader='Settings' /> <br/>
         <div className="content-block w-container">
           Settings <br/><br/>
           Username: 

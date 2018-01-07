@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newPost, search, loadUserData, logout, showPostBox } from '../actions'
+import { newPost, loadUserData, logout, showPostBox } from '../actions'
 import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -11,9 +11,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   newPost: (data) => {
     dispatch(newPost(data))
   },
-  search: (searchQuery) => {
-    dispatch(search(searchQuery))
-  }, 
   loadUserData: () => {
     dispatch(loadUserData())
   },

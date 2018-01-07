@@ -37,7 +37,7 @@ class UserProfile extends Component {
     if (userProfileId === userAccount.userId) {
       return (
         <div>
-          <Header /> <br/>
+          <Header subheader='User Profile' /> <br/>
           {this.props.showPostBoxId==='frontPage'? 
           <PostBox newPost={this.props.newPost} parent='' /> : ''}
           <div className="w-container">
