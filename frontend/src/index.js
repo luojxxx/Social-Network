@@ -14,10 +14,11 @@ import storage from 'redux-persist/lib/storage'
 import reducers from './reducers'
 
 import Authtoken from './components/Authtoken'
-import App from './components/App'
+import HomePage from './containers/HomePageContainer'
+import PostPage from './containers/PostPageContainer'
+import SearchResults from './containers/SearchResultsContainer'
 import UserProfile from './containers/UserProfileContainer'
 import Settings from './containers/SettingsContainer'
-import PostPage from './components/PostPage'
 import SharePage from './containers/SharePageContainer'
 import Page404 from './components/Page404'
 
@@ -32,7 +33,6 @@ function configureStore () {
   let middleware = applyMiddleware(thunk, createLogger())
   let store = createStore(reducer, middleware)
   let persistor = persistStore(store)
-
   return { persistor, store }
 }
 
@@ -44,10 +44,11 @@ render(
   <Provider store={persistorStore.store} persistor={persistorStore.persistor}>
     <Router history={history}>
       <Route path="/authtoken" component={Authtoken} />
-      <Route path="/" component={App}></Route>
+      <Route path="/" component={HomePage}></Route>
+      <Route path="/post/:postId" component={PostPage} />
+      <Route path="/search" component={SearchResults} />
       <Route path="/userprofile/:userId" component={UserProfile} />
       <Route path="/settings" component={Settings} />
-      <Route path="/post/:postId" component={PostPage} />
       <Route path="/share/:postId" component={SharePage} />
       <Route path="*" component={Page404} />
     </Router>

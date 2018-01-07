@@ -1,7 +1,14 @@
 import { connect } from 'react-redux'
-import { loadFrontPageData, loadPost, showPostBox, 
-  newPost, vote, deletePost, savePost, reportPost,
-   showReportConfirmation, showPostDescription, sortPosts } from '../actions'
+import {
+  showPostBox, 
+  newPost, 
+  vote, 
+  deletePost, 
+  savePost, 
+  reportPost, 
+  showReportConfirmation, 
+  showPostDescription, 
+  sortPosts } from '../actions'
 import List from '../components/List'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -39,12 +46,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   reportPost: (postId) => {
     dispatch(reportPost(postId))
-  },
-  loadFrontPageData: () => {
-    dispatch(loadFrontPageData())
-  },
-  loadPost: (postId) => {
-    dispatch(loadPost(postId))
   },
   sortPosts: (sortBy, direction) => {
     dispatch(sortPosts(sortBy, direction))

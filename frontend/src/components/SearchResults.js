@@ -2,15 +2,19 @@ import React, { Component } from 'react'
 import Header from '../containers/HeaderContainer'
 import List from '../containers/ListContainer'
 
-class App extends Component {
+class SearchResults extends Component {
+  componentWillMount() {
+    this.props.search(this.props.location.query.q)
+  }
+
   render() {
     return (
       <div>
         <Header /> <br/>
-        <List loadPage='frontPage' />
+        <List />
       </div>
     )
   }
 }
 
-export default App
+export default SearchResults

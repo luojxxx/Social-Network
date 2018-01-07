@@ -4,23 +4,7 @@ import ListItem from './ListItem'
 import SortingDropDown from './SortingDropDown'
 
 class List extends Component{
-  componentWillMount() {
-    if (this.props.loadPage==='frontPage') {
-      this.props.loadFrontPageData()
-    }
-    if (this.props.loadPage==='postPage') {
-      this.props.loadPost(this.props.params.postId)
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.loadPage==='postPage') {
-      if (this.props.params.postId !== nextProps.params.postId) {
-        this.props.loadPost(nextProps.params.postId)
-      }
-    }
-  }
-
+  
   listItem = (postId, depth) => {
     var props = this.props    
     var item = props.displayedPostsData[postId]

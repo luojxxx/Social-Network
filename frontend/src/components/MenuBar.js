@@ -1,27 +1,28 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
+const queryString = require('query-string')
 
 class MenuBar extends Component{
   constructor(props){
     super(props)
     this.state={
-      searchField: ''
+      searchQuery: ''
     }
   }
 
   updateSearchField = (e) => {
-    this.setState({searchField: e.target.value})
+    this.setState({searchQuery: e.target.value})
   }
 
-  submitSearch = (e) => {
-    e.preventDefault()
-    this.props.search(this.state.searchField)
+  searchResultsRedirect = () => {
+    var query = queryString.stringify({q: this.state.searchQuery})
+    browserHistory.replace('/search?'+query)
   }
 
   onEnter = (e) => {
     if (e.key === 'Enter') {
-      this.props.search(this.state.searchField)
+      this.searchResultsRedirect()
     }
   }
 
@@ -39,7 +40,7 @@ class MenuBar extends Component{
         type='text' 
         name='searchField' />
         <button 
-        onClick={this.submitSearch} 
+        onClick={this.searchResultsRedirect} 
         className='w-button'>
         Search</button>
         <a 
