@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { Link, browserHistory } from 'react-router'
+import { hostUrl } from '../config'
 const queryString = require('query-string')
 
 class MenuBar extends Component{
@@ -61,7 +62,7 @@ class MenuBar extends Component{
 
         {(userAccount.loggedIn)
           ?''
-          :<a href='http://localhost:3000/auth/google/' className="w-button">Login</a>}
+          :<a href={hostUrl+'auth/google/'} className="w-button">Login</a>}
       </div>
       )}
 }

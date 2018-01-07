@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-var webserver = 'http://localhost:3000/api/'
+import { apiUrl } from '../config'
 
 // PAGE LOADING FUNCTIONS
 export const pageLoaded = (data) => ({
@@ -12,7 +11,7 @@ export function loadFrontPageData() {
   return function(dispatch){
     axios({
       method:'get',
-      url:webserver+'recommendations/'
+      url:apiUrl+'recommendations/'
     })
     .then( (response) => {
       dispatch(pageLoaded(response.data))
@@ -24,7 +23,7 @@ export function loadPost(postId) {
   return function(dispatch){
     axios({
       method:'get',
-      url:webserver+'posts/'+postId+'/graph'
+      url:apiUrl+'posts/'+postId+'/graph'
     })
     .then( (response) => {
       dispatch(pageLoaded(response.data))
@@ -55,7 +54,7 @@ export function loadUserData() {
   return function(dispatch){
     axios({
       method:'get',
-      url:webserver+'users/verify',
+      url:apiUrl+'users/verify',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }
@@ -73,7 +72,7 @@ export function changeUserName(userId, userName) {
   return function(dispatch){
     axios({
       method:'put',
-      url:webserver+'users/'+userId+'/username',
+      url:apiUrl+'users/'+userId+'/username',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
@@ -109,7 +108,7 @@ export function loadUserProfile(userId) {
   return function(dispatch){
     axios({
       method:'get',
-      url:webserver+'users/'+userId,
+      url:apiUrl+'users/'+userId,
       headers: {
         // Authorization: 'Bearer '+localStorage.getItem('token')
       }
@@ -128,7 +127,7 @@ export function loadUserHistoryByField(userId, field)  {
   return function(dispatch){
     axios({
       method:'get',
-      url:webserver+'users/'+userId+'/'+field,
+      url:apiUrl+'users/'+userId+'/'+field,
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }
@@ -147,7 +146,7 @@ export function search(searchQuery)  {
   return function(dispatch){
     axios({
       method:'get',
-      url:webserver+'search/'+searchQuery,
+      url:apiUrl+'search/'+searchQuery,
     })
     .then( (response) => {
       dispatch(pageLoaded(response.data))
@@ -177,7 +176,7 @@ export function newPost(data) {
   return function(dispatch){
     axios({
       method:'post',
-      url:webserver+'posts',
+      url:apiUrl+'posts',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
@@ -201,7 +200,7 @@ export function vote(postId, priorVote, currentVote) {
   return function(dispatch){
     axios({
       method:'put',
-      url:webserver+'posts/'+postId+'/vote',
+      url:apiUrl+'posts/'+postId+'/vote',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
@@ -230,7 +229,7 @@ export function deletePost(postId) {
   return function(dispatch){
     axios({
       method:'delete',
-      url:webserver+'posts/'+postId,
+      url:apiUrl+'posts/'+postId,
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }
@@ -254,7 +253,7 @@ export function savePost(postId) {
   return function(dispatch){
     axios({
       method:'put',
-      url:webserver+'users/saved/'+postId,
+      url:apiUrl+'users/saved/'+postId,
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }
@@ -278,7 +277,7 @@ export function reportPost(postId) {
   return function(dispatch){
     axios({
       method:'post',
-      url:webserver+'reports/'+postId,
+      url:apiUrl+'reports/'+postId,
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }

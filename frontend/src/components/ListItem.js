@@ -23,6 +23,7 @@ class ListItem extends Component{
   }
 
   showPostDescription = (e) => {
+    e.preventDefault()
     this.props.showPostDescription(this.props.post._id)
   }
 
@@ -58,17 +59,20 @@ class ListItem extends Component{
     return (
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
+
           <div 
           style={{
             width:75*this.props.depth
           }}
           className="score-block w-col w-col-1">
           </div>
+
           <div className="score-block w-col w-col-1">
             <h3
             style={scoreColor}>
             {post.score}</h3>
           </div>
+
           <div className="vote-block w-col w-col-1">
             <div>
               <a 
@@ -85,6 +89,7 @@ class ListItem extends Component{
               className="button-3 fontawesome w-button">&#xf063;</a>
             </div>
           </div>
+
           <div className="content-title-options w-col w-col-10">
             <div>
               <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
@@ -102,6 +107,7 @@ class ListItem extends Component{
                 {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}  {post.contentTag}
               </div>
             </div>
+
             <div>
               <a 
               onClick={this.showPostBox} 
@@ -127,9 +133,10 @@ class ListItem extends Component{
                 ?<a onClick={this.deletePost} href="#" className="w-button">
                 Delete</a>
                 :'')}
-
             </div>
+
           </div>
+
         </div>
         {(this.props.showPostBoxId === post._id) 
           ?<PostBox newPost={this.props.newPost} parent={post._id} /> 
