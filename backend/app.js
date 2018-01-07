@@ -33,9 +33,9 @@ mongoose.connect(databaseConnectionString)
 var db = mongoose.connection;
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID+'.apps.googleusercontent.com',
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/google/callback'
+    clientID: process.env.GOOGLE_CLIENT_ID+'.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.OAUTH_SERVER_CALLBACK_URL+'/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -78,7 +78,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: process.env.EXPRESS_SESSIONS_SECRET, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -94,7 +94,7 @@ app.get('/auth/google/callback',
     var googleId = req.user.googleId;
     var token = googleId+makeToken();
     User.authToken(googleId, token, ()=>{
-      res.redirect('http://localhost:3001/authtoken?token='+token);
+      res.redirect(process.env.OAUTH_CLIENT_CALLBACK_URL+'/authtoken?token='+token);
     })
   });
 
