@@ -7,6 +7,12 @@ class SearchResults extends Component {
     this.props.search(this.props.location.query.q)
   }
 
+  componentWillReceiveProps(nextProps) {
+      if (this.props.location.query.q !== nextProps.location.query.q) {
+        this.props.search(nextProps.location.query.q)
+      }
+    }
+
   render() {
     return (
       <div>

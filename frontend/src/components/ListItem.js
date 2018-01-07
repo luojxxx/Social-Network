@@ -120,7 +120,11 @@ class ListItem extends Component{
               className="w-button">
               Reply</a>
 
-              <span onClick={this.sharePost}>Share</span>
+              {(post.parent !== '')
+                ?<Link to={'/post/'+post.parent}>{'Parent '}</Link>
+                :''}
+
+              <span onClick={this.sharePost}>{'Share '}</span>
 
               <a onClick={this.savePost} href="#" className="w-button">
               {(this.props.savedState===true)

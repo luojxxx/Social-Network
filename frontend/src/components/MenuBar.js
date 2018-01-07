@@ -44,12 +44,15 @@ class MenuBar extends Component{
         onClick={this.searchResultsRedirect} 
         className='w-button'>
         Search</button>
-        <a 
-        onClick={this.showPostBox} 
-        style={(this.props.showPostBoxId==='frontPage')?{color:'blue'}:{}}
-        href="#" 
-        className="w-button">
-        New Post</a>
+        {(userAccount.loggedIn)
+          ?<a 
+            onClick={this.showPostBox} 
+            style={(this.props.showPostBoxId==='frontPage')?{color:'blue'}:{}}
+            href="#" 
+            className="w-button">
+            New Post</a>
+          :''}
+        
 
         {(userAccount.loggedIn)
           ?<Link to={'/userprofile/'+userAccount.userId} className="w-button">

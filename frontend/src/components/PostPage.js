@@ -7,6 +7,12 @@ class PostPage extends Component {
     this.props.loadPost(this.props.params.postId)
   }
 
+  componentWillReceiveProps(nextProps) {
+      if (this.props.params.postId !== nextProps.params.postId) {
+        this.props.loadPost(nextProps.params.postId)
+      }
+    }
+
   render() {
     return (
       <div>

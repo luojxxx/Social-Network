@@ -9,6 +9,12 @@ class UserProfile extends Component {
     this.props.loadUserProfile(this.props.params.userId)
   }
 
+  componentWillReceiveProps(nextProps) {
+      if (this.props.params.userId !== nextProps.params.userId) {
+        this.props.loadUserProfile(nextProps.params.userId)
+      }
+    }
+
   loadSubmittedPosts = (e) => {
     var userAccount = this.props.userAccount
     this.props.loadUserProfile(this.props.params.userId)
