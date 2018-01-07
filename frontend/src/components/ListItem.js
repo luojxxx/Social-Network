@@ -47,6 +47,11 @@ class ListItem extends Component{
     this.props.reportPost(this.props.post._id)
   }
 
+  sharePost = (e) => {
+    e.preventDefault()
+    this.props.showSharePostPopup(this.props.post)
+  }
+
   render() {
     var post = this.props.post
     var scoreColor = {}
@@ -68,9 +73,7 @@ class ListItem extends Component{
           </div>
 
           <div className="score-block w-col w-col-1">
-            <h3
-            style={scoreColor}>
-            {post.score}</h3>
+            <h3 style={scoreColor}>{post.score}</h3>
           </div>
 
           <div className="vote-block w-col w-col-1">
@@ -93,6 +96,7 @@ class ListItem extends Component{
           <div className="content-title-options w-col w-col-10">
             <div>
               <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
+              <span style={{color:'red'}}>{post.contentTag}</span>
               <a href={post.contentLink}>{post.contentLink}</a>
               <ContentPreview url={post.contentLink} />
               {(post.contentDescription!=='')
@@ -104,7 +108,7 @@ class ListItem extends Component{
               <div>
                 Posted by{' '}
                 <Link to={'/userprofile/'+post.submittedByUserId}>{post.submittedByUserName}</Link> 
-                {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}  {post.contentTag}
+                {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}
               </div>
             </div>
 
@@ -116,7 +120,7 @@ class ListItem extends Component{
               className="w-button">
               Reply</a>
 
-              <Link to={'/share/'+post._id}>Share</Link>
+              <span onClick={this.sharePost}>Share</span>
 
               <a onClick={this.savePost} href="#" className="w-button">
               {(this.props.savedState===true)

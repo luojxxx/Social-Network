@@ -302,3 +302,12 @@ export const showPostDescription = (postId) => ({
   payload: postId
 })
 
+// SHARE POST FUNCTION
+export const showSharePostPopup = (postData) => ({
+  type: 'SHOW_SHARE_POST_POPUP',
+  payload: postData
+})
+
+export const closeSharePostPopup = () => ({
+  type: 'CLOSE_SHARE_POST_POPUP'
+})

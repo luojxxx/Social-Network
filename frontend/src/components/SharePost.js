@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../containers/HeaderContainer'
-import List from '../containers/ListContainer'
+import { hostUrl } from '../config'
 
 import {
   ShareButtons,
@@ -40,17 +39,19 @@ const TumblrIcon = generateShareIcon('tumblr');
 const EmailIcon = generateShareIcon('email');
 
 
-class SharePage extends Component {
+class SharePost extends Component {
     render() {
-      var postId = this.props.params.postId
-      var postData = this.props.displayedPostsData[postId]
+      var postData = this.props.postData
+      if (postData === null) {
+        return ''
+      }
 
-      const shareUrl = 'www.host.com'+'/post/'+postId
+      const shareUrl = hostUrl+'/post/'+postData._id
       const title = postData.contentTitle
 
       return (
         <div className="Demo__container">
-          <Header />
+          <span onClick={this.props.closeSharePostPopup}>Close</span>
           <h1>{postData.contentTitle}</h1>
           {postData.contentLink}<br/>
           {postData.contentTag}<br/>
@@ -197,4 +198,4 @@ class SharePage extends Component {
     }
   }
 
-export default SharePage
+export default SharePost

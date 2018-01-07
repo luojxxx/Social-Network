@@ -8,7 +8,9 @@ import {
   reportPost, 
   showReportConfirmation, 
   showPostDescription, 
-  sortPosts } from '../actions'
+  sortPosts,
+  showSharePostPopup,
+  closeSharePostPopup } from '../actions'
 import List from '../components/List'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -19,7 +21,8 @@ const mapStateToProps = (state, ownProps) => ({
   saved: state.userAccount.saved,
   showPostBoxId: state.displayState.showPostBoxId,
   showPostDescriptionIds: state.displayState.showPostDescriptionIds,
-  reportConfirmationId: state.displayState.reportConfirmationId
+  reportConfirmationId: state.displayState.reportConfirmationId,
+  sharePost: state.displayState.sharePost
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -49,6 +52,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   sortPosts: (sortBy, direction) => {
     dispatch(sortPosts(sortBy, direction))
+  },
+  showSharePostPopup: (postData) => {
+    dispatch(showSharePostPopup(postData))
+  },
+  closeSharePostPopup: () => {
+    dispatch(closeSharePostPopup())
   }
 })
 

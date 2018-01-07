@@ -19,7 +19,6 @@ import PostPage from './containers/PostPageContainer'
 import SearchResults from './containers/SearchResultsContainer'
 import UserProfile from './containers/UserProfileContainer'
 import Settings from './containers/SettingsContainer'
-import SharePage from './containers/SharePageContainer'
 import Page404 from './components/Page404'
 
 const config = {
@@ -49,7 +48,6 @@ render(
       <Route path="/search" component={SearchResults} />
       <Route path="/userprofile/:userId" component={UserProfile} />
       <Route path="/settings" component={Settings} />
-      <Route path="/share/:postId" component={SharePage} />
       <Route path="*" component={Page404} />
     </Router>
   </Provider>,

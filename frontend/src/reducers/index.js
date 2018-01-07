@@ -223,7 +223,8 @@ const userProfile = (state = {
 const displayState = (state = {
   showPostBoxId: '',
   reportConfirmationId: '',
-  showPostDescriptionIds: []
+  showPostDescriptionIds: [],
+  sharePost: null
 }, action) => {
   switch (action.type) {
 
@@ -270,6 +271,18 @@ const displayState = (state = {
     return {
       ...state,
       showPostDescriptionIds: newShowPostDescriptionIds
+    }
+
+    case 'SHOW_SHARE_POST_POPUP':
+    return {
+      ...state,
+      sharePost: action.payload
+    }
+
+    case 'CLOSE_SHARE_POST_POPUP':
+    return {
+      ...state,
+      sharePost: null
     }
 
     default:

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 import SortingDropDown from './SortingDropDown'
+import SharePost from './SharePost'
 
 class List extends Component{
   
@@ -54,7 +55,7 @@ class List extends Component{
       showReportConfirmation={props.showReportConfirmation} 
       reportPost={props.reportPost} 
       vote={props.vote} 
-       />
+      showSharePostPopup={props.showSharePostPopup} />
   }
 
   recursiveComponent = (dataDic, listOfList, depth) => {
@@ -79,6 +80,7 @@ class List extends Component{
   render() {
     return (
       <div>
+      <SharePost postData={this.props.sharePost} closeSharePostPopup={this.props.closeSharePostPopup} />
       <SortingDropDown sortPosts={this.props.sortPosts} />
       {this.recursiveComponent(
         this.props.displayedPostsData, 
