@@ -30,12 +30,11 @@ const displayedPosts = (state = {
     case 'UPDATE_NEW_POST':
     var newPostData = action.payload
     newPostData.dateSubmitted = Date.parse(newPostData.dateSubmitted)
-    console.log(newPostData.dateSubmitted)
     var data = Object.assign({}, state.data)
     data[newPostData._id] = newPostData
 
     var dataOrder = Object.assign([], state.dataOrder)
-    dataOrder = insertIntoNestedList(dataOrder, newPostData.parent, newPostData._id)
+    dataOrder = insertIntoNestedList(dataOrder, newPostData.parent, newPostData._id, false)
 
     return {
       ...state,
