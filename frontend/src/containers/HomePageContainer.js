@@ -3,11 +3,12 @@ import { loadFrontPageData } from '../actions'
 import HomePage from '../components/HomePage'
 
 const mapStateToProps = (state, ownProps) => ({
+  displayedPosts: state.displayedPosts
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadFrontPageData: () => {
-    dispatch(loadFrontPageData())
+  loadFrontPageData: (page) => {
+    dispatch(loadFrontPageData(page))
   }
 })
 

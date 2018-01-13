@@ -4,8 +4,10 @@ var router = express.Router();
 var Post = require('../models/post');
 var User = require('../models/user');
 
-router.get('/', function(req, res, next) {
-  Post.find()
+router.get('/:page', function(req, res, next) {
+  var page = parseInt(req.params.page);
+
+  Post.paginate({}, {page:page, limit:10})
   .then((allPosts)=>{
     res.json(allPosts);
   })

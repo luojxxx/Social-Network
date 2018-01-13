@@ -11,7 +11,7 @@ class SearchResults extends Component {
       if (this.props.location.query.q !== nextProps.location.query.q) {
         this.props.search(nextProps.location.query.q)
       }
-    }
+  }
 
   render() {
     return (

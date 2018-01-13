@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { Link, browserHistory } from 'react-router'
 import { hostUrl } from '../config'
-const queryString = require('query-string')
+import {stringify} from 'query-string'
 
 class MenuBar extends Component{
   constructor(props){
@@ -17,7 +17,7 @@ class MenuBar extends Component{
   }
 
   searchResultsRedirect = () => {
-    var query = queryString.stringify({q: this.state.searchQuery})
+    var query = stringify({q: this.state.searchQuery})
     browserHistory.replace('/search?'+query)
   }
 

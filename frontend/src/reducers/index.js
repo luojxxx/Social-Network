@@ -8,12 +8,24 @@ const displayedPosts = (state = {
   data: {},
   dataOrder: [],
   sortBy: 'dateSubmitted',
-  sortDirection: 'down'
+  sortDirection: 'down',
+  page: 1,
+  pages: 0
 }, action) => {
   switch (action.type) {
 
     case 'PAGE_LOADED':
-    var pageData = action.payload
+    var pageData = {}
+    var page = 1
+    var pages = 0
+    if ('docs' in action.payload) {
+      pageData = action.payload.docs
+      page = action.payload.page
+      pages = action.payload.pages
+    } else {
+      pageData = action.payload
+    }
+
     var threadedPosts = generateThreadedPosts(pageData)
     var data = threadedPosts[0]
     for (let key in data) {
@@ -24,7 +36,9 @@ const displayedPosts = (state = {
     return {
       ...state,
       data: data,
-      dataOrder: dataOrder
+      dataOrder: dataOrder,
+      page: page,
+      pages: pages
     }
 
     case 'UPDATE_NEW_POST':

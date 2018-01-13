@@ -7,11 +7,11 @@ export const pageLoaded = (data) => ({
   payload: data
 })
 
-export function loadFrontPageData() {
+export function loadFrontPageData(page) {
   return function(dispatch){
     axios({
       method:'get',
-      url:apiUrl+'recommendations/'
+      url:apiUrl+'recommendations/'+page
     })
     .then( (response) => {
       dispatch(pageLoaded(response.data))

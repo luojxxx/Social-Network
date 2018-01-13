@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 
 // Post Schema
 var postSchema = mongoose.Schema({
@@ -49,8 +50,6 @@ postSchema.index(
   contentLink: 'text', contentDescription: 'text'}, 
   {weights: {contentTitle: 5, contentTag: 3, contentLink: 3, contentDescription: 1}});
 
-// postSchema.virtual('dateSubmittedMS').get(function() {
-//   return this.dateSubmitted.getTime();
-// })
+postSchema.plugin(mongoosePaginate);
 
 var Post = module.exports = mongoose.model('post', postSchema);
