@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import MenuBar from './MenuBar'
 import PostBox from './PostBox'
@@ -34,13 +33,5 @@ class Header extends Component {
       </div>
   )}
 }
-
- 
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default Header

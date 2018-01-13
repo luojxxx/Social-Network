@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
 
 const Authtoken = (props) => {
@@ -6,11 +5,5 @@ const Authtoken = (props) => {
   browserHistory.replace('/')
   return null
 }
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default Authtoken

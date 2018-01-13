@@ -16,7 +16,6 @@ class UserProfile extends Component {
     }
 
   loadSubmittedPosts = (e) => {
-    var userAccount = this.props.userAccount
     this.props.loadUserProfile(this.props.params.userId)
   }
 

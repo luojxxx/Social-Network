@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 
 class PostBox extends Component{
   constructor(props) {
@@ -91,11 +90,5 @@ class PostBox extends Component{
       )
   }
 }
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default PostBox

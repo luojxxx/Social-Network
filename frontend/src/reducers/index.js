@@ -203,7 +203,6 @@ const userAccount = (state = {
     }
 
     case 'UPDATE_USER_NAME':
-    console.log('action me: payload')
     return {
       ...state,
       userName: action.payload

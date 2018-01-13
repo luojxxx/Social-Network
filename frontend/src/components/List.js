@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import ListItem from './ListItem'
 import SortingDropDown from './SortingDropDown'
 import SharePost from './SharePost'
@@ -92,11 +91,5 @@ class List extends Component{
       </div>
       )}
 }
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default List

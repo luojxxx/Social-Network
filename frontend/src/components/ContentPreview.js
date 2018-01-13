@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 
 class ContentPreview extends Component{
   constructor(props) {
@@ -77,8 +76,8 @@ class ContentPreview extends Component{
 
   renderYouTubeThumbnail = (url) => {
     var videoId = this.getYouTubeVideoId(url)
-    var url = 'https://img.youtube.com/vi/'+videoId+'/default.jpg'
-    return <div><img src={url} /></div>
+    var srcUrl = 'https://img.youtube.com/vi/'+videoId+'/default.jpg'
+    return <div><img src={srcUrl} /></div>
   }
 
   renderYouTube = (url) => {
@@ -108,11 +107,5 @@ class ContentPreview extends Component{
       </div>
     )}
 }
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default ContentPreview

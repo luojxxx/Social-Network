@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import { Link, browserHistory } from 'react-router'
 import { hostUrl } from '../config'
 import {stringify} from 'query-string'
@@ -69,11 +68,5 @@ class MenuBar extends Component{
       </div>
       )}
 }
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default MenuBar

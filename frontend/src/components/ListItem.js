@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
-import PropTypes from 'prop-types'
 
 import {convertToTimePassed} from '../libraryHelper'
 import PostBox from './PostBox'
@@ -152,12 +151,5 @@ class ListItem extends Component{
       </div>
       )}
 }
-
-
-// Todo.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   completed: PropTypes.bool.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default ListItem
