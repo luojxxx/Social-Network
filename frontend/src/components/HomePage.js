@@ -4,18 +4,20 @@ import List from '../containers/ListContainer'
 import Pagination from './Pagination'
 
 class HomePage extends Component {
-  page = (typeof(this.props.location.query.page)!=='undefined')
-            ?this.props.location.query.page
-            :1
-
   componentWillMount() {
-    this.props.loadFrontPageData(this.page)
+    this.props.loadFrontPageData(this.defaultPage(this.props.location.query.page))
   }
 
   componentWillReceiveProps(nextProps) {
       if (this.props.location.query.page !== nextProps.location.query.page) {
-        this.props.loadFrontPageData(nextProps.location.query.page)
+        this.props.loadFrontPageData(this.defaultPage(nextProps.location.query.page))
       }
+  }
+
+  defaultPage = (page) => {
+    return (typeof(page)!=='undefined')
+              ?page
+              :1
   }
 
   render() {
@@ -23,7 +25,9 @@ class HomePage extends Component {
       <div>
         <Header subheader='Front Page' /> <br/>
         <List />
-        <Pagination pages={this.props.displayedPosts.pages} page={this.page} />
+        <Pagination 
+          pages={this.props.displayedPosts.pages} 
+          page={this.defaultPage(this.props.location.query.page)} />
       </div>
     )
   }

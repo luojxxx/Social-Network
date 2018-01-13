@@ -5,7 +5,6 @@ import SortingDropDown from './SortingDropDown'
 import SharePost from './SharePost'
 
 class List extends Component{
-  
   listItem = (postId, depth) => {
     var props = this.props    
     var item = props.displayedPostsData[postId]
@@ -78,6 +77,10 @@ class List extends Component{
   }
 
   render() {
+    if (this.props.displayedPostsOrder.length ===0){
+      return <div>No results</div>
+    }
+    
     return (
       <div>
       <SharePost postData={this.props.sharePost} closeSharePostPopup={this.props.closeSharePostPopup} />

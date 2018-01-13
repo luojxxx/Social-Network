@@ -7,7 +7,7 @@ var User = require('../models/user');
 router.get('/:page', function(req, res, next) {
   var page = parseInt(req.params.page);
 
-  Post.paginate({}, {page:page, limit:10})
+  Post.paginate({}, {page:page, limit:5})
   .then((allPosts)=>{
     res.json(allPosts);
   })
