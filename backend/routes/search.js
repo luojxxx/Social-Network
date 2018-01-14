@@ -11,7 +11,8 @@ router.get('/:searchQuery', function(req, res, next) {
 
   Post.find(
     {$text: {$search: searchQuery}},
-    {searchScore: {$meta: 'textScore'}})
+    {searchScore: {$meta: 'textScore'}}
+  )
   .sort({searchScore: {$meta: 'textScore'}})
   .then((searchResults)=>{
     res.status(200);
