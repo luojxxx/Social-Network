@@ -46,9 +46,18 @@ var postSchema = mongoose.Schema({
 });
 
 postSchema.index(
-  {contentTitle: 'text', contentTag: 'text', 
-  contentLink: 'text', contentDescription: 'text'}, 
-  {weights: {contentTitle: 5, contentTag: 3, contentLink: 3, contentDescription: 1}});
+  {
+    contentTitle: 'text', 
+    contentTag: 'text', 
+    contentLink: 'text', 
+    contentDescription: 'text'
+  }, 
+  {weights: {
+    contentTitle: 5, 
+    contentTag: 3, 
+    contentLink: 3, 
+    contentDescription: 1
+  }});
 
 postSchema.plugin(mongoosePaginate);
 

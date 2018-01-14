@@ -11,9 +11,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   newPost: (data) => {
     dispatch(newPost(data))
   },
-  loadUserData: () => {
-    dispatch(loadUserData())
-  },
   logout: () => {
     dispatch(logout())
   },

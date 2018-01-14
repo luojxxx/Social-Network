@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import { persistStore, persistCombineReducers } from 'redux-persist'
@@ -14,6 +14,7 @@ import storage from 'redux-persist/lib/storage'
 import reducers from './reducers'
 
 import Authtoken from './components/Authtoken'
+import App from './containers/AppContainer'
 import HomePage from './containers/HomePageContainer'
 import PostPage from './containers/PostPageContainer'
 import SearchResults from './containers/SearchResultsContainer'
@@ -42,13 +43,17 @@ const history = syncHistoryWithStore(browserHistory, persistorStore.store)
 render(
   <Provider store={persistorStore.store} persistor={persistorStore.persistor}>
     <Router history={history}>
-      <Route path="/authtoken" component={Authtoken} />
-      <Route path="/" component={HomePage}></Route>
-      <Route path="/post/:postId" component={PostPage} />
-      <Route path="/search" component={SearchResults} />
-      <Route path="/userprofile/:userId" component={UserProfile} />
-      <Route path="/settings" component={Settings} />
-      <Route path="*" component={Page404} />
+      
+      <Route path="/" component={App}>
+        <IndexRoute component={HomePage}></IndexRoute>
+        <Route path="/authtoken" component={Authtoken} />
+        <Route path="/post/:postId" component={PostPage} />
+        <Route path="/search" component={SearchResults} />
+        <Route path="/userprofile/:userId" component={UserProfile} />
+        <Route path="/settings" component={Settings} />
+        <Route path="*" component={Page404} />
+      </Route>
+      
     </Router>
   </Provider>,
   document.getElementById('root')

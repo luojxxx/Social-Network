@@ -4,10 +4,6 @@ import MenuBar from './MenuBar'
 import PostBox from './PostBox'
 
 class Header extends Component {
-  componentWillMount() {
-    this.props.loadUserData()
-  }
-
   render() {
     var props = this.props
     return (
