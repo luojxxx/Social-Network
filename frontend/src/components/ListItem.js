@@ -99,6 +99,7 @@ class ListItem extends Component{
               {' '}
               <Link to={'/post/'+post._id}>{post.contentTitle}</Link>
               <span style={{color:'red'}}>{post.contentTag}</span>
+              <br />
               <a href={post.contentLink}>{post.contentLink}</a>
               <ContentPreview url={post.contentLink} />
               {(post.contentDescription!=='')

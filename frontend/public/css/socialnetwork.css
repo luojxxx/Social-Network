@@ -319,6 +319,15 @@
   margin-left: 10px;
 }
 
+a {
+  text-decoration: none;
+}
+
+button:focus, button:active, button:focus:active {
+  box-shadow: none;
+  outline: none;
+}
+
 @font-face {
   font-family: 'Fontawesome webfont';
   src: url('../fonts/fontawesome-webfont.woff2') format('woff2'), 

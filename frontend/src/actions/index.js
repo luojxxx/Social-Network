@@ -142,6 +142,11 @@ export function loadUserHistoryByField(userId, field)  {
 }
 
 // SEARCH FUNCTIONS
+export const searchPageLoaded = (data) => ({
+  type: 'SEARCH_PAGE_LOADED',
+  payload: data
+})
+
 export function search(searchQuery)  {
   return function(dispatch){
     axios({
@@ -149,7 +154,7 @@ export function search(searchQuery)  {
       url:apiUrl+'search/'+searchQuery,
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data))
+      dispatch(searchPageLoaded(response.data))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())

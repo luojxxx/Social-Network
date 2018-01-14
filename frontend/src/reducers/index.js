@@ -41,6 +41,39 @@ const displayedPosts = (state = {
       pages: pages
     }
 
+
+    case 'SEARCH_PAGE_LOADED':
+    var pageData = {}
+    var page = 1
+    var pages = 0
+    if ('docs' in action.payload) {
+      pageData = action.payload.docs
+      page = action.payload.page
+      pages = action.payload.pages
+    } else {
+      pageData = action.payload
+    }
+
+    var data = {}
+    var dataOrder = []
+    for (let idx in pageData) {
+      let item = pageData[idx]
+      data[item._id] = item
+      dataOrder.push({postId: item._id, children: []})
+    }
+    for (let key in data) {
+      data[key]['dateSubmitted'] = Date.parse(data[key]['dateSubmitted'])
+    }
+
+    return {
+      ...state,
+      data: data,
+      dataOrder: dataOrder,
+      page: page,
+      pages: pages
+    }
+
+
     case 'UPDATE_NEW_POST':
     var newPostData = action.payload
     newPostData.dateSubmitted = Date.parse(newPostData.dateSubmitted)
@@ -55,6 +88,7 @@ const displayedPosts = (state = {
       data: data,
       dataOrder: dataOrder
     }
+
 
     case 'UPDATE_NEW_VOTE':
     var newData = Object.assign({}, state.data)
@@ -76,6 +110,7 @@ const displayedPosts = (state = {
       data: newData
     }
 
+
     case 'UPDATE_NEW_DELETED_POST':
     var newData = Object.assign({}, state.data)
     var postId = action.payload
@@ -90,6 +125,7 @@ const displayedPosts = (state = {
       ...state,
       data: newData
     }
+
 
     case 'SORT_POSTS':
     var sortBy = action.payload.sortBy
@@ -133,6 +169,7 @@ const userAccount = (state = {
       totalVotes: action.payload.totalVotes
     }
 
+
     case 'USERDATA_LOADFAILED':
     return {
       ...state,
@@ -145,6 +182,7 @@ const userAccount = (state = {
       saved: [],
       totalVotes: 0
     }
+
 
     case 'LOGOUT':
     localStorage.removeItem('token')
@@ -160,11 +198,13 @@ const userAccount = (state = {
       totalVotes: 0
     }
 
+
     case 'UPDATE_NEW_POST':
     return {
       ...state,
       submitted: [action.payload._id, ...state.submitted]
     }
+
 
     case 'UPDATE_NEW_VOTE':
     var newVoteHistory = Object.assign({}, state.voteHistory)
@@ -185,6 +225,7 @@ const userAccount = (state = {
       voteHistory: newVoteHistory
     }
 
+
     case 'UPDATE_NEW_SAVED_POST':
     var postId = action.payload
 
@@ -201,6 +242,7 @@ const userAccount = (state = {
       ...state,
       saved: newSaved
     }
+
 
     case 'UPDATE_USER_NAME':
     return {
@@ -254,11 +296,13 @@ const displayState = (state = {
       }
     }
     
+
     case 'CLOSE_POST_BOX':
     return {
       ...state,
       showPostBoxId: ''
     }
+
 
     case 'SHOW_REPORT_CONFIRMATION':
     if (state.reportConfirmationId === action.payload) {
@@ -273,6 +317,7 @@ const displayState = (state = {
       }
     }
 
+
     case 'SHOW_POST_DESCRIPTION':
     var postId = action.payload
     var newShowPostDescriptionIds = []
@@ -286,11 +331,13 @@ const displayState = (state = {
       showPostDescriptionIds: newShowPostDescriptionIds
     }
 
+
     case 'SHOW_SHARE_POST_POPUP':
     return {
       ...state,
       sharePost: action.payload
     }
+
 
     case 'CLOSE_SHARE_POST_POPUP':
     return {
