@@ -31,7 +31,7 @@ router.get('/:_id/graph', function(req, res, next) {
       startWith: '$children',
       connectFromField: 'children',
       connectToField: '_id',
-      maxDepth: 5,
+      maxDepth: 4,
       as: 'connections'}}
     ])
   .then((result)=>{
@@ -46,20 +46,6 @@ router.get('/:_id/graph', function(req, res, next) {
     res.send(err);
   })
 });
-
-// router.get('/tag/:_id', function(req, res, next) {
-//   var id = req.params._id;
-//   var query = {_id: id};
-
-//   Post.find(query)
-//   .then((post)=>{
-//     res.json(post);
-//   })
-//   .catch((err)=>{
-//     res.status(404);
-//     res.send(err);
-//   })
-// });
 
 router.post('/', passport.authenticate('bearer', { session: false }),
   function(req,res){

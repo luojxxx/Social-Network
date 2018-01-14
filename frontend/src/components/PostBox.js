@@ -84,7 +84,7 @@ class PostBox extends Component{
           className="w-input"></textarea>
         </div>
         <div>
-          <a href="#" onClick={this.submitPost} className="w-button">Submit</a>
+          <button onClick={this.submitPost} className="w-button">Submit</button>
         </div>
       </div>
       )

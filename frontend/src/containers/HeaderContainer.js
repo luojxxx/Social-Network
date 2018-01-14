@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newPost, loadUserData, logout, showPostBox } from '../actions'
+import { newPost, logout, showPostBox } from '../actions'
 import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({

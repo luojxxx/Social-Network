@@ -72,22 +72,20 @@ class ListItem extends Component{
           </div>
           <div className="vote-block w-col w-col-1">
             <div>
-              <a 
+              <button 
                 onClick={this.upVote}
                 style={(this.props.voteState===1)?{color:'orange'}:{}}
-                href="#" 
-                className="button-2 fontawesome w-button">
+                className="button-2 fontawesome">
                 &#xf062;
-              </a>
+              </button>
             </div>
             <div>
-              <a 
+              <button 
                 onClick={this.downVote}
                 style={(this.props.voteState===-1)?{color:'blue'}:{}}
-                href="#" 
-                className="button-3 fontawesome w-button">
+                className="button-3 fontawesome">
                 &#xf063;
-              </a>
+              </button>
             </div>
           </div>
 
@@ -98,7 +96,8 @@ class ListItem extends Component{
                   to={'/post/'+post.parent}
                   className="button-3 fontawesome">&#xf137;</Link>
                 :''}
-              <Link to={'/post/'+post._id}><h4>{post.contentTitle}</h4></Link>
+              {' '}
+              <Link to={'/post/'+post._id}>{post.contentTitle}</Link>
               <span style={{color:'red'}}>{post.contentTag}</span>
               <a href={post.contentLink}>{post.contentLink}</a>
               <ContentPreview url={post.contentLink} />
@@ -116,32 +115,31 @@ class ListItem extends Component{
             </div>
 
             <div>
-              <a 
+              <button 
                 onClick={this.showPostBox} 
                 style={(this.props.showPostBoxId===post._id)?{color:'blue'}:{}}
-                href="#" 
-                className="w-button">
+                className="">
                 Reply
-              </a>
-              <span onClick={this.sharePost}>
+              </button>
+              <button onClick={this.sharePost} className="">
                 {'Share '}
-              </span>
-              <a onClick={this.savePost} href="#" className="w-button">
+              </button>
+              <button onClick={this.savePost} className="">
                 {(this.props.savedState===true)
                   ?'Unsave'
                   :'Save'}
-              </a>
+              </button>
               {(this.props.showReportConfirmationState===true)
-                ?<a onClick={this.reportPost} href="#" className="w-button">
+                ?<button onClick={this.reportPost} className="">
                   Report Confirm?
-                  </a>
-                :<a onClick={this.showReportConfirmation} href="#" className="w-button">
+                  </button>
+                :<button onClick={this.showReportConfirmation} className="">
                   Report
-                  </a>}
+                  </button>}
               {(this.props.submittedByCurrentUser
-                ?<a onClick={this.deletePost} href="#" className="w-button">
+                ?<button onClick={this.deletePost} className="">
                   Delete
-                  </a>
+                  </button>
                   :'')}
             </div>
           </div>

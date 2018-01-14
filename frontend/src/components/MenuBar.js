@@ -35,31 +35,33 @@ class MenuBar extends Component{
     return (
       <div className="username-options w-col w-col-8">
         <input 
-        onChange={this.updateSearchField} 
-        onKeyPress={this.onEnter} 
-        type='text' 
-        name='searchField' />
+          onChange={this.updateSearchField} 
+          onKeyPress={this.onEnter} 
+          type='text' 
+          name='searchField' />
         <button 
-        onClick={this.searchResultsRedirect} 
-        className='w-button'>
-        Search</button>
+          onClick={this.searchResultsRedirect} 
+          className='w-button'>
+          Search
+        </button>
         {(userAccount.loggedIn)
-          ?<a 
+          ?<button 
             onClick={this.showPostBox} 
             style={(this.props.showPostBoxId==='frontPage')?{color:'blue'}:{}}
-            href="#" 
             className="w-button">
-            New Post</a>
+            New Post
+            </button>
           :''}
         
 
         {(userAccount.loggedIn)
           ?<Link to={'/userprofile/'+userAccount.userId} className="w-button">
-          {userAccount.userName}</Link>
+            {userAccount.userName}
+            </Link>
           :''}
         
         {(userAccount.loggedIn)
-          ?<a onClick={this.props.logout} href='#' className="w-button">Logout</a>
+          ?<button onClick={this.props.logout} className="w-button">Logout</button>
           :''}
 
         {(userAccount.loggedIn)
