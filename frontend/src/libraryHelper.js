@@ -23,10 +23,10 @@ export const navigateTree = (data, startId) => {
   while (data[startId].parent !== '' && data[startId].parent in data) {
     startId = data[startId].parent
   }
-  return getTree(data, startId)
+  return [startId, getTree(data, startId)]
 }
 
-function getKeys(obj) {
+export const getKeys = (obj) => {
   var all = {}
   var seen = []
   checkValue(obj)
@@ -57,11 +57,12 @@ function getKeys(obj) {
 export const getForest = (data, allIds) => {
   var forest = {}
   while (allIds.length !== 0) {
-    var tree = navigateTree(data, allIds[0])
-    forest[allIds[0]] = tree
+    var rootId, tree
+    [rootId, tree] = navigateTree(data, allIds[0])
+    forest[rootId] = tree
 
     var tempTree = {}
-    tempTree[allIds[0]] = tree
+    tempTree[rootId] = tree
     var idsInTree = getKeys(tempTree)
     allIds = remove(allIds, idsInTree)
   }
@@ -212,3 +213,9 @@ export const insertIntoNestedList = (dataOrder, newPostParent, newPostId, added)
 //     }
 //   }
 // }
+
+export const defaultPage = (page) => {
+    return (typeof(page)!=='undefined')
+              ?page
+              :1
+  }

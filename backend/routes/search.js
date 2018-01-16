@@ -2,21 +2,31 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
 
-router.get('/:searchQuery', function(req, res, next) {
+router.get('/:searchQuery/:page', function(req, res, next) {
   var searchQuery = req.params.searchQuery;
+  var page = parseInt(req.params.page)-1;
+  var pageSize = 5;
 
-  Post.find(
+  var searchCount = Post.find({$text: {$search: searchQuery}},
+    {searchScore: {$meta: 'textScore'}})
+    .count()
+
+  var searchResults = Post.find(
     {$text: {$search: searchQuery}},
-    {searchScore: {$meta: 'textScore'}}
-  )
-  .sort({searchScore: {$meta: 'textScore'}})
-  .then((searchResults)=>{
+    {searchScore: {$meta: 'textScore'}},
+    {skip: pageSize*page, limit: pageSize}
+    )
+    .sort({searchScore: {$meta: 'textScore'}})
+
+  Promise.all([searchCount, searchResults])
+  .then((values)=>{
     res.status(200);
-    res.json(searchResults);
+    res.send({pages: Math.ceil(values[0]/pageSize), docs: values[1]});
   })
   .catch((err)=>{
     res.status(404);
