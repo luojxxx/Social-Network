@@ -3,14 +3,15 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 mongoose.Promise = Promise;
+// var config = require('../config')
+var pageSize = 3
 
 var Post = require('../models/post');
 var User = require('../models/user');
 
 router.get('/:searchQuery/:page', function(req, res, next) {
   var searchQuery = req.params.searchQuery;
-  var page = parseInt(req.params.page)-1;
-  var pageSize = 5;
+  var page = parseInt(req.params.page);
 
   var searchCount = Post.find({$text: {$search: searchQuery}},
     {searchScore: {$meta: 'textScore'}})

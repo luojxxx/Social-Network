@@ -6,8 +6,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  search: (searchQuery) => {
-    dispatch(search(searchQuery))
+  search: (searchQuery, page) => {
+    dispatch(search(searchQuery, page))
   }
 })
 

@@ -4,12 +4,21 @@ var router = express.Router();
 var Post = require('../models/post');
 var User = require('../models/user');
 
+var pageSize = 3;
+
 router.get('/:page', function(req, res, next) {
   var page = parseInt(req.params.page);
 
-  Post.paginate({}, {page:page, limit:5, sort:{dateSubmitted:-1}})
-  .then((allPosts)=>{
-    res.json(allPosts);
+  var postCount = Post.find({}).count()
+  var postResults = Post.find({},{},{
+    skip: pageSize*page, 
+    limit: pageSize, 
+    sort:{dateSubmitted:-1}})
+
+  Promise.all([postCount, postResults])
+  .then((values)=>{
+    res.status(200);
+    res.send({pages: Math.ceil(values[0]/pageSize), docs: values[1]});
   })
   .catch((err)=>{
     res.status(404);

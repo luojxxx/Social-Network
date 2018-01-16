@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../containers/HeaderContainer'
 import List from '../containers/ListContainer'
-import Pagination from './Pagination'
+import Pagination from '../containers/PaginationContainer'
 import {defaultPage} from '../libraryHelper'
 
 class HomePage extends Component {
@@ -10,7 +10,7 @@ class HomePage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.location.query.page !== nextProps.location.query.page) {
+      if (this.props.location.query !== nextProps.location.query) {
         this.props.loadFrontPageData(defaultPage(nextProps.location.query.page))
       }
   }
@@ -21,8 +21,8 @@ class HomePage extends Component {
         <Header subheader='Front Page' /> <br/>
         <List />
         <Pagination 
-          pages={this.props.displayedPosts.pages} 
-          page={defaultPage(this.props.location.query.page)} />
+          urlStem='' 
+          query={{page: defaultPage(this.props.location.query.page)}} />
       </div>
     )
   }

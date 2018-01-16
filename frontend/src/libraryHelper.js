@@ -217,5 +217,5 @@ export const insertIntoNestedList = (dataOrder, newPostParent, newPostId, added)
 export const defaultPage = (page) => {
     return (typeof(page)!=='undefined')
               ?page
-              :1
+              :0
   }

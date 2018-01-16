@@ -1,17 +1,14 @@
 import { connect } from 'react-redux'
-import { loadFrontPageData } from '../actions'
-import HomePage from '../components/HomePage'
+import Pagination from '../components/Pagination'
 
 const mapStateToProps = (state, ownProps) => ({
+  pages: state.displayedPosts.pages
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadFrontPageData: (page) => {
-    dispatch(loadFrontPageData(page))
-  }
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomePage)
+)(Pagination)

@@ -9,7 +9,6 @@ const displayedPosts = (state = {
   dataOrder: [],
   sortBy: 'dateSubmitted',
   sortDirection: 'down',
-  page: 1,
   pages: 0
 }, action) => {
   switch (action.type) {
@@ -20,7 +19,6 @@ const displayedPosts = (state = {
     var pages = 0
     if ('docs' in action.payload) {
       pageData = action.payload.docs
-      page = action.payload.page
       pages = action.payload.pages
     } else {
       pageData = action.payload
@@ -37,18 +35,15 @@ const displayedPosts = (state = {
       ...state,
       data: data,
       dataOrder: dataOrder,
-      page: page,
       pages: pages
     }
 
 
     case 'SEARCH_PAGE_LOADED':
     var pageData = {}
-    var page = 1
     var pages = 0
     if ('docs' in action.payload) {
       pageData = action.payload.docs
-      page = action.payload.page
       pages = action.payload.pages
     } else {
       pageData = action.payload
@@ -69,7 +64,6 @@ const displayedPosts = (state = {
       ...state,
       data: data,
       dataOrder: dataOrder,
-      page: page,
       pages: pages
     }
 

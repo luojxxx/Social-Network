@@ -147,11 +147,11 @@ export const searchPageLoaded = (data) => ({
   payload: data
 })
 
-export function search(searchQuery)  {
+export function search(searchQuery, page)  {
   return function(dispatch){
     axios({
       method:'get',
-      url:apiUrl+'search/'+searchQuery,
+      url:apiUrl+'search/'+searchQuery+'/'+page,
     })
     .then( (response) => {
       dispatch(searchPageLoaded(response.data))

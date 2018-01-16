@@ -4,12 +4,12 @@ import {stringify} from 'query-string'
 
 class Pagination extends Component {
   changePage = (value) => {
-    var query = stringify({page: value})
-    browserHistory.replace('?'+query)
+    var query = stringify(value)
+    browserHistory.replace(this.props.urlStem+'?'+query)
   }
 
   render() {
-    var page = parseInt(this.props.page)
+    var page = parseInt(this.props.query.page)
     if (this.props.pages === 0) {
       return ''
     }
@@ -17,13 +17,13 @@ class Pagination extends Component {
       <div>
         {[...Array(this.props.pages).keys()].map((ele)=>{
           let style = {}
-          if (page === ele+1) {
+          if (page === ele) {
             style = {color:'red'}
           }
           return (
             <button 
               style={style}
-              onClick={()=>this.changePage(ele+1)}>
+              onClick={()=>this.changePage({page: ele, q: this.props.query.q})}>
               {ele+1}
             </button>)
         })}
