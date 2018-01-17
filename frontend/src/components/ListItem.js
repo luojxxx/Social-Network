@@ -110,7 +110,9 @@ class ListItem extends Component{
                 :''}
               <div>
                 Posted by{' '}
-                <Link to={'/userprofile/'+post.submittedByUserId+'/submitted'}>{post.submittedByUserName}</Link> 
+                {(post.submittedByUserId !== '')
+                  ?<Link to={'/userprofile/'+post.submittedByUserId+'/submitted'}>{post.submittedByUserName}</Link>
+                  :post.submittedByUserName }
                 {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}
               </div>
             </div>
