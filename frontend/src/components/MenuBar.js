@@ -55,7 +55,7 @@ class MenuBar extends Component{
         
 
         {(userAccount.loggedIn)
-          ?<Link to={'/userprofile/'+userAccount.userId} className="w-button">
+          ?<Link to={'/userprofile/'+userAccount.userId+'/submitted'} className="w-button">
             {userAccount.userName}
             </Link>
           :''}

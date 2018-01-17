@@ -110,7 +110,7 @@ class ListItem extends Component{
                 :''}
               <div>
                 Posted by{' '}
-                <Link to={'/userprofile/'+post.submittedByUserId}>{post.submittedByUserName}</Link> 
+                <Link to={'/userprofile/'+post.submittedByUserId+'/submitted'}>{post.submittedByUserName}</Link> 
                 {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}
               </div>
             </div>
@@ -149,7 +149,8 @@ class ListItem extends Component{
           ?<PostBox newPost={this.props.newPost} parent={post._id} /> 
           : ''}
       </div>
-      )}
+      )
+  }
 }
 
 export default ListItem
