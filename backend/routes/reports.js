@@ -11,7 +11,9 @@ router.post('/:_id', passport.authenticate('bearer', { session: false }),
     var postId = String(req.params._id);
     postId = postId.substring(0,257)
 
-    Report.findOne({postId:postId})
+    var query = {postId:postId};
+
+    Report.findOne(query)
     .then((searchResults)=>{
       if (searchResults === null){
         Report.create({
@@ -27,7 +29,7 @@ router.post('/:_id', passport.authenticate('bearer', { session: false }),
           res.send(err);
         })
       } else {
-        Report.update({postId:postId}, {
+        Report.update(query, {
           $addToSet: {'submittedByUserIds': userId}
         })
         .then(()=>{

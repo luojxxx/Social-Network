@@ -10,11 +10,16 @@ var pageSize = 3;
 router.get('/:page', function(req, res, next) {
   var page = parseInt(req.params.page);
 
-  var postCount = Post.find({}).count()
-  var postResults = Post.find({},{},{
+  var filter = {};
+  var projection = {};
+  var options = {
     skip: pageSize*page, 
     limit: pageSize, 
-    sort:{dateSubmitted:-1}})
+    sort:{dateSubmitted:-1}
+  };
+
+  var postCount = Post.find(filter).count();
+  var postResults = Post.find(filter, projection, options);
 
   Promise.all([postCount, postResults])
   .then((values)=>{
@@ -29,9 +34,10 @@ router.get('/:page', function(req, res, next) {
 
 router.get('/tag/:_id', function(req, res, next) {
   var id = req.params._id;
-  var query = {_id: id};
 
-  Post.find(query)
+  var filter = {_id: id};
+
+  Post.find(filter)
   .then((post)=>{
     res.json(post);
   })

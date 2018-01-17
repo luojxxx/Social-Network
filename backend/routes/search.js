@@ -12,16 +12,13 @@ router.get('/:searchQuery/:page', function(req, res, next) {
   var searchQuery = req.params.searchQuery;
   var page = parseInt(req.params.page);
 
-  var searchCount = Post.find({$text: {$search: searchQuery}},
-    {searchScore: {$meta: 'textScore'}})
-    .count()
+  var filter = {$text: {$search: searchQuery}};
+  var projection = {searchScore: {$meta: 'textScore'}}
+  var options = {skip: pageSize*page, limit: pageSize}
 
-  var searchResults = Post.find(
-    {$text: {$search: searchQuery}},
-    {searchScore: {$meta: 'textScore'}},
-    {skip: pageSize*page, limit: pageSize}
-    )
-    .sort({searchScore: {$meta: 'textScore'}})
+  var searchCount = Post.find(filter, projection).count()
+  var searchResults = Post.find(filter, projection, options)
+    .sort(projection)
 
   Promise.all([searchCount, searchResults])
   .then((values)=>{

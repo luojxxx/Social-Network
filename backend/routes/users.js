@@ -69,19 +69,19 @@ router.get('/:_id/:page', function(req, res, next) {
   userId = userId.substring(0,257)
   var page = parseInt(req.params.page);
 
-  var queryPosts = {submittedByUserId: userId};
-  var queryUser = {_id: userId};
-  var fields = {};
+  var filterPosts = {submittedByUserId: userId};
+  var filterUser = {_id: userId};
+  var projection = {};
   var options = {skip: pageSize*page, limit: pageSize};
 
-  var count = Post.find(queryPosts).count();
-  var paginatedResults = Post.find(queryPosts, fields, options)
+  var count = Post.find(filterPosts).count();
+  var paginatedResults = Post.find(filterPosts, projection, options)
   .then((allSubmitedPosts)=>{
       return new Promise(function(resolve,reject){
         resolve(allSubmitedPosts)
       })
     })
-  var userInfo = User.findOne(queryUser)
+  var userInfo = User.findOne(filterUser)
   .then((userAccount)=>{
     var filteredAccount = {
       userName: userAccount.userName,

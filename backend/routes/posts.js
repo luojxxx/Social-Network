@@ -32,7 +32,7 @@ router.get('/:_id/graph', function(req, res, next) {
       startWith: '$children',
       connectFromField: 'children',
       connectToField: '_id',
-      maxDepth: 4,
+      maxDepth: 3,
       as: 'connections'}}
     ])
   .then((result)=>{
