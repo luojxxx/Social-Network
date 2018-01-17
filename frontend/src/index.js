@@ -9,6 +9,7 @@ import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import { persistStore, persistCombineReducers } from 'redux-persist'
+import { PersistGate } from 'redux-persist/lib/integration/react'
 import storage from 'redux-persist/lib/storage'
 
 import reducers from './reducers'
@@ -42,19 +43,21 @@ const history = syncHistoryWithStore(browserHistory, persistorStore.store)
 
 render(
   <Provider store={persistorStore.store} persistor={persistorStore.persistor}>
-    <Router history={history}>
-      
-      <Route path="/" component={App}>
-        <IndexRoute component={HomePage}></IndexRoute>
-        <Route path="/authtoken" component={Authtoken} />
-        <Route path="/post/:postId" component={PostPage} />
-        <Route path="/search" component={SearchResults} />
-        <Route path="/userprofile/:userId" component={UserProfile} />
-        <Route path="/settings" component={Settings} />
-        <Route path="*" component={Page404} />
-      </Route>
-      
-    </Router>
+    <PersistGate loading="loading..." persistor={persistorStore.persistor}>
+      <Router history={history}>
+        
+        <Route path="/" component={App}>
+          <IndexRoute component={HomePage}></IndexRoute>
+          <Route path="/authtoken" component={Authtoken} />
+          <Route path="/post/:postId" component={PostPage} />
+          <Route path="/search" component={SearchResults} />
+          <Route path="/userprofile/:userId/:subField" component={UserProfile} />
+          <Route path="/settings" component={Settings} />
+          <Route path="*" component={Page404} />
+        </Route>
+        
+      </Router>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 )

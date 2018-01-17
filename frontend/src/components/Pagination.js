@@ -23,6 +23,7 @@ class Pagination extends Component {
           return (
             <button 
               style={style}
+              key={ele}
               onClick={()=>this.changePage({page: ele, q: this.props.query.q})}>
               {ele+1}
             </button>)

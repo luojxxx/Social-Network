@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     var props = this.props
     return (
-      <div className="header w-container">
+      <div className="header">
         <div className="heading-inner w-row">
           <div className="site-logo-title w-col w-col-4">
             <Link to='/'>
@@ -19,10 +19,10 @@ class Header extends Component {
             <h3>{props.subheader}</h3>
           </div>
           <MenuBar 
-          userAccount={props.userAccount} 
-          newPost={props.newPost} 
-          logout={props.logout} 
-          showPostBox={props.showPostBox} />
+            userAccount={props.userAccount} 
+            newPost={props.newPost} 
+            logout={props.logout} 
+            showPostBox={props.showPostBox} />
         </div>
         {props.showPostBoxId==='frontPage'? 
         <PostBox newPost={props.newPost} parent='' /> : ''}

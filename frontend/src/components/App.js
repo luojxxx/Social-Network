@@ -6,7 +6,7 @@ class App extends Component {
   }
 
   render() {
-    return <div>{this.props.children}</div>
+    return <div className='w-container'>{this.props.children}</div>
   }
 }
 
