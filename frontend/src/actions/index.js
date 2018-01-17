@@ -72,7 +72,7 @@ export function changeUserName(userId, userName) {
   return function(dispatch){
     axios({
       method:'put',
-      url:apiUrl+'users/'+userId+'/username',
+      url:apiUrl+'users/'+userId+'/changeusername',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
@@ -104,18 +104,18 @@ export const userProfileLoaded = (data) => ({
   payload: data
 })
 
-export function loadUserProfile(userId) {
+export function loadUserProfile(userId, page) {
   return function(dispatch){
     axios({
       method:'get',
-      url:apiUrl+'users/'+userId,
+      url:apiUrl+'users/'+userId+'/'+page,
       headers: {
         // Authorization: 'Bearer '+localStorage.getItem('token')
       }
     })
     .then( (response) => {
       dispatch(userProfileLoaded(response.data))
-      dispatch(pageLoaded(response.data.submitted))
+      dispatch(pageLoaded(response.data))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -123,11 +123,11 @@ export function loadUserProfile(userId) {
   }
 }
 
-export function loadUserHistoryByField(userId, field)  {
+export function loadUserHistoryByField(userId, field, page)  {
   return function(dispatch){
     axios({
       method:'get',
-      url:apiUrl+'users/'+userId+'/'+field,
+      url:apiUrl+'users/'+userId+'/'+field+'/'+page,
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }

@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 var User = require('../models/user');
 var Post = require('../models/post');
+var pageSize = 3
 
 router.get('/verify', passport.authenticate('bearer', { session: false }),
   function(req,res){
@@ -61,41 +64,57 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
     })
 })
 
-router.get('/:_id', function(req, res, next) {
+router.get('/:_id/:page', function(req, res, next) {
   var userId = req.params._id;
   userId = userId.substring(0,257)
-  var query = {_id: userId};
+  var page = parseInt(req.params.page);
 
-  User.findOne(query)
-  .then((userProfile)=>{
-    Post.find({submittedByUserId: userProfile._id})
-    .then((allSubmitedPosts)=>{
-      var filteredUserProfile = {
-        userName: userProfile.userName,
-        submitted: allSubmitedPosts,
-        totalVotes: userProfile.totalVotes
-      }
-      res.status(200);
-      res.json(filteredUserProfile);
+  var queryPosts = {submittedByUserId: userId};
+  var queryUser = {_id: userId};
+  var fields = {};
+  var options = {skip: pageSize*page, limit: pageSize};
+
+  var count = Post.find(queryPosts).count();
+  var paginatedResults = Post.find(queryPosts, fields, options)
+  .then((allSubmitedPosts)=>{
+      return new Promise(function(resolve,reject){
+        resolve(allSubmitedPosts)
+      })
     })
-    .catch((err)=>{
-      res.status(400);
-      res.send(err);
+  var userInfo = User.findOne(queryUser)
+  .then((userAccount)=>{
+    var filteredAccount = {
+      userName: userAccount.userName,
+      totalVotes: userAccount.totalVotes
+    }
+    return new Promise(function(resolve,reject){
+      resolve(filteredAccount)
     })
+  })
+
+  Promise.all([count, paginatedResults, userInfo])
+  .then((values)=>{
+    res.status(200);
+    res.send({
+      totalPosts: values[0], 
+      pages: Math.ceil(values[0]/pageSize), 
+      docs: values[1],
+      userName: values[2].userName,
+      totalVotes: values[2].totalVotes
+    });
   })
   .catch((err)=>{
     res.status(404);
     res.send(err);
-  })
+  });
 });
 
-module.exports = router;
-
-router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
+router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userProfile = req.user;
     var field = req.params.field;
-    field = field.substring(0,65)
+    field = field.substring(0,65);
+    var page = parseInt(req.params.page);
 
     var saved = userProfile.saved;
     var upVoted = [];
@@ -119,24 +138,35 @@ router.get('/:_id/:field', passport.authenticate('bearer', { session: false }),
       searchQuery = downVoted;
     } else {
       res.status(400);
-      res.send('Not a field user sub-field');
+      res.send('Non-valid subfield');
     }
 
-    Post.find({
-      '_id': {$in: searchQuery}
-    })
-    .then((results)=>{
+    var query = {'_id': {$in: searchQuery}};
+    var fields = {};
+    var options = {skip: pageSize*page, limit: pageSize};
+
+    var count = Post.find(query).count();
+    var paginatedResults = Post.find(query, fields, options);
+
+    Promise.all([count, paginatedResults])
+    .then((values)=>{
       res.status(200);
-      res.json(results);
+      res.send({
+        totalPosts: userProfile.submitted.length, 
+        pages: Math.ceil(values[0]/pageSize), 
+        docs: values[1],
+        userName: userProfile.userName,
+        totalVotes: userProfile.totalVotes
+      });
     })
     .catch((err)=>{
-      res.status(400);
+      res.status(404);
       res.send(err);
-    })
+    });
 
 })
 
-router.put('/:id/username', passport.authenticate('bearer', { session: false }),
+router.put('/:id/changeusername', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = String(req.user._id);
     var newUserName = req.body.userName;
@@ -167,3 +197,5 @@ router.put('/:id/username', passport.authenticate('bearer', { session: false }),
       })
     }
 })
+
+module.exports = router;

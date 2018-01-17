@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');

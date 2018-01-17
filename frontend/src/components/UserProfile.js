@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router'
 import Header from '../containers/HeaderContainer'
 import List from '../containers/ListContainer'
+import Pagination from '../containers/PaginationContainer'
 import PostBox from '../components/PostBox'
 import {defaultPage} from '../libraryHelper'
 
@@ -20,23 +21,32 @@ class UserProfile extends Component {
   loadPageSwitch = (subField, props) => {
     switch (subField) {
       case 'submitted':
-      this.props.loadUserProfile(props.params.userId)
+      this.props.loadUserProfile(props.params.userId, props.location.query.page)
       break
 
       case 'upvoted':
-      this.props.loadUserHistoryByField(props.userAccount.userId, 'upvoted')
+      this.props.loadUserHistoryByField(
+        props.userAccount.userId,
+         'upvoted', 
+         props.location.query.page)
       break
 
       case 'downvoted':
-      this.props.loadUserHistoryByField(props.userAccount.userId, 'downvoted')
+      this.props.loadUserHistoryByField(
+        props.userAccount.userId, 
+        'downvoted', 
+        props.location.query.page)
       break
 
       case 'saved':
-      this.props.loadUserHistoryByField(props.userAccount.userId, 'saved')
+      this.props.loadUserHistoryByField(
+        props.userAccount.userId, 
+        'saved', 
+        props.location.query.page)
       break
 
       default:
-      this.props.loadUserProfile(props.params.userId)
+      this.props.loadUserProfile(props.params.userId, props.location.query.page)
       break
     }
   }
@@ -69,7 +79,7 @@ class UserProfile extends Component {
             </div>
             <div className="w-col w-col-4">
               <h1>Total Posts</h1>
-              <h1>{userProfile.submitted.length}</h1>
+              <h1>{userProfile.totalPosts}</h1>
             </div>
             <div className="w-col w-col-4">
               <h1>Total Votes</h1>
@@ -78,6 +88,9 @@ class UserProfile extends Component {
           </div>
         </div>
         <List />
+        <Pagination 
+        urlStem={'/userprofile/'+userId+'/'+this.props.params.subField}
+        query={{page:defaultPage(this.props.location.query.page)}} />
       </div>
     )
   }

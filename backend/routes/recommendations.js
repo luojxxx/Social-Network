@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
-
 var pageSize = 3;
 
 router.get('/:page', function(req, res, next) {

@@ -9,11 +9,11 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadUserProfile: (userId) => {
-    dispatch(loadUserProfile(userId))
+  loadUserProfile: (userId, page) => {
+    dispatch(loadUserProfile(userId, page))
   },
-  loadUserHistoryByField: (userId, field) => {
-    dispatch(loadUserHistoryByField(userId, field))
+  loadUserHistoryByField: (userId, field, page) => {
+    dispatch(loadUserHistoryByField(userId, field, page))
   },
   newPost: (data) => {
     dispatch(newPost(data))

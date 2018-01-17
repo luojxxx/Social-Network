@@ -15,9 +15,8 @@ const displayedPosts = (state = {
 
     case 'PAGE_LOADED':
     var pageData = {}
-    var page = 1
     var pages = 0
-    if ('docs' in action.payload) {
+    if ('pages' in action.payload) {
       pageData = action.payload.docs
       pages = action.payload.pages
     } else {
@@ -42,7 +41,7 @@ const displayedPosts = (state = {
     case 'SEARCH_PAGE_LOADED':
     var pageData = {}
     var pages = 0
-    if ('docs' in action.payload) {
+    if ('pages' in action.payload) {
       pageData = action.payload.docs
       pages = action.payload.pages
     } else {
@@ -252,6 +251,7 @@ const userAccount = (state = {
 const userProfile = (state = {
   userName: 'Guest',
   submitted: [],
+  totalPosts: 0,
   totalVotes: 0
 }, action) => {
   switch (action.type) {
@@ -261,6 +261,7 @@ const userProfile = (state = {
       ...state,
       userName: action.payload.userName,
       submitted: action.payload.submitted,
+      totalPosts: action.payload.totalPosts,
       totalVotes: action.payload.totalVotes
     }
 
