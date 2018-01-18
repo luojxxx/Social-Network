@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 // Report Schema
 var reportSchema = mongoose.Schema({
   postId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   submittedByUserIds: {

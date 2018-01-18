@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
-var pageSize = 3
+var pageSize = 5;
 
 router.get('/:searchQuery/:page', function(req, res, next) {
   var searchQuery = req.params.searchQuery;

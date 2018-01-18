@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
-var mongoosePaginate = require('mongoose-paginate');
 
 // Post Schema
 var postSchema = mongoose.Schema({
   submittedByUserId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   submittedByUserName: {
@@ -36,8 +35,8 @@ var postSchema = mongoose.Schema({
     default: ''
   },
   parent: {
-    type: String,
-    default: ''
+    type: mongoose.Schema.Types.ObjectId,
+    default: null
   },
   children: {
     type: Array,
@@ -58,7 +57,5 @@ postSchema.index(
     contentLink: 3, 
     contentDescription: 1
   }});
-
-postSchema.plugin(mongoosePaginate);
 
 var Post = module.exports = mongoose.model('post', postSchema);

@@ -91,7 +91,7 @@ class ListItem extends Component{
 
           <div className="content-title-options w-col w-col-10">
             <div>
-              {(post.parent !== '')
+              {(post.parent != null)
                 ?<Link 
                   to={'/post/'+post.parent}
                   className="button-3 fontawesome">&#xf137;</Link>
@@ -110,7 +110,7 @@ class ListItem extends Component{
                 :''}
               <div>
                 Posted by{' '}
-                {(post.submittedByUserId !== '')
+                {(post.submittedByUserId != null)
                   ?<Link to={'/userprofile/'+post.submittedByUserId+'/submitted'}>{post.submittedByUserName}</Link>
                   :post.submittedByUserName }
                 {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}

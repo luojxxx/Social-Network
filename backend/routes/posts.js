@@ -6,6 +6,8 @@ mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
+var UserNotification = require('../models/user_notifications');
+var Notification = require('../models/notifications');
 
 router.get('/:_id', function(req, res, next) {
   var postId = req.params._id;
@@ -48,6 +50,57 @@ router.get('/:_id/graph', function(req, res, next) {
   })
 });
 
+// router.post('/', passport.authenticate('bearer', { session: false }),
+//   function(req,res){
+//     var userId = req.user._id;
+//     var userName = req.user.userName;
+//     var postData = req.body;
+//     postData.contentTitle = postData.contentTitle.substring(0,257)
+//     postData.contentTag = postData.contentTag.substring(0,65)
+//     postData.contentLink = postData.contentLink.substring(0,513)
+//     postData.contentDescription = postData.contentDescription.substring(0,10001)
+//     postData.parent = postData.parent.substring(0,257)
+//     var newPost = {
+//       submittedByUserId: userId,
+//       submittedByUserName: userName,
+//       contentTitle: postData.contentTitle,
+//       contentTag: postData.contentTag,
+//       contentLink: postData.contentLink,
+//       contentDescription: postData.contentDescription,
+//       parent: postData.parent
+//     };
+
+//     Post.create(newPost)
+//     .then((createdPost)=>{
+//       if (postData.parent != '') {
+//         Post.update(
+//           {_id: postData.parent}, 
+//           {$addToSet: {'children': createdPost._id}})
+//         .catch((err)=>{
+//           res.status(400);
+//           res.send(err);
+//         })
+//       }
+
+//       User.update(
+//         {_id: userId},
+//         {$addToSet: {'submitted': createdPost._id}})
+//       .then(()=>{
+//         res.status(201);
+//         res.json(createdPost);
+//       })
+//       .catch((err)=>{
+//         res.status(400);
+//         res.send(err);
+//       })
+
+//     })
+//     .catch((err)=>{
+//       res.status(400);
+//       res.send(err);
+//     })
+// })
+
 router.post('/', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = req.user._id;
@@ -58,6 +111,10 @@ router.post('/', passport.authenticate('bearer', { session: false }),
     postData.contentLink = postData.contentLink.substring(0,513)
     postData.contentDescription = postData.contentDescription.substring(0,10001)
     postData.parent = postData.parent.substring(0,257)
+    postData.parent = (postData.parent !== '')
+                      ?new mongoose.Types.ObjectId(postData.parent)
+                      :null
+
     var newPost = {
       submittedByUserId: userId,
       submittedByUserName: userName,
@@ -70,32 +127,56 @@ router.post('/', passport.authenticate('bearer', { session: false }),
 
     Post.create(newPost)
     .then((createdPost)=>{
-      if (postData.parent != '') {
-        Post.update(
-          {_id: postData.parent}, 
-          {$addToSet: {'children': createdPost._id}})
-        .catch((err)=>{
-          res.status(400);
-          res.send(err);
-        })
-      }
 
       User.update(
         {_id: userId},
         {$addToSet: {'submitted': createdPost._id}})
-      .then(()=>{
-        res.status(201);
-        res.json(createdPost);
-      })
       .catch((err)=>{
         res.status(400);
         res.send(err);
       })
 
-    })
-    .catch((err)=>{
-      res.status(400);
-      res.send(err);
+      if (newPost.parent != null) {
+        Post.findOneAndUpdate(
+          {_id: createdPost.parent},
+          {$addToSet: {'children': createdPost._id}})
+        .then((parentPost)=>{
+          Notification.create({
+            notificationType: 'reply',
+            data: {
+              parentPostId: parentPost._id,
+              parentPostTitle: parentPost.contentTitle,
+              newPostId: createdPost._id,
+              newPostTitle: createdPost.contentTitle,
+              newPostUserId: userId,
+              newpostUserName: userName
+            }
+          })
+          .then((newNotification)=>{
+            UserNotification.findOneAndUpdate(
+              {userId: parentPost.submittedByUserId},
+              {$push: {
+                notifications: {
+                  $each: [newNotification._id],
+                  $position: 0
+                }
+              }
+            })
+            .then(()=>{
+              res.status(200);
+              res.send(createdPost);
+            })
+            .catch((err)=>{
+              res.status(400);
+              res.send(err);
+            })
+          })
+          .catch((err)=>{
+            res.status(400);
+            res.send(err);
+          })
+        })
+      }
     })
 })
 
@@ -160,15 +241,15 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
 
 router.delete('/:_id', passport.authenticate('bearer', { session: false }),
   function(req,res){
-    var userId = String(req.user._id);
-    var postId = String(req.params._id);
+    var userId = req.user._id;
+    var postId = req.params._id;
     postId = postId.substring(0,257)
 
     Post.findOne({_id: postId})
     .then((postToDelete)=>{
-      if (postToDelete.submittedByUserId === userId) {
-        Post.update({_id: postId}, {
-          submittedByUserId: '',
+      if (String(postToDelete.submittedByUserId) === String(userId)) {
+        Post.findOneAndUpdate({_id: postId}, {
+          submittedByUserId: null,
           submittedByUserName: 'deleted',
           contentTitle: 'deleted',
           contentTag: '',

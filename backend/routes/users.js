@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 
 var User = require('../models/user');
 var Post = require('../models/post');
-var pageSize = 3
+var pageSize = 5;
 
 router.get('/verify', passport.authenticate('bearer', { session: false }),
   function(req,res){

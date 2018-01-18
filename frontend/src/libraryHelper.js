@@ -20,7 +20,7 @@ export const getTree = (data, startId) => {
 }
 
 export const navigateTree = (data, startId) => {
-  while (data[startId].parent !== '' && data[startId].parent in data) {
+  while (data[startId].parent != null && data[startId].parent in data) {
     startId = data[startId].parent
   }
   return [startId, getTree(data, startId)]
@@ -170,7 +170,7 @@ export const postSorter = (dataDic, dataOrder, sortBy, sortDirection) => {
 // FUNCTIONS TO HELP INSERT NEW POST INTO NESTED DATA ORDER
 export const insertIntoNestedList = (dataOrder, newPostParent, newPostId, added) => {
   var newDataOrder = []
-  if (newPostParent === '' && added===false) { 
+  if (newPostParent == null && added===false) { 
     newDataOrder.push({postId: newPostId, children: []})
     added = true
   }

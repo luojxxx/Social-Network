@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var UserNotification = require('./user_notifications');
 
 // User Schema
 var userSchema = mongoose.Schema({
@@ -51,7 +52,10 @@ module.exports.findOrCreate = function(googleId, callback) {
 
   User.find(googleId, function(err, results){
     if (results.length == 0) {
-      User.create(googleId, callback(err, googleId));
+      User.create(googleId, callback(err, googleId))
+      .then((newUser)=>{
+        UserNotification.create({userId:newUser._id})
+      })
     } else {
       callback(err, googleId);
     }
