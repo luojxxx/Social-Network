@@ -50,57 +50,6 @@ router.get('/:_id/graph', function(req, res, next) {
   })
 });
 
-// router.post('/', passport.authenticate('bearer', { session: false }),
-//   function(req,res){
-//     var userId = req.user._id;
-//     var userName = req.user.userName;
-//     var postData = req.body;
-//     postData.contentTitle = postData.contentTitle.substring(0,257)
-//     postData.contentTag = postData.contentTag.substring(0,65)
-//     postData.contentLink = postData.contentLink.substring(0,513)
-//     postData.contentDescription = postData.contentDescription.substring(0,10001)
-//     postData.parent = postData.parent.substring(0,257)
-//     var newPost = {
-//       submittedByUserId: userId,
-//       submittedByUserName: userName,
-//       contentTitle: postData.contentTitle,
-//       contentTag: postData.contentTag,
-//       contentLink: postData.contentLink,
-//       contentDescription: postData.contentDescription,
-//       parent: postData.parent
-//     };
-
-//     Post.create(newPost)
-//     .then((createdPost)=>{
-//       if (postData.parent != '') {
-//         Post.update(
-//           {_id: postData.parent}, 
-//           {$addToSet: {'children': createdPost._id}})
-//         .catch((err)=>{
-//           res.status(400);
-//           res.send(err);
-//         })
-//       }
-
-//       User.update(
-//         {_id: userId},
-//         {$addToSet: {'submitted': createdPost._id}})
-//       .then(()=>{
-//         res.status(201);
-//         res.json(createdPost);
-//       })
-//       .catch((err)=>{
-//         res.status(400);
-//         res.send(err);
-//       })
-
-//     })
-//     .catch((err)=>{
-//       res.status(400);
-//       res.send(err);
-//     })
-// })
-
 router.post('/', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = req.user._id;

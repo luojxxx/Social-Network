@@ -13,8 +13,6 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
     var userId = req.user._id;
     var page = parseInt(req.params.page);
 
-    console.log(userId)
-
     UserNotification.findOne({userId: userId})
     .then((userNotifications)=>{
       var notificationArray = userNotifications.notifications;
@@ -24,7 +22,7 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
       var options = {
         skip: pageSize*page, 
         limit: pageSize, 
-        sort:{dateSubmitted:-1}
+        sort:{dateCreated:-1}
       };
 
       var count = Notification.find(filter).count();

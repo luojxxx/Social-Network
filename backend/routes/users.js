@@ -72,7 +72,7 @@ router.get('/:_id/:page', function(req, res, next) {
   var filterPosts = {submittedByUserId: userId};
   var filterUser = {_id: userId};
   var projection = {};
-  var options = {skip: pageSize*page, limit: pageSize};
+  var options = {skip: pageSize*page, limit: pageSize, sort:{dateSubmitted:-1}};
 
   var count = Post.find(filterPosts).count();
   var paginatedResults = Post.find(filterPosts, projection, options)

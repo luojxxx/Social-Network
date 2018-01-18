@@ -19,8 +19,8 @@ export function loadFrontPageData(page) {
       url:apiUrl+'recommendations/'+page
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data.docs))
       dispatch(setTotalPages(response.data.pages))
+      dispatch(pageLoaded(response.data.docs))
     })
   }
 }
@@ -55,8 +55,8 @@ export function loadNotifications(page) {
       }
     })
     .then((response)=>{
-      dispatch(loadedNotifications(response.data.docs))
       dispatch(setTotalPages(response.data.pages))
+      dispatch(loadedNotifications(response.data.docs))
     })
   }
 }
@@ -140,9 +140,9 @@ export function loadUserProfile(userId, page) {
       }
     })
     .then( (response) => {
+      dispatch(setTotalPages(response.data.pages))
       dispatch(userProfileLoaded(response.data))
       dispatch(pageLoaded(response.data.docs))
-      dispatch(setTotalPages(response.data.pages))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -160,8 +160,8 @@ export function loadUserHistoryByField(userId, field, page)  {
       }
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data.docs))
       dispatch(setTotalPages(response.data.pages))
+      dispatch(pageLoaded(response.data.docs))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -182,8 +182,8 @@ export function search(searchQuery, page)  {
       url:apiUrl+'search/'+searchQuery+'/'+page,
     })
     .then( (response) => {
-      dispatch(searchPageLoaded(response.data.docs))
       dispatch(setTotalPages(response.data.pages))
+      dispatch(searchPageLoaded(response.data.docs))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
