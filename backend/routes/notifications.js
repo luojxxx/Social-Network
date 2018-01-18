@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 
 var UserNotification = require('../models/user_notification');
 var Notification = require('../models/notification');
-var pageSize = 2;
+var pageSize = 3;
 
 router.get('/:page', passport.authenticate('bearer', { session: false }),
   function(req,res){

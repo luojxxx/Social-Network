@@ -9,11 +9,17 @@ class Notifications extends Component {
     this.props.loadNotifications(defaultPage(this.props.location.query.page))
   }
 
+  componentWillReceiveProps(nextProps) {
+      if (this.props.location.query !== nextProps.location.query) {
+        this.props.loadNotifications(defaultPage(nextProps.location.query.page))
+      }
+  }
+
   renderNotification = (notification) => {
     if (notification.notificationType === 'reply') {
       let data = notification.data
       return (
-        <div style={{backgroundColor:'#C2C3C5', margin:'3px'}}>
+        <div key={data.newPostId} style={{backgroundColor:'#C2C3C5', margin:'3px'}}>
           <Link to={'/userprofile/'+data.newPostUserId+'/submitted'}>
             {data.newPostUserName}
           </Link>
@@ -38,7 +44,7 @@ class Notifications extends Component {
           return this.renderNotification(ele)
         })}
         <Pagination 
-          urlStem='' 
+          urlStem='notifications' 
           query={{page: defaultPage(this.props.location.query.page)}} />
       </div>
     )

@@ -9,20 +9,11 @@ const displayedPosts = (state = {
   dataOrder: [],
   sortBy: 'dateSubmitted',
   sortDirection: 'down',
-  pages: 0
 }, action) => {
   switch (action.type) {
 
     case 'PAGE_LOADED':
-    var pageData = {}
-    var pages = 0
-    if ('pages' in action.payload) {
-      pageData = action.payload.docs
-      pages = action.payload.pages
-    } else {
-      pageData = action.payload
-    }
-
+    var pageData = action.payload
     var threadedPosts = generateThreadedPosts(pageData)
     var data = threadedPosts[0]
     for (let key in data) {
@@ -34,20 +25,11 @@ const displayedPosts = (state = {
       ...state,
       data: data,
       dataOrder: dataOrder,
-      pages: pages
     }
 
 
     case 'SEARCH_PAGE_LOADED':
-    var pageData = {}
-    var pages = 0
-    if ('pages' in action.payload) {
-      pageData = action.payload.docs
-      pages = action.payload.pages
-    } else {
-      pageData = action.payload
-    }
-
+    var pageData = action.payload
     var data = {}
     var dataOrder = []
     for (let idx in pageData) {
@@ -63,7 +45,6 @@ const displayedPosts = (state = {
       ...state,
       data: data,
       dataOrder: dataOrder,
-      pages: pages
     }
 
 
@@ -274,7 +255,8 @@ const displayState = (state = {
   showPostBoxId: '',
   reportConfirmationId: '',
   showPostDescriptionIds: [],
-  sharePost: null
+  sharePost: null,
+  pages: 0
 }, action) => {
   switch (action.type) {
 
@@ -338,6 +320,12 @@ const displayState = (state = {
     return {
       ...state,
       sharePost: null
+    }
+
+    case 'SET_TOTAL_PAGES':
+    return {
+      ...state,
+      pages: action.payload
     }
 
     default:

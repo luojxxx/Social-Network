@@ -10,7 +10,7 @@ class Pagination extends Component {
 
   render() {
     var page = parseInt(this.props.query.page)
-    if (this.props.pages === 0) {
+    if (this.props.pages <= 1) {
       return ''
     }
     return (

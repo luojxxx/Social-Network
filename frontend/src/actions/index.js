@@ -2,6 +2,11 @@ import axios from 'axios'
 import { apiUrl } from '../config'
 
 // PAGE LOADING FUNCTIONS
+export const setTotalPages = (data) => ({
+  type: 'SET_TOTAL_PAGES',
+  payload: data
+})
+
 export const pageLoaded = (data) => ({
   type: 'PAGE_LOADED',
   payload: data
@@ -14,7 +19,8 @@ export function loadFrontPageData(page) {
       url:apiUrl+'recommendations/'+page
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data))
+      dispatch(pageLoaded(response.data.docs))
+      dispatch(setTotalPages(response.data.pages))
     })
   }
 }
@@ -50,6 +56,7 @@ export function loadNotifications(page) {
     })
     .then((response)=>{
       dispatch(loadedNotifications(response.data.docs))
+      dispatch(setTotalPages(response.data.pages))
     })
   }
 }
@@ -134,7 +141,8 @@ export function loadUserProfile(userId, page) {
     })
     .then( (response) => {
       dispatch(userProfileLoaded(response.data))
-      dispatch(pageLoaded(response.data))
+      dispatch(pageLoaded(response.data.docs))
+      dispatch(setTotalPages(response.data.pages))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -152,7 +160,8 @@ export function loadUserHistoryByField(userId, field, page)  {
       }
     })
     .then( (response) => {
-      dispatch(pageLoaded(response.data))
+      dispatch(pageLoaded(response.data.docs))
+      dispatch(setTotalPages(response.data.pages))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -173,7 +182,8 @@ export function search(searchQuery, page)  {
       url:apiUrl+'search/'+searchQuery+'/'+page,
     })
     .then( (response) => {
-      dispatch(searchPageLoaded(response.data))
+      dispatch(searchPageLoaded(response.data.docs))
+      dispatch(setTotalPages(response.data.pages))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
