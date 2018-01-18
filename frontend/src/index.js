@@ -21,6 +21,7 @@ import PostPage from './containers/PostPageContainer'
 import SearchResults from './containers/SearchResultsContainer'
 import UserProfile from './containers/UserProfileContainer'
 import Settings from './containers/SettingsContainer'
+import Notifications from './containers/NotificationsContainer'
 import Page404 from './components/Page404'
 
 const config = {
@@ -52,6 +53,7 @@ render(
           <Route path="/search" component={SearchResults} />
           <Route path="/userprofile/:userId/:subField" component={UserProfile} />
           <Route path="/settings" component={Settings} />
+          <Route path="/notifications" component={Notifications} />
           <Route path="*" component={Page404} />
         </Route>
         

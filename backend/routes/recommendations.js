@@ -32,19 +32,4 @@ router.get('/:page', function(req, res, next) {
   })
 });
 
-router.get('/tag/:_id', function(req, res, next) {
-  var id = req.params._id;
-
-  var filter = {_id: id};
-
-  Post.find(filter)
-  .then((post)=>{
-    res.json(post);
-  })
-  .catch((err)=>{
-    res.status(404);
-    res.send(err);
-  })
-});
-
 module.exports = router;

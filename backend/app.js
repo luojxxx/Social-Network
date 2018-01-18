@@ -20,6 +20,7 @@ var posts = require('./routes/posts');
 var search = require('./routes/search');
 var reports = require('./routes/reports');
 var recommendations = require('./routes/recommendations');
+var notifications = require('./routes/notifications');
 
 var User = require('./models/user');
 
@@ -104,6 +105,7 @@ app.use('/api/posts', posts);
 app.use('/api/search', search);
 app.use('/api/reports', reports);
 app.use('/api/recommendations', recommendations);
+app.use('/api/notifications', notifications);
 
 
 // Catch 404 and forward to error handler

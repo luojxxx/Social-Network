@@ -6,8 +6,8 @@ mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
-var UserNotification = require('../models/user_notifications');
-var Notification = require('../models/notifications');
+var UserNotification = require('../models/user_notification');
+var Notification = require('../models/notification');
 
 router.get('/:_id', function(req, res, next) {
   var postId = req.params._id;
@@ -149,7 +149,7 @@ router.post('/', passport.authenticate('bearer', { session: false }),
               newPostId: createdPost._id,
               newPostTitle: createdPost.contentTitle,
               newPostUserId: userId,
-              newpostUserName: userName
+              newPostUserName: userName
             }
           })
           .then((newNotification)=>{

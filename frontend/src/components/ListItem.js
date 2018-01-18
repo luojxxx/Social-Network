@@ -94,7 +94,7 @@ class ListItem extends Component{
               {(post.parent != null)
                 ?<Link 
                   to={'/post/'+post.parent}
-                  className="button-3 fontawesome">&#xf137;</Link>
+                  className="button-3 fontawesome">&#xf112;</Link>
                 :''}
               {' '}
               <Link to={'/post/'+post._id}>{post.contentTitle}</Link>

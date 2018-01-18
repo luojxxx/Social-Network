@@ -45,28 +45,23 @@ class MenuBar extends Component{
           Search
         </button>
         {(userAccount.loggedIn)
-          ?<button 
+          ?<div>
+          <button 
             onClick={this.showPostBox} 
             style={(this.props.showPostBoxId==='frontPage')?{color:'blue'}:{}}
             className="w-button">
             New Post
-            </button>
-          :''}
-        
-
-        {(userAccount.loggedIn)
-          ?<Link to={'/userprofile/'+userAccount.userId+'/submitted'} className="w-button">
+          </button>
+          <Link to='/notifications' className="w-button button-2 fontawesome">
+            &#xf003;
+          </Link>
+          <Link to={'/userprofile/'+userAccount.userId+'/submitted'} className="w-button">
             {userAccount.userName}
-            </Link>
-          :''}
-        
-        {(userAccount.loggedIn)
-          ?<button onClick={this.props.logout} className="w-button">Logout</button>
-          :''}
-
-        {(userAccount.loggedIn)
-          ?''
+          </Link>
+          <button onClick={this.props.logout} className="w-button">Logout</button>
+          </div>
           :<a href={hostUrl+'auth/google/'} className="w-button">Login</a>}
+        
       </div>
       )}
 }

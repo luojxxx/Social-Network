@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var UserNotification = require('./user_notifications');
+var UserNotification = require('./user_notification');
 
 // User Schema
 var userSchema = mongoose.Schema({

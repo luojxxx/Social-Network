@@ -345,12 +345,28 @@ const displayState = (state = {
   }
 }
 
+const notifications = (state = {
+  data: []
+}, action) => {
+  switch (action.type) {
+    case 'LOADED_NOTIFICATIONS':
+    return {
+      ...state,
+      data: action.payload
+    }
+
+    default:
+    return state
+  }
+}
+
 const reducers = {
   routing,
   displayedPosts,
   userAccount,
   userProfile,
-  displayState
+  displayState,
+  notifications
 }
 
 export default reducers

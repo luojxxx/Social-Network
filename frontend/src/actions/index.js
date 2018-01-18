@@ -39,6 +39,25 @@ export const sortPosts = (sortBy, sortDirection) => ({
   }
 })
 
+export function loadNotifications(page) {
+  return function(dispatch){
+    axios({
+      method: 'get',
+      url:apiUrl+'notifications/'+page,
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then((response)=>{
+      dispatch(loadedNotifications(response.data.docs))
+    })
+  }
+}
+
+export const loadedNotifications = (data) => ({
+  type: 'LOADED_NOTIFICATIONS',
+  payload: data
+})
 
 // USER ACCOUNT FUNCTIONS
 export const userDataLoaded = (data) => ({
