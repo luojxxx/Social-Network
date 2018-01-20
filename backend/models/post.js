@@ -49,13 +49,19 @@ postSchema.index(
     contentTitle: 'text', 
     contentTag: 'text', 
     contentLink: 'text', 
-    contentDescription: 'text'
+    contentDescription: 'text',
+    submittedByUserName: 'text'
   }, 
-  {weights: {
-    contentTitle: 5, 
-    contentTag: 3, 
-    contentLink: 3, 
-    contentDescription: 1
-  }});
+  {
+    name: 'Search_Index',
+    weights: 
+      {
+        contentTitle: 5, 
+        contentTag: 3, 
+        contentLink: 3, 
+        contentDescription: 1,
+        submittedByUserName: 3
+      }
+  });
 
 var Post = module.exports = mongoose.model('post', postSchema);
