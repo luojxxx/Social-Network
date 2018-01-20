@@ -52,9 +52,10 @@ module.exports.findOrCreate = function(googleId, callback) {
 
   User.find(googleId, function(err, results){
     if (results.length == 0) {
-      User.create(googleId, callback(err, googleId))
+      User.create(googleId)
       .then((newUser)=>{
         UserNotification.create({userId:newUser._id})
+        callback(err, googleId)
       })
     } else {
       callback(err, googleId);

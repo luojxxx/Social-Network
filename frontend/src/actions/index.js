@@ -134,7 +134,7 @@ export function loadUserProfile(userId, page) {
   return function(dispatch){
     axios({
       method:'get',
-      url:apiUrl+'users/'+userId+'/'+page,
+      url:apiUrl+'users/'+userId+'/submitted/'+page,
       headers: {
         // Authorization: 'Bearer '+localStorage.getItem('token')
       }

@@ -64,7 +64,7 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
     })
 })
 
-router.get('/:_id/:page', function(req, res, next) {
+router.get('/:_id/submitted/:page', function(req, res, next) {
   var userId = req.params._id;
   userId = userId.substring(0,257)
   var page = parseInt(req.params.page);
@@ -77,9 +77,7 @@ router.get('/:_id/:page', function(req, res, next) {
   var count = Post.find(filterPosts).count();
   var paginatedResults = Post.find(filterPosts, projection, options)
   .then((allSubmitedPosts)=>{
-      return new Promise(function(resolve,reject){
-        resolve(allSubmitedPosts)
-      })
+      return allSubmitedPosts
     })
   var userInfo = User.findOne(filterUser)
   .then((userAccount)=>{
@@ -87,9 +85,7 @@ router.get('/:_id/:page', function(req, res, next) {
       userName: userAccount.userName,
       totalVotes: userAccount.totalVotes
     }
-    return new Promise(function(resolve,reject){
-      resolve(filteredAccount)
-    })
+    return filteredAccount
   })
 
   Promise.all([count, paginatedResults, userInfo])

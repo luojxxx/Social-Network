@@ -19,34 +19,39 @@ class UserProfile extends Component {
     }
 
   loadPageSwitch = (subField, props) => {
+    var page = defaultPage(props.location.query.page)
     switch (subField) {
       case 'submitted':
-      this.props.loadUserProfile(props.params.userId, props.location.query.page)
+      this.props.loadUserProfile(
+        props.params.userId, 
+        page)
       break
 
       case 'upvoted':
       this.props.loadUserHistoryByField(
         props.userAccount.userId,
-         'upvoted', 
-         props.location.query.page)
+        'upvoted', 
+        page)
       break
 
       case 'downvoted':
       this.props.loadUserHistoryByField(
         props.userAccount.userId, 
         'downvoted', 
-        props.location.query.page)
+        page)
       break
 
       case 'saved':
       this.props.loadUserHistoryByField(
         props.userAccount.userId, 
         'saved', 
-        props.location.query.page)
+        page)
       break
 
       default:
-      this.props.loadUserProfile(props.params.userId, props.location.query.page)
+      this.props.loadUserProfile(
+        props.params.userId, 
+        page)
       break
     }
   }
