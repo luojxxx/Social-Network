@@ -125,6 +125,9 @@ router.post('/', passport.authenticate('bearer', { session: false }),
             res.send(err);
           })
         })
+      } else {
+        res.status(200);
+        res.send(createdPost);
       }
     })
 })

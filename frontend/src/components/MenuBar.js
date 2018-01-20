@@ -52,7 +52,7 @@ class MenuBar extends Component{
             className="w-button">
             New Post
           </button>
-          <Link to='/notifications' className="w-button button-2 fontawesome">
+          <Link to='/notifications' className="w-button fontawesome">
             &#xf003;
           </Link>
           <Link to={'/userprofile/'+userAccount.userId+'/submitted'} className="w-button">

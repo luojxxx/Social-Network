@@ -4,8 +4,19 @@ import {Link} from 'react-router'
 import {convertToTimePassed} from '../libraryHelper'
 import PostBox from './PostBox'
 import ContentPreview from './ContentPreview'
+import SharePost from './SharePost'
 
 class ListItem extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+      showPostDescription: false,
+      showSharePostPopup: false,
+      showReportConfirmation: false,
+      showDeleteConfirmation: false,
+    }
+  }
+
   showPostBox = (e) => {
     e.preventDefault()
     this.props.showPostBox(this.props.post._id)
@@ -21,14 +32,23 @@ class ListItem extends Component{
     this.props.vote(this.props.post._id, this.props.voteState, -1)
   }
 
-  showPostDescription = (e) => {
+  postDescriptionToggle = (e) => {
     e.preventDefault()
-    this.props.showPostDescription(this.props.post._id)
+    if (this.state.showPostDescription === false) {
+      this.setState({showPostDescription: true})
+    } else {
+      this.setState({showPostDescription: false})
+    }
   }
 
-  deletePost = (e) => {
+  showSharePostPopup = (e) => {
     e.preventDefault()
-    this.props.deletePost(this.props.post._id)
+    this.setState({showSharePostPopup: true})
+  }
+
+  closeSharePostPopup = (e) => {
+    e.preventDefault()
+    this.setState({showSharePostPopup: false})
   }
 
   savePost = (e) => {
@@ -38,17 +58,34 @@ class ListItem extends Component{
 
   showReportConfirmation = (e) => {
     e.preventDefault()
-    this.props.showReportConfirmation(this.props.post._id)
+    this.setState({showReportConfirmation: true})
+  }
+
+  closeReportConfirmation = (e) => {
+    e.preventDefault()
+    this.setState({showReportConfirmation: false})
   }
 
   reportPost = (e) => {
     e.preventDefault()
     this.props.reportPost(this.props.post._id)
+    this.setState({showReportConfirmation: false})
   }
 
-  sharePost = (e) => {
+  showDeleteConfirmation = (e) => {
     e.preventDefault()
-    this.props.showSharePostPopup(this.props.post)
+    this.setState({showDeleteConfirmation: true})
+  }
+
+  closeDeleteConfirmation = (e) => {
+    e.preventDefault()
+    this.setState({showDeleteConfirmation: false})
+  }
+
+  deletePost = (e) => {
+    e.preventDefault()
+    this.props.deletePost(this.props.post._id)
+    this.setState({showDeleteConfirmation: false})
   }
 
   render() {
@@ -95,24 +132,29 @@ class ListItem extends Component{
                 ?<Link 
                   to={'/post/'+post.parent}
                   className="button-3 fontawesome">&#xf112;</Link>
-                :''}
+                :''
+              }
               {' '}
               <Link to={'/post/'+post._id}>{post.contentTitle}</Link>
+              {' '}
               <span style={{color:'red'}}>{post.contentTag}</span>
               <br />
               <a href={post.contentLink}>{post.contentLink}</a>
               <ContentPreview url={post.contentLink} />
               {(post.contentDescription!=='')
-                ?<button onClick={this.showPostDescription}>Show more</button>
-                :''}
-              {(this.props.showPostDescriptionState)
+                ?<button onClick={this.postDescriptionToggle}>Show more</button>
+                :''
+              }
+              {(this.state.showPostDescription)
                 ?<div>{post.contentDescription}</div>
-                :''}
+                :''
+              }
               <div>
                 Posted by{' '}
                 {(post.submittedByUserId != null)
                   ?<Link to={'/userprofile/'+post.submittedByUserId+'/submitted'}>{post.submittedByUserName}</Link>
-                  :post.submittedByUserName }
+                  :post.submittedByUserName 
+                }
                 {' '}{convertToTimePassed(post.dateSubmitted)}{' ago'}
               </div>
             </div>
@@ -124,26 +166,46 @@ class ListItem extends Component{
                 className="">
                 Reply
               </button>
-              <button onClick={this.sharePost} className="">
-                {'Share '}
-              </button>
+              {(this.state.showSharePostPopup)
+                ?<SharePost postData={post} closeSharePostPopup={this.closeSharePostPopup} />
+                :<button onClick={this.showSharePostPopup}>{'Share '}</button>
+              }
               <button onClick={this.savePost} className="">
                 {(this.props.savedState===true)
                   ?'Unsave'
-                  :'Save'}
+                  :'Save'
+                }
               </button>
-              {(this.props.showReportConfirmationState===true)
-                ?<button onClick={this.reportPost} className="">
-                  Report Confirm?
+              {(this.state.showReportConfirmation===true)
+                ?<span>
+                  <button onClick={this.reportPost} className="">
+                    Report Confirm?
                   </button>
+                  <button onClick={this.closeReportConfirmation} className="">
+                    X
+                  </button>
+                  </span>
                 :<button onClick={this.showReportConfirmation} className="">
-                  Report
-                  </button>}
-              {(this.props.submittedByCurrentUser
-                ?<button onClick={this.deletePost} className="">
+                    Report
+                  </button>
+              }
+              {(this.props.submittedByCurrentUser && this.state.showDeleteConfirmation===false
+                ?<button onClick={this.showDeleteConfirmation} className="">
                   Delete
                   </button>
-                  :'')}
+                  :'')
+              }
+              {(this.state.showDeleteConfirmation === true)
+                ?<span>
+                  <button onClick={this.deletePost} className="">
+                    Delete Confirm?
+                  </button>
+                  <button onClick={this.closeDeleteConfirmation} className="">
+                    X
+                  </button>
+                  </span>
+                :''
+              }
             </div>
           </div>
         </div>

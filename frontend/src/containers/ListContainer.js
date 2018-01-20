@@ -6,8 +6,6 @@ import {
   deletePost, 
   savePost, 
   reportPost, 
-  showReportConfirmation, 
-  showPostDescription, 
   sortPosts,
   showSharePostPopup,
   closeSharePostPopup } from '../actions'
@@ -20,9 +18,6 @@ const mapStateToProps = (state, ownProps) => ({
   voteHistory: state.userAccount.voteHistory,
   saved: state.userAccount.saved,
   showPostBoxId: state.displayState.showPostBoxId,
-  showPostDescriptionIds: state.displayState.showPostDescriptionIds,
-  reportConfirmationId: state.displayState.reportConfirmationId,
-  sharePost: state.displayState.sharePost
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -35,29 +30,17 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   vote: (postId, priorVote, currentVote) => {
     dispatch(vote(postId, priorVote, currentVote))
   },
-  showPostDescription: (postId) => {
-    dispatch(showPostDescription(postId))
-  },
   deletePost: (postId) => {
     dispatch(deletePost(postId))
   },
   savePost: (postId) => {
     dispatch(savePost(postId))
   },
-  showReportConfirmation: (postId) => {
-    dispatch(showReportConfirmation(postId))
-  },
   reportPost: (postId) => {
     dispatch(reportPost(postId))
   },
   sortPosts: (sortBy, direction) => {
     dispatch(sortPosts(sortBy, direction))
-  },
-  showSharePostPopup: (postData) => {
-    dispatch(showSharePostPopup(postData))
-  },
-  closeSharePostPopup: () => {
-    dispatch(closeSharePostPopup())
   }
 })
 

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import ListItem from './ListItem'
 import SortingDropDown from './SortingDropDown'
-import SharePost from './SharePost'
 
 class List extends Component{
   listItem = (postId, depth) => {
@@ -13,21 +12,11 @@ class List extends Component{
       voteState = props.voteHistory[postId]
     }
 
-    var showPostDescriptionState = false
-    if (props.showPostDescriptionIds.includes(postId)) {
-      showPostDescriptionState = true
-    }
-
     var savedState = false
     if (typeof(props.saved) !== 'undefined') {
       if (props.saved.includes(postId)) {
         savedState = true
       }
-    }
-
-    var showReportConfirmationState = false
-    if (props.reportConfirmationId === postId) {
-      showReportConfirmationState = true
     }
 
     var submittedByCurrentUser = false
@@ -40,20 +29,15 @@ class List extends Component{
       post={item} 
       depth={depth}
       voteState={voteState} 
-      showPostDescriptionState={showPostDescriptionState}
       savedState={savedState} 
-      showReportConfirmationState={showReportConfirmationState} 
       submittedByCurrentUser={submittedByCurrentUser} 
-      showPostDescription={props.showPostDescription}
       showPostBoxId={props.showPostBoxId} 
       showPostBox={props.showPostBox} 
       newPost={props.newPost} 
       deletePost={props.deletePost} 
       savePost={props.savePost} 
-      showReportConfirmation={props.showReportConfirmation} 
       reportPost={props.reportPost} 
-      vote={props.vote} 
-      showSharePostPopup={props.showSharePostPopup} />
+      vote={props.vote} />
   }
 
   recursiveComponent = (dataDic, listOfList, depth) => {
@@ -82,7 +66,6 @@ class List extends Component{
     
     return (
       <div>
-      <SharePost postData={this.props.sharePost} closeSharePostPopup={this.props.closeSharePostPopup} />
       <SortingDropDown sortPosts={this.props.sortPosts} />
       {this.recursiveComponent(
         this.props.displayedPostsData, 

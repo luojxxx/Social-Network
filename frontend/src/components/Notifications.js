@@ -23,13 +23,16 @@ class Notifications extends Component {
           <Link to={'/userprofile/'+data.newPostUserId+'/submitted'}>
             {data.newPostUserName}
           </Link>
-          {' replied to your post '}
+          {' replied to '}
           <Link to={'/post/'+data.parentPostId}>
-            {data.parentPostTitle}
+            {data.parentPostTitle+':'}
           </Link>
           <br />
           <Link to={'/post/'+data.newPostId}>
+            <div className='fontawesome'>
+            &#xf0a9; {' '}
             {data.newPostTitle}
+            </div>
           </Link>
         </div>
         )

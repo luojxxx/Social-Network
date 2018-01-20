@@ -319,6 +319,10 @@
   margin-left: 10px;
 }
 
+.fontawesome {
+  font-family: 'Fontawesome webfont', sans-serif;
+}
+
 a {
   text-decoration: none;
 }

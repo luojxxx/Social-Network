@@ -272,54 +272,11 @@ const displayState = (state = {
         showPostBoxId: action.payload
       }
     }
-    
 
     case 'CLOSE_POST_BOX':
     return {
       ...state,
       showPostBoxId: ''
-    }
-
-
-    case 'SHOW_REPORT_CONFIRMATION':
-    if (state.reportConfirmationId === action.payload) {
-      return {
-        ...state,
-        reportConfirmationId: ''
-      }
-    } else {
-      return {
-        ...state,
-        reportConfirmationId: action.payload
-      }
-    }
-
-
-    case 'SHOW_POST_DESCRIPTION':
-    var postId = action.payload
-    var newShowPostDescriptionIds = []
-    if (state.showPostDescriptionIds.includes(postId)) {
-      newShowPostDescriptionIds = remove(state.showPostDescriptionIds, [postId])
-    } else {
-      newShowPostDescriptionIds = [...newShowPostDescriptionIds, postId]
-    }
-    return {
-      ...state,
-      showPostDescriptionIds: newShowPostDescriptionIds
-    }
-
-
-    case 'SHOW_SHARE_POST_POPUP':
-    return {
-      ...state,
-      sharePost: action.payload
-    }
-
-
-    case 'CLOSE_SHARE_POST_POPUP':
-    return {
-      ...state,
-      sharePost: null
     }
 
     case 'SET_TOTAL_PAGES':

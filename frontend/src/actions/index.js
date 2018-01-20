@@ -317,31 +317,10 @@ export function reportPost(postId) {
       }
     })
     .then( (response) => {
-      dispatch(showReportConfirmation(postId))
+      // dispatch(showReportConfirmation(postId))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
     })
   }
 }
-
-export const showReportConfirmation = (postId) => ({
-  type: 'SHOW_REPORT_CONFIRMATION',
-  payload: postId
-})
-
-// SHOW POST DESCRIPTION FUNCTION
-export const showPostDescription = (postId) => ({
-  type: 'SHOW_POST_DESCRIPTION',
-  payload: postId
-})
-
-// SHARE POST FUNCTION
-export const showSharePostPopup = (postData) => ({
-  type: 'SHOW_SHARE_POST_POPUP',
-  payload: postData
-})
-
-export const closeSharePostPopup = () => ({
-  type: 'CLOSE_SHARE_POST_POPUP'
-})
