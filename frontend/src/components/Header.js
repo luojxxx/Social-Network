@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
 import MenuBar from './MenuBar'
-import PostBox from './PostBox'
+import PostBox from '../containers/PostBoxContainer'
 
 class Header extends Component {
   render() {
@@ -25,7 +25,17 @@ class Header extends Component {
             showPostBox={props.showPostBox} />
         </div>
         {props.showPostBoxId==='frontPage'? 
-        <PostBox newPost={props.newPost} parent='' /> : ''}
+        <PostBox 
+          newPost={this.props.newPost} 
+          parent='' 
+          post={{
+            contentTitle: '',
+            contentTag: '',
+            contentLink: '',
+            contentDescription: ''
+          }}
+          newOrEdit='new' />
+        :''}
       </div>
   )}
 }

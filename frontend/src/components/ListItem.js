@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router'
 
 import {convertToTimePassed} from '../libraryHelper'
-import PostBox from './PostBox'
+import PostBox from '../containers/PostBoxContainer'
 import ContentPreview from './ContentPreview'
 import SharePost from './SharePost'
 
@@ -10,9 +10,11 @@ class ListItem extends Component{
   constructor(props){
     super(props)
     this.state={
+      showReplyForm: false,
       showPostDescription: false,
       showSharePostPopup: false,
       showReportConfirmation: false,
+      showEditForm: false,
       showDeleteConfirmation: false,
     }
   }
@@ -30,6 +32,15 @@ class ListItem extends Component{
   downVote = (e) => {
     e.preventDefault()
     this.props.vote(this.props.post._id, this.props.voteState, -1)
+  }
+
+  toggleReplyForm = (e) => {
+    e.preventDefault()
+    if (this.state.showReplyForm === false) {
+      this.setState({showReplyForm: true, showEditForm: false})
+    } else {
+      this.setState({showReplyForm: false, showEditForm: false})
+    }
   }
 
   postDescriptionToggle = (e) => {
@@ -70,6 +81,15 @@ class ListItem extends Component{
     e.preventDefault()
     this.props.reportPost(this.props.post._id)
     this.setState({showReportConfirmation: false})
+  }
+
+  toggleEditForm = (e) => {
+    e.preventDefault()
+    if (this.state.showEditForm === false) {
+      this.setState({showEditForm: true, showReplyForm: false})
+    } else {
+      this.setState({showEditForm: false, showReplyForm: false})
+    }
   }
 
   showDeleteConfirmation = (e) => {
@@ -161,14 +181,14 @@ class ListItem extends Component{
 
             <div>
               <button 
-                onClick={this.showPostBox} 
-                style={(this.props.showPostBoxId===post._id)?{color:'blue'}:{}}
+                onClick={this.toggleReplyForm} 
+                style={(this.state.showReplyForm)?{color:'blue'}:{}}
                 className="">
                 Reply
               </button>
               {(this.state.showSharePostPopup)
                 ?<SharePost postData={post} closeSharePostPopup={this.closeSharePostPopup} />
-                :<button onClick={this.showSharePostPopup}>{'Share '}</button>
+                :<button onClick={this.showSharePostPopup}>Share</button>
               }
               <button onClick={this.savePost} className="">
                 {(this.props.savedState===true)
@@ -189,11 +209,17 @@ class ListItem extends Component{
                     Report
                   </button>
               }
+              {(this.props.submittedByCurrentUser)
+                ?<button 
+                  onClick={this.toggleEditForm}
+                  style={(this.state.showEditForm)?{color:'blue'}:{}}>Edit</button>
+                :''
+              }
               {(this.props.submittedByCurrentUser && this.state.showDeleteConfirmation===false
                 ?<button onClick={this.showDeleteConfirmation} className="">
                   Delete
                   </button>
-                  :'')
+                :'')
               }
               {(this.state.showDeleteConfirmation === true)
                 ?<span>
@@ -209,8 +235,24 @@ class ListItem extends Component{
             </div>
           </div>
         </div>
-        {(this.props.showPostBoxId === post._id) 
-          ?<PostBox newPost={this.props.newPost} parent={post._id} /> 
+        {(this.state.showReplyForm===true) 
+          ?<PostBox 
+            newPost={this.props.newPost} 
+            parent={post._id} 
+            post={{
+              contentTitle: '',
+              contentTag: '',
+              contentLink: '',
+              contentDescription: ''
+            }}
+            newOrEdit='new' /> 
+          : ''}
+        {(this.state.showEditForm===true) 
+          ?<PostBox 
+            newPost={this.props.newPost} 
+            parent={post._id} 
+            post={post} 
+            newOrEdit='edit' /> 
           : ''}
       </div>
       )

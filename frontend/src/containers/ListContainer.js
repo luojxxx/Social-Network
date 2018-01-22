@@ -1,14 +1,10 @@
 import { connect } from 'react-redux'
 import {
-  showPostBox, 
-  newPost, 
   vote, 
   deletePost, 
   savePost, 
   reportPost, 
-  sortPosts,
-  showSharePostPopup,
-  closeSharePostPopup } from '../actions'
+  sortPosts} from '../actions'
 import List from '../components/List'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -17,16 +13,9 @@ const mapStateToProps = (state, ownProps) => ({
   userId: state.userAccount.userId,
   voteHistory: state.userAccount.voteHistory,
   saved: state.userAccount.saved,
-  showPostBoxId: state.displayState.showPostBoxId,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  showPostBox: (parentId) => {
-    dispatch(showPostBox(parentId))
-  },
-  newPost: (data) => {
-    dispatch(newPost(data))
-  },
   vote: (postId, priorVote, currentVote) => {
     dispatch(vote(postId, priorVote, currentVote))
   },

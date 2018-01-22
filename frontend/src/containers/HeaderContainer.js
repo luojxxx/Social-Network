@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newPost, logout, showPostBox } from '../actions'
+import { logout } from '../actions'
 import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -8,14 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  newPost: (data) => {
-    dispatch(newPost(data))
-  },
   logout: () => {
     dispatch(logout())
-  },
-  showPostBox: (parentId) => {
-    dispatch(showPostBox(parentId))
   }
 })
 

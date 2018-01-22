@@ -60,7 +60,7 @@ class List extends Component{
   }
 
   render() {
-    if (this.props.displayedPostsOrder.length ===0){
+    if (this.props.displayedPostsOrder.length === 0) {
       return <div>No results</div>
     }
     

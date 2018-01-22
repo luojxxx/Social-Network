@@ -132,6 +132,43 @@ router.post('/', passport.authenticate('bearer', { session: false }),
     })
 })
 
+router.put('/:_id', passport.authenticate('bearer', { session: false }),
+  function(req,res){
+    var userId = req.user._id;
+    var postId = req.params._id;
+    var postData = req.body;
+    postData.contentTitle = postData.contentTitle.substring(0,257)
+    postData.contentTag = postData.contentTag.substring(0,65)
+    postData.contentLink = postData.contentLink.substring(0,513)
+    postData.contentDescription = postData.contentDescription.substring(0,10001)
+
+    var updatePost = {
+      contentTitle: postData.contentTitle,
+      contentTag: postData.contentTag,
+      contentLink: postData.contentLink,
+      contentDescription: postData.contentDescription
+    };
+
+    Post.findOne({_id: postId})
+    .then((post)=>{
+      if (String(post.submittedByUserId) === String(userId)) {
+        Post.findOneAndUpdate({_id: postId}, updatePost)
+        .then(()=>{
+          res.status(200);
+          res.send('Completed update');
+        })
+      } else {
+        res.status(401);
+        res.send('Unauthorized edit')
+      }
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    })
+
+})
+
 router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var allUserInfo = req.user;

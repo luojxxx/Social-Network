@@ -4,10 +4,10 @@ class PostBox extends Component{
   constructor(props) {
       super(props)
       this.state={
-          contentTitle: '',
-          contentTag: '',
-          contentLink: '',
-          contentDescription: '',
+          contentTitle: props.post.contentTitle,
+          contentTag: props.post.contentTag,
+          contentLink: props.post.contentLink,
+          contentDescription: props.post.contentDescription,
       }
   }
 
@@ -30,7 +30,12 @@ class PostBox extends Component{
   submitPost = (e)=>{
     e.preventDefault()
     var data = Object.assign({}, this.state, {parent:this.props.parent})
-    this.props.newPost(data)
+    if (this.props.newOrEdit==='new'){
+      this.props.newPost(data)
+    }
+    if (this.props.newOrEdit==='edit'){
+      this.props.editPost(this.props.post._id, data)
+    }
   }
 
   render() {
@@ -41,6 +46,7 @@ class PostBox extends Component{
             <label htmlFor="Title">Title</label>
             <input 
             onChange={this.updateTitleField}
+            value={this.state.contentTitle}
             type="text" 
             className="w-input" 
             maxLength="256" 
@@ -54,6 +60,7 @@ class PostBox extends Component{
             <label htmlFor="tag">Tag</label>
             <input 
             onChange={this.updateTagField}
+            value={this.state.contentTag}
             type="text" 
             className="w-input" 
             maxLength="64" 
@@ -66,6 +73,7 @@ class PostBox extends Component{
           <label htmlFor="link">Link</label>
           <input 
           onChange={this.updateLinkField}
+          value={this.state.contentLink}
           type="text" 
           className="w-input" 
           maxLength="512" 
@@ -77,6 +85,7 @@ class PostBox extends Component{
           <label htmlFor="description">Description</label>
           <textarea 
           onChange={this.updateDescriptionField}
+          value={this.state.contentDescription}
           id="description" 
           name="description" 
           maxLength="10000" 

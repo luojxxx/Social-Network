@@ -59,6 +59,21 @@ export const displayedPosts = (state = {
       dataOrder: dataOrder
     }
 
+    case 'UPDATE_EDIT_POST':
+    var newData = Object.assign({}, state.data)
+    var postId = action.payload.postId
+    var postData = action.payload.data
+
+    newData[postId].contentTitle = postData.contentTitle
+    newData[postId].contentTag = postData.contentTag
+    newData[postId].contentLink = postData.contentLink
+    newData[postId].contentDescription = postData.contentDescription
+
+    return {
+      ...state,
+      data: newData
+    }
+
 
     case 'UPDATE_NEW_VOTE':
     var newData = Object.assign({}, state.data)

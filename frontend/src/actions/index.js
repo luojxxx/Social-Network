@@ -226,6 +226,35 @@ export function newPost(data) {
   }
 }
 
+// EDIT POST FUNCTIONS
+export const editPostInState = (postId, data) => ({
+  type: 'UPDATE_EDIT_POST',
+  payload: {
+    postId: postId,
+    data: data
+  }
+})
+
+export function editPost(postId, data) {
+  return function(dispatch){
+    axios({
+      method:'put',
+      url:apiUrl+'posts/'+postId,
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+      },
+      data: data
+    })
+    .then( (response) => {
+      dispatch(editPostInState(postId, data))
+      // dispatch(closePostBox())
+    })
+    .catch( (err) => {
+      // dispatch(userDataLoadFailed())
+    })
+  }
+}
+
 // POST VOTING FUNCTIONS
 export function vote(postId, priorVote, currentVote) {
   if (priorVote === currentVote) {
