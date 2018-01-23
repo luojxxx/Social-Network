@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { changeUserName } from '../actions'
+import { changeUserName, setSubHeading } from '../actions'
 import Settings from '../components/Settings'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -7,6 +7,9 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  setSubHeading: (subheading) => {
+    dispatch(setSubHeading(subheading))
+  },
   changeUserName: (userId, userName) => {
     dispatch(changeUserName(userId, userName))
   }

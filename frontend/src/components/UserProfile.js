@@ -55,10 +55,6 @@ class UserProfile extends Component {
   }
 
   render() {
-    if (this.props.pageLoading === true) {
-      return ''
-    }
-
     var userProfile = this.props.userProfile
     var userId = this.props.params.userId
     var currentUser = userId === this.props.userAccount.userId
@@ -90,10 +86,15 @@ class UserProfile extends Component {
           </div>
         </div>
 
-        <List />
-        <Pagination 
-          urlStem={'/userprofile/'+userId+'/'+this.props.params.subField}
-          query={{page:defaultPage(this.props.location.query.page)}} />
+        {(this.props.pageLoading)
+          ?''
+          :<span>
+            <List />
+            <Pagination 
+              urlStem={'/userprofile/'+userId+'/'+this.props.params.subField}
+              query={{page:defaultPage(this.props.location.query.page)}} />
+            </span>}
+        
       </div>
     )
   }

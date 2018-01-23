@@ -9,6 +9,10 @@ class Settings extends Component{
       }
   }
 
+  componentDidMount() {
+    this.props.setSubHeading('Settings')
+  }
+
   updateUserName = (e) => {
     e.preventDefault()
     this.setState({userName: e.target.value})
@@ -23,7 +27,6 @@ class Settings extends Component{
     var userAccount = this.props.userAccount
     return (
       <div>
-        <Header subheader='Settings' /> <br/>
         <div className="content-block w-container">
           Settings <br/><br/>
           Username: 
