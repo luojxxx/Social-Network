@@ -1,12 +1,8 @@
 export const displayState = (state = {
   pageLoading: true,
   subheading: '',
-  showPostBoxId: '',
-  pendingPostBoxId: '', 
-  reportConfirmationId: '',
-  showPostDescriptionIds: [],
-  sharePost: null,
-  pages: 0
+  pages: 0,
+  pendingPost: false, 
 }, action) => {
   switch (action.type) {
 
@@ -40,29 +36,28 @@ export const displayState = (state = {
       subheading: action.payload
     }
 
-    case 'SHOW_POST_BOX':
-    if (state.showPostBoxId === action.payload.parentId) {
-      return {
-        ...state,
-        showPostBoxId: ''
-      }
-    } else {
-      return {
-        ...state,
-        showPostBoxId: action.payload.parentId
-      }
-    }
-
-    case 'CLOSE_POST_BOX':
-    return {
-      ...state,
-      showPostBoxId: ''
-    }
-
     case 'SET_TOTAL_PAGES':
     return {
       ...state,
       pages: action.payload
+    }
+
+    case 'PENDING_POST':
+    return {
+      ...state,
+      pendingPost: true
+    }
+
+    case 'UPDATE_NEW_POST':
+    return {
+      ...state,
+      pendingPost: false
+    }
+
+    case 'UPDATE_EDIT_POST':
+    return {
+      ...state,
+      pendingPost: false
     }
 
     default:

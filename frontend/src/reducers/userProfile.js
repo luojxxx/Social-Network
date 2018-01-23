@@ -1,6 +1,5 @@
 export const userProfile = (state = {
   userName: 'Guest',
-  submitted: [],
   totalPosts: 0,
   totalVotes: 0
 }, action) => {
@@ -10,7 +9,6 @@ export const userProfile = (state = {
     return {
       ...state,
       userName: action.payload.userName,
-      submitted: action.payload.submitted,
       totalPosts: action.payload.totalPosts,
       totalVotes: action.payload.totalVotes
     }

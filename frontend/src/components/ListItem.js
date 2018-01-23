@@ -34,8 +34,7 @@ class ListItem extends Component{
     this.props.vote(this.props.post._id, this.props.voteState, -1)
   }
 
-  toggleReplyForm = (e) => {
-    e.preventDefault()
+  toggleReplyForm = () => {
     if (this.state.showReplyForm === false) {
       this.setState({showReplyForm: true, showEditForm: false})
     } else {
@@ -83,13 +82,16 @@ class ListItem extends Component{
     this.setState({showReportConfirmation: false})
   }
 
-  toggleEditForm = (e) => {
-    e.preventDefault()
+  toggleEditForm = () => {
     if (this.state.showEditForm === false) {
       this.setState({showEditForm: true, showReplyForm: false})
     } else {
       this.setState({showEditForm: false, showReplyForm: false})
     }
+  }
+
+  closePostBox = () => {
+    this.setState({showReplyForm: false, showEditForm: false})
   }
 
   showDeleteConfirmation = (e) => {
@@ -237,7 +239,6 @@ class ListItem extends Component{
         </div>
         {(this.state.showReplyForm===true) 
           ?<PostBox 
-            newPost={this.props.newPost} 
             parent={post._id} 
             post={{
               contentTitle: '',
@@ -245,14 +246,15 @@ class ListItem extends Component{
               contentLink: '',
               contentDescription: ''
             }}
-            newOrEdit='new' /> 
+            newOrEdit='new' 
+            closePostBox={this.closePostBox} /> 
           : ''}
         {(this.state.showEditForm===true) 
           ?<PostBox 
-            newPost={this.props.newPost} 
             parent={post._id} 
             post={post} 
-            newOrEdit='edit' /> 
+            newOrEdit='edit' 
+            closePostBox={this.closePostBox} /> 
           : ''}
       </div>
       )

@@ -4,6 +4,21 @@ import MenuBar from './MenuBar'
 import PostBox from '../containers/PostBoxContainer'
 
 class Header extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      showPostForm: false
+    }
+  }
+
+  togglePostForm = () => {
+    if (this.state.showPostForm === false) {
+      this.setState({showPostForm: true})
+    } else {
+      this.setState({showPostForm: false})
+    }
+  }
+
   render() {
     var props = this.props
     return (
@@ -20,22 +35,21 @@ class Header extends Component {
           </div>
           <MenuBar 
             userAccount={props.userAccount} 
-            newPost={props.newPost} 
             logout={props.logout} 
-            showPostBox={props.showPostBox} />
+            togglePostForm={this.togglePostForm} />
         </div>
-        {props.showPostBoxId==='frontPage'? 
-        <PostBox 
-          newPost={this.props.newPost} 
-          parent='' 
-          post={{
-            contentTitle: '',
-            contentTag: '',
-            contentLink: '',
-            contentDescription: ''
-          }}
-          newOrEdit='new' />
-        :''}
+        {this.state.showPostForm
+          ?<PostBox 
+            parent='' 
+            post={{
+              contentTitle: '',
+              contentTag: '',
+              contentLink: '',
+              contentDescription: ''
+            }}
+            newOrEdit='new'
+            closePostBox={this.togglePostForm} />
+          :''}
       </div>
   )}
 }

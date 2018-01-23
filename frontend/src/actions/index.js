@@ -231,21 +231,9 @@ export function search(searchQuery, page)  {
 
 
 // NEW POST FUNCTIONS
-export const showPostBox = (parentId, newOrEdit) => ({
-  type: 'SHOW_POST_BOX',
-  payload: {
-    parentId: parentId,
-    newOrEdit: newOrEdit
-  }
-})
-
-export const pendingPostBox = (parentId) => ({
-  type: 'PENDING_POST_BOX',
+export const pendingPost = (parentId) => ({
+  type: 'PENDING_POST',
   payload: parentId
-})
-
-export const closePostBox = () => ({
-  type: 'CLOSE_POST_BOX'
 })
 
 export const addPostToState = (data) => ({
@@ -255,6 +243,7 @@ export const addPostToState = (data) => ({
 
 export function newPost(data) {
   return function(dispatch){
+    dispatch(pendingPost())
     axios({
       method:'post',
       url:apiUrl+'posts',
@@ -265,7 +254,6 @@ export function newPost(data) {
     })
     .then( (response) => {
       dispatch(addPostToState(response.data))
-      dispatch(closePostBox())
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -284,6 +272,7 @@ export const editPostInState = (postId, data) => ({
 
 export function editPost(postId, data) {
   return function(dispatch){
+    dispatch(pendingPost())
     axios({
       method:'put',
       url:apiUrl+'posts/'+postId,

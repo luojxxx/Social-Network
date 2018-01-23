@@ -28,10 +28,6 @@ class MenuBar extends Component{
     }
   }
 
-  showPostBox = (e) => {
-    this.props.showPostBox('frontPage')
-  }
-
   render() {
     var userAccount = this.props.userAccount
     return (
@@ -49,7 +45,7 @@ class MenuBar extends Component{
         {(userAccount.loggedIn)
           ?<div>
           <button 
-            onClick={this.showPostBox} 
+            onClick={this.props.togglePostForm} 
             style={(this.props.showPostBoxId==='frontPage')?{color:'blue'}:{}}
             className="w-button">
             New Post
@@ -63,7 +59,6 @@ class MenuBar extends Component{
           <button onClick={this.props.logout} className="w-button">Logout</button>
           </div>
           :<a href={hostUrl+'auth/google/'} className="w-button">Login</a>}
-        
       </div>
       )}
 }

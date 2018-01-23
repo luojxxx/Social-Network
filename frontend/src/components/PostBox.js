@@ -11,6 +11,12 @@ class PostBox extends Component{
       }
   }
 
+  componentWillReceiveProps(nextProps) {
+      if (this.props.pendingPost === true && nextProps.pendingPost === false) {
+        this.props.closePostBox()
+      }
+    }
+
   updateTitleField = (e) => {
     this.setState({contentTitle: e.target.value})
   }
@@ -93,7 +99,10 @@ class PostBox extends Component{
             className="w-input"></textarea>
         </div>
         <div>
-          <button onClick={this.submitPost} className="w-button">Submit</button>
+          {(this.props.pendingPost)
+            ?'Pending'
+            :<button onClick={this.submitPost} className="w-button">Submit</button>
+          }
         </div>
       </div>
       )

@@ -3,6 +3,7 @@ import { newPost, editPost } from '../actions'
 import PostBox from '../components/PostBox'
 
 const mapStateToProps = (state, ownProps) => ({
+  pendingPost: state.displayState.pendingPost
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
