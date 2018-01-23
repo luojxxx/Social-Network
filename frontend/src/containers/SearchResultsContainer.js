@@ -3,6 +3,7 @@ import { search } from '../actions'
 import SearchResults from '../components/SearchResults'
 
 const mapStateToProps = (state, ownProps) => ({
+  pageLoading: state.displayState.pageLoading
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -22,7 +22,9 @@ class MenuBar extends Component{
 
   onEnter = (e) => {
     if (e.key === 'Enter') {
-      this.searchResultsRedirect()
+      if (this.state.searchQuery !== '') {
+        this.searchResultsRedirect()
+      }
     }
   }
 

@@ -7,6 +7,10 @@ export const setTotalPages = (data) => ({
   payload: data
 })
 
+export const pageLoading = () => ({
+  type: 'PAGE_LOADING'
+})
+
 export const pageLoaded = (data) => ({
   type: 'PAGE_LOADED',
   payload: data
@@ -14,6 +18,7 @@ export const pageLoaded = (data) => ({
 
 export function loadFrontPageData(page) {
   return function(dispatch){
+    dispatch(pageLoading())
     axios({
       method:'get',
       url:apiUrl+'recommendations/'+page
@@ -27,6 +32,7 @@ export function loadFrontPageData(page) {
 
 export function loadPost(postId) {
   return function(dispatch){
+    dispatch(pageLoading())
     axios({
       method:'get',
       url:apiUrl+'posts/'+postId+'/graph'
@@ -47,6 +53,7 @@ export const sortPosts = (sortBy, sortDirection) => ({
 
 export function loadNotifications(page) {
   return function(dispatch){
+    dispatch(pageLoading())
     axios({
       method: 'get',
       url:apiUrl+'notifications/'+page,
@@ -132,6 +139,7 @@ export const userProfileLoaded = (data) => ({
 
 export function loadUserProfile(userId, page) {
   return function(dispatch){
+    dispatch(pageLoading())
     axios({
       method:'get',
       url:apiUrl+'users/'+userId+'/submitted/'+page,
@@ -152,6 +160,7 @@ export function loadUserProfile(userId, page) {
 
 export function loadUserHistoryByField(userId, field, page)  {
   return function(dispatch){
+    dispatch(pageLoading())
     axios({
       method:'get',
       url:apiUrl+'users/'+userId+'/'+field+'/'+page,
@@ -177,6 +186,7 @@ export const searchPageLoaded = (data) => ({
 
 export function search(searchQuery, page)  {
   return function(dispatch){
+    dispatch(pageLoading())
     axios({
       method:'get',
       url:apiUrl+'search/'+searchQuery+'/'+page,
@@ -191,9 +201,35 @@ export function search(searchQuery, page)  {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NEW POST FUNCTIONS
-export const showPostBox = (parentId) => ({
+export const showPostBox = (parentId, newOrEdit) => ({
   type: 'SHOW_POST_BOX',
+  payload: {
+    parentId: parentId,
+    newOrEdit: newOrEdit
+  }
+})
+
+export const pendingPostBox = (parentId) => ({
+  type: 'PENDING_POST_BOX',
   payload: parentId
 })
 

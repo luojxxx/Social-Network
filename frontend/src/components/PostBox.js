@@ -45,8 +45,8 @@ class PostBox extends Component{
           <div className="w-col w-col-9">
             <label htmlFor="Title">Title</label>
             <input 
-            onChange={this.updateTitleField}
-            value={this.state.contentTitle}
+            onChange={this.updateTitleField} 
+            value={this.state.contentTitle} 
             type="text" 
             className="w-input" 
             maxLength="256" 

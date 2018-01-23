@@ -27,7 +27,7 @@ class List extends Component{
     return <ListItem 
       key={postId} 
       post={item} 
-      depth={depth}
+      depth={depth} 
       voteState={voteState} 
       savedState={savedState} 
       submittedByCurrentUser={submittedByCurrentUser} 

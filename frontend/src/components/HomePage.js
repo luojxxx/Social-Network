@@ -16,6 +16,10 @@ class HomePage extends Component {
   }
 
   render() {
+    if (this.props.pageLoading === true) {
+      return <Header subheader='Front Page' />
+    }
+    
     return (
       <div>
         <Header subheader='Front Page' /> <br/>

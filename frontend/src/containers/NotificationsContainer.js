@@ -3,6 +3,7 @@ import { loadNotifications } from '../actions'
 import Notifications from '../components/Notifications'
 
 const mapStateToProps = (state, ownProps) => ({
+  pageLoading: state.displayState.pageLoading,
   notifications: state.notifications.data
 })
 

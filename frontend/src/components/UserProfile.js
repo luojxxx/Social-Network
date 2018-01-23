@@ -57,6 +57,10 @@ class UserProfile extends Component {
   }
 
   render() {
+    if (this.props.pageLoading === true) {
+      return <Header subheader='User Profile' />
+    }
+    
     var userProfile = this.props.userProfile
     var userId = this.props.params.userId
     var currentUser = userId === this.props.userAccount.userId

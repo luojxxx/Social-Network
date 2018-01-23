@@ -3,9 +3,9 @@ import { loadUserProfile, loadUserHistoryByField, newPost } from '../actions'
 import UserProfile from '../components/UserProfile'
 
 const mapStateToProps = (state, ownProps) => ({
+  pageLoading: state.displayState.pageLoading,
   userAccount: state.userAccount,
-  userProfile: state.userProfile,
-  showPostBoxId: state.displayState.showPostBoxId
+  userProfile: state.userProfile
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

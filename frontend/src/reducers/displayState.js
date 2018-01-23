@@ -1,5 +1,7 @@
 export const displayState = (state = {
+  pageLoading: true,
   showPostBoxId: '',
+  pendingPostBoxId: '', 
   reportConfirmationId: '',
   showPostDescriptionIds: [],
   sharePost: null,
@@ -7,8 +9,32 @@ export const displayState = (state = {
 }, action) => {
   switch (action.type) {
 
+    case 'PAGE_LOADING':
+    return {
+      ...state,
+      pageLoading: true
+    }
+
+    case 'PAGE_LOADED':
+    return {
+      ...state,
+      pageLoading: false
+    }
+
+    case 'SEARCH_PAGE_LOADED':
+    return {
+      ...state,
+      pageLoading: false
+    }
+
+    case 'LOADED_NOTIFICATIONS':
+    return {
+      ...state,
+      pageLoading: false
+    }
+
     case 'SHOW_POST_BOX':
-    if (state.showPostBoxId === action.payload) {
+    if (state.showPostBoxId === action.payload.parentId) {
       return {
         ...state,
         showPostBoxId: ''
@@ -16,7 +42,7 @@ export const displayState = (state = {
     } else {
       return {
         ...state,
-        showPostBoxId: action.payload
+        showPostBoxId: action.payload.parentId
       }
     }
 

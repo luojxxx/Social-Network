@@ -40,6 +40,10 @@ class Notifications extends Component {
   }
 
   render() {
+    if (this.props.pageLoading === true) {
+      return <Header subheader='Notifications' />
+    }
+
     return (
       <div>
         <Header subheader='Notifications' /> <br/>

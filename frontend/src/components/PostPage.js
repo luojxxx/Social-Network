@@ -14,6 +14,10 @@ class PostPage extends Component {
     }
 
   render() {
+    if (this.props.pageLoading === true) {
+      return <Header subheader='Post Page' />
+    }
+    
     return (
       <div>
         <Header subheader='Post Page' /> <br/>
