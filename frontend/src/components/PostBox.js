@@ -12,7 +12,7 @@ class PostBox extends Component{
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.pendingPost === true && nextProps.pendingPost === false) {
+      if (this.props.pendingPostState === 'pending' && nextProps.pendingPostState === 'success') {
         this.props.closePostBox()
       }
     }
@@ -99,7 +99,7 @@ class PostBox extends Component{
             className="w-input"></textarea>
         </div>
         <div>
-          {(this.props.pendingPost)
+          {(this.props.pendingPostState === 'pending')
             ?'Pending'
             :<button onClick={this.submitPost} className="w-button">Submit</button>
           }

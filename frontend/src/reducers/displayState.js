@@ -2,7 +2,7 @@ export const displayState = (state = {
   pageLoading: true,
   subheading: '',
   pages: 0,
-  pendingPost: false, 
+  pendingPostState: '', 
 }, action) => {
   switch (action.type) {
 
@@ -45,19 +45,19 @@ export const displayState = (state = {
     case 'PENDING_POST':
     return {
       ...state,
-      pendingPost: true
+      pendingPostState: 'pending'
     }
 
     case 'UPDATE_NEW_POST':
     return {
       ...state,
-      pendingPost: false
+      pendingPostState: 'success'
     }
 
     case 'UPDATE_EDIT_POST':
     return {
       ...state,
-      pendingPost: false
+      pendingPostState: 'success'
     }
 
     default:
