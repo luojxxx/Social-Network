@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router'
-import Header from '../containers/HeaderContainer'
 import Pagination from '../containers/PaginationContainer'
 import {defaultPage} from '../libraryHelper'
 

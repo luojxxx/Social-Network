@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Header from '../containers/HeaderContainer'
 import List from '../containers/ListContainer'
 
 class PostPage extends Component {

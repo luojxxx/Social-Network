@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Header from '../containers/HeaderContainer'
 import List from '../containers/ListContainer'
 import Pagination from '../containers/PaginationContainer'
 import {defaultPage} from '../libraryHelper'

@@ -31,9 +31,6 @@ class List extends Component{
       voteState={voteState} 
       savedState={savedState} 
       submittedByCurrentUser={submittedByCurrentUser} 
-      showPostBoxId={props.showPostBoxId} 
-      showPostBox={props.showPostBox} 
-      newPost={props.newPost} 
       deletePost={props.deletePost} 
       savePost={props.savePost} 
       reportPost={props.reportPost} 
