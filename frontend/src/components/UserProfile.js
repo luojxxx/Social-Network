@@ -58,48 +58,44 @@ class UserProfile extends Component {
 
   render() {
     if (this.props.pageLoading === true) {
-      return <Header subheader='User Profile' />
+      return ''
     }
-    
+
     var userProfile = this.props.userProfile
     var userId = this.props.params.userId
     var currentUser = userId === this.props.userAccount.userId
 
     return (
-      <div>
-        <Header subheader='User Profile' /> <br/>
-        {this.props.showPostBoxId==='frontPage'? 
-        <PostBox newPost={this.props.newPost} parent='' /> : ''}
-        <div className="w-container">
-          <div className="userprofilemetrics w-row">
-            <div className="w-col w-col-4">
-              <h1>{userProfile.userName}</h1>
-              <Link to={'/userprofile/'+userId+'/submitted'}>Submitted Posts</Link>
-              {(currentUser)
-                ?
-                <div>
-                <Link to={'/userprofile/'+userId+'/upvoted'}>Upvoted posts</Link><br />
-                <Link to={'/userprofile/'+userId+'/downvoted'}>Downvoted Posts</Link><br />
-                <Link to={'/userprofile/'+userId+'/saved'}>Saved Posts</Link><br />
-                <div><Link to='/settings'>Settings</Link></div>
-                </div>
-                :''
-              }
-            </div>
-            <div className="w-col w-col-4">
-              <h1>Total Posts</h1>
-              <h1>{userProfile.totalPosts}</h1>
-            </div>
-            <div className="w-col w-col-4">
-              <h1>Total Votes</h1>
-              <h1>{userProfile.totalVotes}</h1>
-            </div>
+      <div className="w-container">
+        <div className="userprofilemetrics w-row">
+          <div className="w-col w-col-4">
+            <h1>{userProfile.userName}</h1>
+            <Link to={'/userprofile/'+userId+'/submitted'}>Submitted Posts</Link>
+            {(currentUser)
+              ?
+              <div>
+              <Link to={'/userprofile/'+userId+'/upvoted'}>Upvoted posts</Link><br />
+              <Link to={'/userprofile/'+userId+'/downvoted'}>Downvoted Posts</Link><br />
+              <Link to={'/userprofile/'+userId+'/saved'}>Saved Posts</Link><br />
+              <div><Link to='/settings'>Settings</Link></div>
+              </div>
+              :''
+            }
+          </div>
+          <div className="w-col w-col-4">
+            <h1>Total Posts</h1>
+            <h1>{userProfile.totalPosts}</h1>
+          </div>
+          <div className="w-col w-col-4">
+            <h1>Total Votes</h1>
+            <h1>{userProfile.totalVotes}</h1>
           </div>
         </div>
+
         <List />
         <Pagination 
-        urlStem={'/userprofile/'+userId+'/'+this.props.params.subField}
-        query={{page:defaultPage(this.props.location.query.page)}} />
+          urlStem={'/userprofile/'+userId+'/'+this.props.params.subField}
+          query={{page:defaultPage(this.props.location.query.page)}} />
       </div>
     )
   }

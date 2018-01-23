@@ -41,12 +41,11 @@ class Notifications extends Component {
 
   render() {
     if (this.props.pageLoading === true) {
-      return <Header subheader='Notifications' />
+      return ''
     }
 
     return (
       <div>
-        <Header subheader='Notifications' /> <br/>
         {this.props.notifications.map((ele, idx)=>{
           return this.renderNotification(ele)
         })}

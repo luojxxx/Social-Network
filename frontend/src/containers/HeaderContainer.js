@@ -4,6 +4,7 @@ import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({
   userAccount: state.userAccount,
+  subheading: state.displayState.subheading,
   showPostBoxId: state.displayState.showPostBoxId
 })
 

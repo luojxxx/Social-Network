@@ -16,7 +16,7 @@ class Header extends Component {
             <Link to='/'>
               <h1 className="heading">GEDDIT</h1>
             </Link>
-            <h3>{props.subheader}</h3>
+            <h3>{props.subheading}</h3>
           </div>
           <MenuBar 
             userAccount={props.userAccount} 

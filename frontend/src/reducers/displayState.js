@@ -1,5 +1,6 @@
 export const displayState = (state = {
   pageLoading: true,
+  subheading: '',
   showPostBoxId: '',
   pendingPostBoxId: '', 
   reportConfirmationId: '',
@@ -31,6 +32,12 @@ export const displayState = (state = {
     return {
       ...state,
       pageLoading: false
+    }
+
+    case 'SET_SUBHEADING':
+    return {
+      ...state,
+      subheading: action.payload
     }
 
     case 'SHOW_POST_BOX':

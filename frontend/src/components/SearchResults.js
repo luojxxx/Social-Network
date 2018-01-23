@@ -21,12 +21,11 @@ class SearchResults extends Component {
 
   render() {
     if (this.props.pageLoading === true) {
-      return <Header subheader='Search Results' />
+      return ''
     }
-    
+
     return (
       <div>
-        <Header subheader='Search Results' /> <br/>
         Showing search results for "{this.props.location.query.q}"
         <List />
         <Pagination

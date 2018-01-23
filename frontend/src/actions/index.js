@@ -16,8 +16,14 @@ export const pageLoaded = (data) => ({
   payload: data
 })
 
+export const setSubHeading = (subheading) => ({
+  type: 'SET_SUBHEADING',
+  payload: subheading
+})
+
 export function loadFrontPageData(page) {
   return function(dispatch){
+    dispatch(setSubHeading('Front Page'))
     dispatch(pageLoading())
     axios({
       method:'get',
@@ -32,6 +38,7 @@ export function loadFrontPageData(page) {
 
 export function loadPost(postId) {
   return function(dispatch){
+    dispatch(setSubHeading('Post Page'))
     dispatch(pageLoading())
     axios({
       method:'get',
@@ -53,6 +60,7 @@ export const sortPosts = (sortBy, sortDirection) => ({
 
 export function loadNotifications(page) {
   return function(dispatch){
+    dispatch(setSubHeading('Notifications'))
     dispatch(pageLoading())
     axios({
       method: 'get',
@@ -139,6 +147,7 @@ export const userProfileLoaded = (data) => ({
 
 export function loadUserProfile(userId, page) {
   return function(dispatch){
+    dispatch(setSubHeading('User Profile'))
     dispatch(pageLoading())
     axios({
       method:'get',
@@ -160,6 +169,7 @@ export function loadUserProfile(userId, page) {
 
 export function loadUserHistoryByField(userId, field, page)  {
   return function(dispatch){
+    dispatch(setSubHeading('User Profile'))
     dispatch(pageLoading())
     axios({
       method:'get',
@@ -186,6 +196,7 @@ export const searchPageLoaded = (data) => ({
 
 export function search(searchQuery, page)  {
   return function(dispatch){
+    dispatch(setSubHeading('Search Results'))
     dispatch(pageLoading())
     axios({
       method:'get',
