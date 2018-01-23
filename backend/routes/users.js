@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 
 var User = require('../models/user');
 var Post = require('../models/post');
-var pageSize = 5;
+var config = require('../config');
 
 router.get('/verify', passport.authenticate('bearer', { session: false }),
   function(req,res){
@@ -73,7 +73,7 @@ router.get('/:_id/submitted/:page', function(req, res, next) {
   var filterPosts = {submittedByUserId: userId};
   var filterUser = {_id: userId};
   var projection = {};
-  var options = {skip: pageSize*page, limit: pageSize, sort:{dateSubmitted:-1}};
+  var options = {skip: config.pageSize*page, limit: config.pageSize, sort:{dateSubmitted:-1}};
 
   var count = Post.find(filterPosts).count();
   var paginatedResults = Post.find(filterPosts, projection, options);
@@ -91,7 +91,7 @@ router.get('/:_id/submitted/:page', function(req, res, next) {
     res.status(200);
     res.send({
       totalPosts: values[0], 
-      pages: Math.ceil(values[0]/pageSize), 
+      pages: Math.ceil(values[0]/config.pageSize), 
       docs: values[1],
       userName: values[2].userName,
       totalVotes: values[2].totalVotes
@@ -111,17 +111,8 @@ router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: fals
     var page = parseInt(req.params.page);
 
     var saved = userProfile.saved;
-    var upVoted = [];
-    var downVoted = [];
-    for (var key in userProfile.voteHistory) {
-      let item = userProfile.voteHistory[key];
-      if (item === 1) {
-        upVoted.push(key);
-      }
-      if (item === -1) {
-        downVoted.push(key);
-      }
-    }
+    var upVoted = userProfile.upvotes;
+    var downVoted = userProfile.downvotes;
 
     var searchQuery = [];
     if (field === 'saved') {
@@ -137,7 +128,7 @@ router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: fals
 
     var query = {'_id': {$in: searchQuery}};
     var fields = {};
-    var options = {skip: pageSize*page, limit: pageSize};
+    var options = {skip: config.pageSize*page, limit: config.pageSize};
 
     var count = Post.find(query).count();
     var paginatedResults = Post.find(query, fields, options);
@@ -147,7 +138,7 @@ router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: fals
       res.status(200);
       res.send({
         totalPosts: userProfile.submitted.length, 
-        pages: Math.ceil(values[0]/pageSize), 
+        pages: Math.ceil(values[0]/config.pageSize), 
         docs: values[1],
         userName: userProfile.userName,
         totalVotes: userProfile.totalVotes

@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
-var pageSize = 5;
+var config = require('../config');
 
 router.get('/:searchQuery/:page', function(req, res, next) {
   var searchQuery = req.params.searchQuery;
@@ -14,7 +14,7 @@ router.get('/:searchQuery/:page', function(req, res, next) {
 
   var filter = {$text: {$search: searchQuery}};
   var projection = {searchScore: {$meta: 'textScore'}}
-  var options = {skip: pageSize*page, limit: pageSize}
+  var options = {skip: config.pageSize*page, limit: config.pageSize}
 
   var searchCount = Post.find(filter, projection).count()
   var searchResults = Post.find(filter, projection, options)
@@ -23,7 +23,7 @@ router.get('/:searchQuery/:page', function(req, res, next) {
   Promise.all([searchCount, searchResults])
   .then((values)=>{
     res.status(200);
-    res.send({pages: Math.ceil(values[0]/pageSize), docs: values[1]});
+    res.send({pages: Math.ceil(values[0]/config.pageSize), docs: values[1]});
   })
   .catch((err)=>{
     res.status(404);

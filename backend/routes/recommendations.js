@@ -5,7 +5,7 @@ mongoose.Promise = Promise;
 
 var Post = require('../models/post');
 var User = require('../models/user');
-var pageSize = 15;
+var config = require('../config');
 
 router.get('/:page', function(req, res, next) {
   var page = parseInt(req.params.page);
@@ -13,8 +13,8 @@ router.get('/:page', function(req, res, next) {
   var filter = {};
   var projection = {};
   var options = {
-    skip: pageSize*page, 
-    limit: pageSize, 
+    skip: config.pageSize*page, 
+    limit: config.pageSize, 
     sort:{dateSubmitted:-1}
   };
 
@@ -24,7 +24,7 @@ router.get('/:page', function(req, res, next) {
   Promise.all([postCount, postResults])
   .then((values)=>{
     res.status(200);
-    res.send({pages: Math.ceil(values[0]/pageSize), docs: values[1]});
+    res.send({pages: Math.ceil(values[0]/config.pageSize), docs: values[1]});
   })
   .catch((err)=>{
     res.status(404);

@@ -6,7 +6,7 @@ mongoose.Promise = Promise;
 
 var UserNotification = require('../models/user_notification');
 var Notification = require('../models/notification');
-var pageSize = 3;
+var config = require('../config');
 
 router.get('/:page', passport.authenticate('bearer', { session: false }),
   function(req,res){
@@ -20,8 +20,8 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
       var filter = {'_id': {$in: notificationArray}};
       var projection = {};
       var options = {
-        skip: pageSize*page, 
-        limit: pageSize, 
+        skip: config.pageSize*page, 
+        limit: config.pageSize, 
         sort:{dateCreated:-1}
       };
 
@@ -31,7 +31,7 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
       Promise.all([count, filteredResults])
       .then((values)=>{
         res.status(200);
-        res.send({pages: Math.ceil(values[0]/pageSize), docs: values[1]});
+        res.send({pages: Math.ceil(values[0]/config.pageSize), docs: values[1]});
       })
       .catch((err)=>{
         res.status(404);
