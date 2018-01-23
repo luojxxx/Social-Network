@@ -8,6 +8,7 @@ var Post = require('../models/post');
 var User = require('../models/user');
 var UserNotification = require('../models/user_notification');
 var Notification = require('../models/notification');
+var lib = require('../lib');
 
 router.get('/:_id', function(req, res, next) {
   var postId = req.params._id;
@@ -185,45 +186,41 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
     }
 
     var userPriorVote = 0;
-    User.findOne({_id: userId})
-    .then((userProfile)=>{
-      if (typeof(userProfile.voteHistory) === 'undefined') {
-        userProfile.voteHistory = {};
-      }
-      if (!(postId in userProfile.voteHistory)) {
-        userPriorVote = 0;
-        userProfile.voteHistory[postId] = currentVote;
-      } else {
-        userPriorVote = userProfile.voteHistory[postId];
-        userProfile.voteHistory[postId] = currentVote;
-      }
-      userProfile.markModified('voteHistory');
-      userProfile.save();
+    if (allUserInfo.downvotes.indexOf(postId) !== -1) {
+      userPriorVote = -1;
+      allUserInfo.downvotes = lib.remove(allUserInfo.downvotes, [postId]);
+    }
+    if (allUserInfo.upvotes.indexOf(postId) !== -1) {
+      userPriorVote = 1;
+      allUserInfo.upvotes = lib.remove(allUserInfo.upvotes, [postId]);
+    }
 
-      User.update({_id: userId}, userProfile)
-      .then(()=>{
-        var updateScore = currentVote - userPriorVote;
-        Post.findOneAndUpdate({_id: postId},
-        {
-          $inc: {score: updateScore}
-        })
-        .then(()=>{
-          res.status(200);
-          res.send('Update complete');
-        })
+    if (currentVote === -1){
+      allUserInfo.downvotes.unshift(postId);
+    }
+    if (currentVote === 1){
+      allUserInfo.upvotes.unshift(postId);
+    }
 
-        .catch((err)=>{
-          res.send(400);
-          res.send(err);
-        })
+    User.findOneAndUpdate({_id: userId}, allUserInfo)
+    .then(()=>{
+      var updateScore = currentVote - userPriorVote;
+      Post.findOneAndUpdate({_id: postId},
+      {
+        $inc: {score: updateScore}
       })
+      .then(()=>{
+        res.status(200);
+        res.send('Update complete');
+      })
+
       .catch((err)=>{
-        res.send(400);
+        res.status(400);
         res.send(err);
       })
     })
     .catch((err)=>{
-      res.send(400);
+      res.status(400);
       res.send(err);
     })
 })

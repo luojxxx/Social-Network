@@ -28,7 +28,8 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
           userName: userProfile.userName,
           email: userProfile.email,
           submitted: userProfile.submitted,
-          voteHistory: userProfile.voteHistory,
+          upvotes: userProfile.upvotes,
+          downvotes: userProfile.downvotes,
           saved: userProfile.saved,
           totalVotes: userProfile.totalVotes
         }
@@ -75,10 +76,7 @@ router.get('/:_id/submitted/:page', function(req, res, next) {
   var options = {skip: pageSize*page, limit: pageSize, sort:{dateSubmitted:-1}};
 
   var count = Post.find(filterPosts).count();
-  var paginatedResults = Post.find(filterPosts, projection, options)
-  .then((allSubmitedPosts)=>{
-      return allSubmitedPosts
-    })
+  var paginatedResults = Post.find(filterPosts, projection, options);
   var userInfo = User.findOne(filterUser)
   .then((userAccount)=>{
     var filteredAccount = {
@@ -159,7 +157,6 @@ router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: fals
       res.status(404);
       res.send(err);
     });
-
 })
 
 router.put('/:id/changeusername', passport.authenticate('bearer', { session: false }),

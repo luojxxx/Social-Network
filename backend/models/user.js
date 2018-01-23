@@ -22,7 +22,14 @@ var userSchema = mongoose.Schema({
     type: Array,
     default: []
   },
-  voteHistory: {},
+  upvotes: {
+    type: Array,
+    default: []
+  },
+  downvotes: {
+    type: Array,
+    default: []
+  },
   saved: {
     type: Array,
     default: []

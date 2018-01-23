@@ -11,6 +11,15 @@ export const userAccount = (state = {
   switch (action.type) {
 
     case 'USERDATA_LOADED':
+    var voteHistory = {}
+    for (let idx in action.payload.upvotes) {
+      let postId = action.payload.upvotes[idx]
+      voteHistory[postId] = 1
+    }
+    for (let idx in action.payload.downvotes) {
+      let postId = action.payload.downvotes[idx]
+      voteHistory[postId] = -1
+    }
     return {
       ...state,
       loggedIn: true,
@@ -18,7 +27,7 @@ export const userAccount = (state = {
       userName: action.payload.userName,
       email: action.payload.email,
       submitted: action.payload.submitted,
-      voteHistory: (typeof(action.payload.voteHistory) === 'undefined')? {} : action.payload.voteHistory,
+      voteHistory: voteHistory,
       saved: action.payload.saved,
       totalVotes: action.payload.totalVotes
     }
