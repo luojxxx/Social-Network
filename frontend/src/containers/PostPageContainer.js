@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loadPost } from '../actions'
+import { loadPost, sortPosts } from '../actions'
 import PostPage from '../components/PostPage'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -9,6 +9,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   loadPost: (postId) => {
     dispatch(loadPost(postId))
+  },
+  sortPosts: (sortBy, direction) => {
+    dispatch(sortPosts(sortBy, direction))
   }
 })
 

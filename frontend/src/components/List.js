@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import ListItem from './ListItem'
-import SortingDropDown from './SortingDropDown'
 
 class List extends Component{
   listItem = (postId, depth) => {
@@ -63,7 +62,6 @@ class List extends Component{
     
     return (
       <div>
-      <SortingDropDown sortPosts={this.props.sortPosts} />
       {this.recursiveComponent(
         this.props.displayedPostsData, 
         this.props.displayedPostsOrder, 

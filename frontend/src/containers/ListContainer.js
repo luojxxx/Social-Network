@@ -3,8 +3,7 @@ import {
   vote, 
   deletePost, 
   savePost, 
-  reportPost, 
-  sortPosts} from '../actions'
+  reportPost} from '../actions'
 import List from '../components/List'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -27,9 +26,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   reportPost: (postId) => {
     dispatch(reportPost(postId))
-  },
-  sortPosts: (sortBy, direction) => {
-    dispatch(sortPosts(sortBy, direction))
   }
 })
 

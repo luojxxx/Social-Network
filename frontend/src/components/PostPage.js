@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import List from '../containers/ListContainer'
+import SortingDropDown from './SortingDropDown'
 
 class PostPage extends Component {
   componentWillMount() {
@@ -19,6 +20,7 @@ class PostPage extends Component {
 
     return (
       <div>
+        <SortingDropDown sortPosts={this.props.sortPosts} />
         <List />
       </div>
     )
