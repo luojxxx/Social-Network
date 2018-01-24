@@ -26,7 +26,7 @@ router.get('/:searchQuery/:page', function(req, res, next) {
     res.send({pages: Math.ceil(values[0]/config.pageSize), docs: values[1]});
   })
   .catch((err)=>{
-    res.status(404);
+    res.status(400);
     res.send(err);
   })
 });

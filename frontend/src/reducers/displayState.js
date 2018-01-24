@@ -18,7 +18,7 @@ export const displayState = (state = {
       pageLoading: false
     }
 
-    case 'SEARCH_PAGE_LOADED':
+    case 'PAGE_LOADED_IN_ORDER':
     return {
       ...state,
       pageLoading: false

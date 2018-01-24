@@ -34,7 +34,7 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
         res.send({pages: Math.ceil(values[0]/config.pageSize), docs: values[1]});
       })
       .catch((err)=>{
-        res.status(404);
+        res.status(400);
         res.send(err);
       })
     })

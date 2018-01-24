@@ -24,7 +24,7 @@ export const displayedPosts = (state = {
     }
 
 
-    case 'SEARCH_PAGE_LOADED':
+    case 'PAGE_LOADED_IN_ORDER':
     var pageData = action.payload
     var data = {}
     var dataOrder = []

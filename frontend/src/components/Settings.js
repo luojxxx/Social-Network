@@ -20,7 +20,7 @@ class Settings extends Component{
 
   submitUserName = (e) => {
     e.preventDefault()
-    this.props.changeUserName(this.props.userAccount.userId, this.state.userName)
+    this.props.changeUserName(this.state.userName)
   }
 
   render() {

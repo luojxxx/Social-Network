@@ -10,8 +10,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   setSubHeading: (subheading) => {
     dispatch(setSubHeading(subheading))
   },
-  changeUserName: (userId, userName) => {
-    dispatch(changeUserName(userId, userName))
+  changeUserName: (userName) => {
+    dispatch(changeUserName(userName))
   }
 })
 

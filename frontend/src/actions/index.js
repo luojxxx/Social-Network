@@ -109,11 +109,11 @@ export function loadUserData() {
   }
 }
 
-export function changeUserName(userId, userName) {
+export function changeUserName(userName) {
   return function(dispatch){
     axios({
       method:'put',
-      url:apiUrl+'users/'+userId+'/changeusername',
+      url:apiUrl+'users/changeusername',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       },
@@ -151,7 +151,7 @@ export function loadUserProfile(userId, page) {
     dispatch(pageLoading())
     axios({
       method:'get',
-      url:apiUrl+'users/'+userId+'/submitted/'+page,
+      url:apiUrl+'users/profile/'+userId+'/submitted/'+page,
       headers: {
         // Authorization: 'Bearer '+localStorage.getItem('token')
       }
@@ -159,7 +159,7 @@ export function loadUserProfile(userId, page) {
     .then( (response) => {
       dispatch(setTotalPages(response.data.pages))
       dispatch(userProfileLoaded(response.data))
-      dispatch(pageLoaded(response.data.docs))
+      dispatch(pageLoadedInOrder(response.data.docs))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -173,14 +173,14 @@ export function loadUserHistoryByField(userId, field, page)  {
     dispatch(pageLoading())
     axios({
       method:'get',
-      url:apiUrl+'users/'+userId+'/'+field+'/'+page,
+      url:apiUrl+'users/profile/'+userId+'/'+field+'/'+page,
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
       }
     })
     .then( (response) => {
       dispatch(setTotalPages(response.data.pages))
-      dispatch(pageLoaded(response.data.docs))
+      dispatch(pageLoadedInOrder(response.data.docs))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())
@@ -189,8 +189,8 @@ export function loadUserHistoryByField(userId, field, page)  {
 }
 
 // SEARCH FUNCTIONS
-export const searchPageLoaded = (data) => ({
-  type: 'SEARCH_PAGE_LOADED',
+export const pageLoadedInOrder = (data) => ({
+  type: 'PAGE_LOADED_IN_ORDER',
   payload: data
 })
 
@@ -204,7 +204,7 @@ export function search(searchQuery, page)  {
     })
     .then( (response) => {
       dispatch(setTotalPages(response.data.pages))
-      dispatch(searchPageLoaded(response.data.docs))
+      dispatch(pageLoadedInOrder(response.data.docs))
     })
     .catch( (err) => {
       // dispatch(userDataLoadFailed())

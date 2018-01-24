@@ -36,14 +36,22 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
         res.status(200);
         res.json(filteredUserProfile);
       })
+      .catch((err)=>{
+        res.status(400);
+        res.send(err);
+      })
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
     })
 })
 
-router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
+router.put('/saved/', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = req.user._id;
     var saved = req.user.saved;
-    var postId = req.params._id;
+    var postId = req.body.postId;
     postId = postId.substring(0,257)
 
     if (saved.includes(postId)) {
@@ -65,8 +73,8 @@ router.put('/saved/:_id', passport.authenticate('bearer', { session: false }),
     })
 })
 
-router.get('/:_id/submitted/:page', function(req, res, next) {
-  var userId = req.params._id;
+router.get('/profile/:userId/submitted/:page', function(req, res, next) {
+  var userId = req.params.userId;
   userId = userId.substring(0,257)
   var page = parseInt(req.params.page);
 
@@ -98,12 +106,12 @@ router.get('/:_id/submitted/:page', function(req, res, next) {
     });
   })
   .catch((err)=>{
-    res.status(404);
+    res.status(400);
     res.send(err);
   });
 });
 
-router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: false }),
+router.get('/profile/:userId/:field/:page', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userProfile = req.user;
     var field = req.params.field;
@@ -126,12 +134,38 @@ router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: fals
       res.send('Non-valid subfield');
     }
 
-    var query = {'_id': {$in: searchQuery}};
-    var fields = {};
-    var options = {skip: config.pageSize*page, limit: config.pageSize};
+    var stack = [];
+    for (var i = searchQuery.length - 1; i > 0; i--) {
 
-    var count = Post.find(query).count();
-    var paginatedResults = Post.find(query, fields, options);
+        var rec = {
+            "$cond": [
+                { "$eq": [ "$_id", searchQuery[i-1] ] },
+                i
+            ]
+        };
+
+        if ( stack.length == 0 ) {
+            rec["$cond"].push( i+1 );
+        } else {
+            var lval = stack.pop();
+            rec["$cond"].push( lval );
+        }
+
+        stack.push( rec );
+
+    }
+
+    var query = {'$match': {'_id': {$in: searchQuery}}};
+    var projection = {'$addFields': {weight: stack[0]}};
+    var skip = {'$skip': config.pageSize*page};
+    var limit = {'$limit': config.pageSize};
+    var sort = {'$sort': {weight: 1}};
+
+    var count = Post.aggregate([query, {'$count': 'total'}])
+                .then((result)=>{
+                  return result[0].total
+                })
+    var paginatedResults = Post.aggregate([query, projection, skip, limit, sort]);
 
     Promise.all([count, paginatedResults])
     .then((values)=>{
@@ -145,41 +179,39 @@ router.get('/:_id/:field/:page', passport.authenticate('bearer', { session: fals
       });
     })
     .catch((err)=>{
-      res.status(404);
+      res.status(400);
       res.send(err);
     });
 })
 
-router.put('/:id/changeusername', passport.authenticate('bearer', { session: false }),
+router.put('/changeusername', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userId = String(req.user._id);
     var newUserName = req.body.userName;
     newUserName = newUserName.substring(0,33)
 
-    if (req.params.id === userId) {
-      User.find({userName: newUserName})
-      .then((results)=>{
-        if (results.length ===0) {
-          User.findOneAndUpdate({_id: userId},
-            {userName: newUserName})
-          .then((success)=>{
-            res.status(200)
-            res.json({changed:'true', userName: newUserName})
-          })
-          .catch((err)=>{
-            res.status(400)
-            res.send(err)
-          })
-        } else {
+    User.find({userName: newUserName})
+    .then((results)=>{
+      if (results.length ===0) {
+        User.findOneAndUpdate({_id: userId},
+          {userName: newUserName})
+        .then((success)=>{
           res.status(200)
-          res.json({changed:'false', })
-        }
-      })
-      .catch((err)=>{
-        res.status(400)
-        res.send(err)
-      })
-    }
+          res.json({changed:'true', userName: newUserName})
+        })
+        .catch((err)=>{
+          res.status(400)
+          res.send(err)
+        })
+      } else {
+        res.status(200)
+        res.json({changed:'false', })
+      }
+    })
+    .catch((err)=>{
+      res.status(400)
+      res.send(err)
+    })
 })
 
 module.exports = router;

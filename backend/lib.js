@@ -1,3 +1,3 @@
-exports.remove = (array, targetArr) => {
-    return array.filter(e => !targetArr.includes(e))
+exports.objectIdRemove = (array, targetArr) => {
+    return array.filter(e => !targetArr.includes(String(e)))
 }

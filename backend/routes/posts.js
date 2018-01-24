@@ -20,7 +20,7 @@ router.get('/:_id', function(req, res, next) {
     res.json(post);
   })
   .catch((err)=>{
-    res.status(404);
+    res.status(400);
     res.send(err);
   })
 });
@@ -188,18 +188,18 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
     var userPriorVote = 0;
     if (allUserInfo.downvotes.indexOf(postId) !== -1) {
       userPriorVote = -1;
-      allUserInfo.downvotes = lib.remove(allUserInfo.downvotes, [postId]);
+      allUserInfo.downvotes = lib.objectIdRemove(allUserInfo.downvotes, [postId]);
     }
     if (allUserInfo.upvotes.indexOf(postId) !== -1) {
       userPriorVote = 1;
-      allUserInfo.upvotes = lib.remove(allUserInfo.upvotes, [postId]);
+      allUserInfo.upvotes = lib.objectIdRemove(allUserInfo.upvotes, [postId]);
     }
 
     if (currentVote === -1){
-      allUserInfo.downvotes.unshift(postId);
+      allUserInfo.downvotes.unshift(mongoose.Types.ObjectId(postId));
     }
     if (currentVote === 1){
-      allUserInfo.upvotes.unshift(postId);
+      allUserInfo.upvotes.unshift(mongoose.Types.ObjectId(postId));
     }
 
     User.findOneAndUpdate({_id: userId}, allUserInfo)
