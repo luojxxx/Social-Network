@@ -100,6 +100,7 @@ export const displayedPosts = (state = {
     var newData = Object.assign({}, state.data)
     var postId = action.payload
 
+    newData[postId].submittedByUserId = null
     newData[postId].submittedByUserName = 'deleted'
     newData[postId].contentTitle = 'deleted'
     newData[postId].contentTag = ''
