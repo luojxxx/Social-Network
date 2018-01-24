@@ -352,10 +352,11 @@ export function savePost(postId) {
   return function(dispatch){
     axios({
       method:'put',
-      url:apiUrl+'users/saved/'+postId,
+      url:apiUrl+'users/saved/',
       headers: {
         Authorization: 'Bearer '+localStorage.getItem('token')
-      }
+      },
+      data: {postId: postId}
     })
     .then( (response) => {
       dispatch(updateNewSavedPost(postId))

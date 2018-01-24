@@ -54,10 +54,10 @@ router.put('/saved/', passport.authenticate('bearer', { session: false }),
     var postId = req.body.postId;
     postId = postId.substring(0,257)
 
-    if (saved.includes(postId)) {
-      saved = saved.filter(e => e !== postId);
+    if (saved.filter(e => String(e) === postId).length > 0) {
+      saved = saved.filter(e => String(e) !== postId);
     } else {
-      saved.push(postId);
+      saved.unshift(mongoose.Types.ObjectId(postId));
     }
 
     User.findOneAndUpdate(

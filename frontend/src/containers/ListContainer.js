@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
   displayedPostsOrder: state.displayedPosts.dataOrder,
   userId: state.userAccount.userId,
   voteHistory: state.userAccount.voteHistory,
-  saved: state.userAccount.save
+  saved: state.userAccount.saved
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
