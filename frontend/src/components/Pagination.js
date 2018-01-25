@@ -14,11 +14,11 @@ class Pagination extends Component {
       return ''
     }
     return (
-      <div>
+      <div className='centerJustify'>
         {[...Array(this.props.pages).keys()].map((ele)=>{
           let style = {}
           if (page === ele) {
-            style = {color:'red'}
+            style = {color:'#F67D29'}
           }
           return (
             <button 

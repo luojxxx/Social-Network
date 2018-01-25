@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Link } from 'react-router'
 import MenuBar from './MenuBar'
 import PostBox from '../containers/PostBoxContainer'
+import logo from '../images/logo.png'
 
 class Header extends Component {
   constructor(props){
@@ -26,12 +27,12 @@ class Header extends Component {
         <div className="heading-inner w-row">
           <div className="site-logo-title w-col w-col-4">
             <Link to='/'>
-              <img src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg" width="79" />
+              <img src={logo} max-width="40px" max-height="40px" width="40px" height="40px" />
             </Link>
             <Link to='/'>
-              <h1 className="heading">GEDDIT</h1>
+              <h1 className="heading ">GEDDIT</h1>
             </Link>
-            <h3>{props.subheading}</h3>
+            <h3 className=''>{props.subheading}</h3>
           </div>
           <MenuBar 
             userAccount={props.userAccount} 

@@ -114,9 +114,9 @@ class ListItem extends Component{
     var post = this.props.post
     var scoreColor = {}
     if (this.props.voteState === 1) {
-      scoreColor['color'] = 'orange'
+      scoreColor['color'] = '#F67D29'
     } else if (this.props.voteState === -1) {
-      scoreColor['color'] = 'blue'
+      scoreColor['color'] = '#607184'
     }
 
     return (
@@ -133,7 +133,7 @@ class ListItem extends Component{
             <div>
               <button 
                 onClick={this.upVote}
-                style={(this.props.voteState===1)?{color:'orange'}:{}}
+                style={(this.props.voteState===1)?{color:'#F67D29'}:{}}
                 className="button-2 fontawesome">
                 &#xf062;
               </button>
@@ -141,7 +141,7 @@ class ListItem extends Component{
             <div>
               <button 
                 onClick={this.downVote}
-                style={(this.props.voteState===-1)?{color:'blue'}:{}}
+                style={(this.props.voteState===-1)?{color:'#607184'}:{}}
                 className="button-3 fontawesome">
                 &#xf063;
               </button>
@@ -184,7 +184,7 @@ class ListItem extends Component{
             <div>
               <button 
                 onClick={this.toggleReplyForm} 
-                style={(this.state.showReplyForm)?{color:'blue'}:{}}
+                style={(this.state.showReplyForm)?{color:'#F67D29'}:{}}
                 className="">
                 Reply
               </button>
@@ -193,12 +193,12 @@ class ListItem extends Component{
                 :<button onClick={this.showSharePostPopup}>Share</button>
               }
               <button onClick={this.savePost} className="">
-                {(this.props.savedState===true)
+                {(this.props.savedState)
                   ?'Unsave'
                   :'Save'
                 }
               </button>
-              {(this.state.showReportConfirmation===true)
+              {(this.state.showReportConfirmation)
                 ?<span>
                   <button onClick={this.reportPost} className="">
                     Report Confirm?
@@ -214,7 +214,7 @@ class ListItem extends Component{
               {(this.props.submittedByCurrentUser)
                 ?<button 
                   onClick={this.toggleEditForm}
-                  style={(this.state.showEditForm)?{color:'blue'}:{}}>Edit</button>
+                  style={(this.state.showEditForm)?{color:'#F67D29'}:{}}>Edit</button>
                 :''
               }
               {(this.props.submittedByCurrentUser && this.state.showDeleteConfirmation===false
@@ -223,7 +223,7 @@ class ListItem extends Component{
                   </button>
                 :'')
               }
-              {(this.state.showDeleteConfirmation === true)
+              {(this.state.showDeleteConfirmation)
                 ?<span>
                   <button onClick={this.deletePost} className="">
                     Delete Confirm?
@@ -237,7 +237,7 @@ class ListItem extends Component{
             </div>
           </div>
         </div>
-        {(this.state.showReplyForm===true) 
+        {(this.state.showReplyForm) 
           ?<PostBox 
             parent={post._id} 
             post={{
@@ -249,7 +249,7 @@ class ListItem extends Component{
             newOrEdit='new' 
             closePostBox={this.closePostBox} /> 
           : ''}
-        {(this.state.showEditForm===true) 
+        {(this.state.showEditForm) 
           ?<PostBox 
             parent={post._id} 
             post={post} 

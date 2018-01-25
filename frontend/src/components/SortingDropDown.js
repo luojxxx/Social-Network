@@ -31,7 +31,7 @@ class SortingDropDown extends Component {
 
   render() {
     return (
-      <div>
+      <div className='rightJustify'>
         <select value={this.state.selectedField} onChange={this.fieldChange}>
 
           <option value="time_down">Time Submitted: Newest First</option>
