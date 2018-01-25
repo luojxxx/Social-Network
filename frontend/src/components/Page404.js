@@ -6,7 +6,7 @@ class Page404 extends Component {
     return (
       <div>
         <Header /> <br/>
-        <div className="content-block w-container">
+        <div className="w-container centerJustify">
           <h1>Page not found</h1>
         </div>
       </div>

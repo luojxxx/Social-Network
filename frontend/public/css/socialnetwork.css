@@ -361,7 +361,7 @@ button:focus, button:active, button:focus:active {
   outline: none;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -390,6 +390,18 @@ h1, h2, h3 {
   clear: both;
 }
 
+.fontawesome {
+  font-family: 'Fontawesome webfont', sans-serif;
+}
+
+.centerJustify {
+  text-align: center;
+}
+
+.rightJustify {
+  text-align: right;
+}
+
 
 .header {
   display: flex;
@@ -397,6 +409,10 @@ h1, h2, h3 {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+}
+
+.menubar {
+  font-size: 16px;
 }
 
 .flexRowCluster {
@@ -412,34 +428,47 @@ h1, h2, h3 {
   margin: 0px;
 }
 
-.notification {
-  margin: 1%;
-  padding: 10px;
-  border-left: 2px dotted #313131;
+.transparentInputField, .transparentInputField:focus, .transparentInputField:active, .transparentInputField:focus:active {
+  background-color: rgba(0,0,0,0);
+  color: #313131;
+  border: none;
+  box-shadow: none;
+  outline: none;
 }
 
-
-.fontawesome {
-  font-family: 'Fontawesome webfont', sans-serif;
+.searchBox {
+  border: 1px solid #313131;
 }
 
-.centerJustify {
-  text-align: center;
+.listItemRow {
+  display: flex;
+  flex-direction: row;
 }
 
-.rightJustify {
-  text-align: right;
+.listItemCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.listItemMargin {
+  margin: 10px;
 }
 
 .contentDescriptionBox {
   background-color: #EDEEEF;
 }
 
-.highlighted {
-  color:#F67D29;
+
+
+.notification {
+  margin: 1%;
+  padding: 10px;
+  border-left: 2px dotted #313131;
 }
 
-
+.pageButtons {
+  font-size: 20px;
+}
 
 /* ANIMATIONS */
 .loader,

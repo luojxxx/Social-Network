@@ -120,16 +120,18 @@ class ListItem extends Component{
     }
 
     return (
-      <div className="content-block w-container">
-        <div className="content-block-inner w-row">
+      <div className="content-block">
+        <div className="listItemRow">
           <div 
             style={{width:String(5*this.props.depth)+'%'}} 
-            className="score-block w-col w-col-1">
+            className="">
           </div>
-          <div className="score-block w-col w-col-1">
+
+          <div className="listItemMargin">
             <h3 style={scoreColor}>{post.score}</h3>
           </div>
-          <div className="vote-block w-col w-col-1">
+
+          <div className="listItemMargin">
             <div>
               <button 
                 onClick={this.upVote}
@@ -148,12 +150,12 @@ class ListItem extends Component{
             </div>
           </div>
 
-          <div className="content-title-options w-col w-col-10">
+          <div className="listItemCol">
             <div>
               {(post.parent != null)
                 ?<Link 
                   to={'/post/'+post.parent}
-                  className="button-3 fontawesome">&#xf112;</Link>
+                  className="fontawesome">&#xf112;</Link>
                 :''
               }
               {' '}

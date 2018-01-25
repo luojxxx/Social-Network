@@ -27,16 +27,21 @@ class Settings extends Component{
     var userAccount = this.props.userAccount
     return (
       <div>
-        <div className="content-block w-container">
-          Change username to:{' '}
+        <div className="w-container">
+          <h4>Change username:</h4>
+          Note: You can change your username to anything that hasn't already been taken.
+          <br />
+          And you also give up your old username.
+          <br />
           <input type='text' 
           defaultValue={userAccount.userName}
           onChange={this.updateUserName} 
-          maxLength="32" /> 
+          maxLength="32"
+          className='settingsInputField' /> 
+          <br /> <br/>
           <button
           onClick={this.submitUserName}
           className='w-button'>Submit</button> <br/>
-          Note: You can change your username to anything that hasn't already been taken. And you also give up your old username. <br/><br/>
         </div>
       </div>
       )}

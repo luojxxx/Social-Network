@@ -32,18 +32,20 @@ class MenuBar extends Component{
   render() {
     var userAccount = this.props.userAccount
     return (
-      <div className='flexRowCluster'>
+      <div className='flexRowCluster menubar'>
+        <div className='searchBox'>
         <input 
           onChange={this.updateSearchField} 
           onKeyPress={this.onEnter} 
           type='text' 
-          name='searchField'
-          className='padding_small' />
+          placeholder='Search'
+          className='padding_small transparentInputField' />
         <button 
           onClick={this.searchResultsRedirect} 
           className='fontawesome padding_small'>
           &#xf002;
         </button>
+        </div>
         {(userAccount.loggedIn)
           ?<div className='flexRowCluster'>
           <button 
@@ -53,10 +55,10 @@ class MenuBar extends Component{
             &#xf067;{' '}Post
           </button>
           <Link to='/notifications' className="fontawesome padding_small">
-            &#xf003; {' '}
+            &#xf003;{' '}
           </Link>
           <Link to='/settings' className="fontawesome padding_small">
-            &#xf013; {' '}
+            &#xf013;{' '}
           </Link>
           <Link to={'/userprofile/'+userAccount.userId+'/submitted'} className="padding_small">
             {userAccount.userName}
@@ -65,7 +67,7 @@ class MenuBar extends Component{
           <button onClick={this.props.logout} className="padding_small">Logout</button>
           </div>
           :<a href={hostUrl+'auth/google/'} className="padding_small">
-            <img src={googleLoginButton} />
+            <img src={googleLoginButton} height='38px' />
           </a>}
       </div>
       )}

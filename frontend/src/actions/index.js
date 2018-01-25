@@ -196,7 +196,7 @@ export const pageLoadedInOrder = (data) => ({
 
 export function search(searchQuery, page)  {
   return function(dispatch){
-    dispatch(setSubHeading('Search Results'))
+    dispatch(setSubHeading('Search Page'))
     dispatch(pageLoading())
     axios({
       method:'get',
