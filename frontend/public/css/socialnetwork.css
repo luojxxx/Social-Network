@@ -1,4 +1,4 @@
-.section.vote-block {
+/*.section.vote-block {
   width: auto;
   max-width: auto;
   min-width: 0px;
@@ -237,7 +237,7 @@
 .button-3.fontawesome {
   font-family: 'Fontawesome webfont', sans-serif;
 }
-
+*/
 .newpost {
   display: -webkit-box;
   display: -webkit-flex;
@@ -323,10 +323,6 @@
 
 
 
-
-
-
-
 body {
   color: #313131;
   background: #F5F4F5;
@@ -395,7 +391,10 @@ h1, h2, h3, h4 {
 }
 
 .centerJustify {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .rightJustify {
@@ -458,8 +457,6 @@ h1, h2, h3, h4 {
   background-color: #EDEEEF;
 }
 
-
-
 .notification {
   margin: 1%;
   padding: 10px;
@@ -468,6 +465,32 @@ h1, h2, h3, h4 {
 
 .pageButtons {
   font-size: 20px;
+}
+
+.socialShareButtonBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #F5F4F5;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #313131;
+    width: 40%; /* Could be more or less, depending on screen size */
 }
 
 /* ANIMATIONS */

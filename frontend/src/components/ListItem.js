@@ -58,7 +58,9 @@ class ListItem extends Component{
 
   closeSharePostPopup = (e) => {
     e.preventDefault()
-    this.setState({showSharePostPopup: false})
+    if (e.target.className === 'modal' || e.target.className === 'closeButton') {
+      this.setState({showSharePostPopup: false})
+    }
   }
 
   savePost = (e) => {
@@ -136,7 +138,7 @@ class ListItem extends Component{
               <button 
                 onClick={this.upVote}
                 style={(this.props.voteState===1)?{color:'#F67D29'}:{}}
-                className="button-2 fontawesome">
+                className="fontawesome">
                 &#xf062;
               </button>
             </div>
@@ -144,7 +146,7 @@ class ListItem extends Component{
               <button 
                 onClick={this.downVote}
                 style={(this.props.voteState===-1)?{color:'#607184'}:{}}
-                className="button-3 fontawesome">
+                className="fontawesome">
                 &#xf063;
               </button>
             </div>

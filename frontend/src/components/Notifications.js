@@ -44,7 +44,7 @@ class Notifications extends Component {
     }
 
     return (
-      <div>
+      <div className=''>
         {this.props.notifications.map((ele, idx)=>{
           return this.renderNotification(ele)
         })}
