@@ -123,7 +123,7 @@ class ListItem extends Component{
       <div className="content-block w-container">
         <div className="content-block-inner w-row">
           <div 
-            style={{width:75*this.props.depth}} 
+            style={{width:String(5*this.props.depth)+'%'}} 
             className="score-block w-col w-col-1">
           </div>
           <div className="score-block w-col w-col-1">
@@ -159,16 +159,18 @@ class ListItem extends Component{
               {' '}
               <Link to={'/post/'+post._id}>{post.contentTitle}</Link>
               {' '}
-              <span style={{color:'red'}}>{post.contentTag}</span>
-              <br />
-              <a href={post.contentLink}>{post.contentLink}</a>
-              <ContentPreview url={post.contentLink} />
               {(post.contentDescription!=='')
-                ?<button onClick={this.postDescriptionToggle}>Show more</button>
+                ?<button onClick={this.postDescriptionToggle}>(...)</button>
                 :''
               }
+              {' '}
+              <span style={{color:'red'}}>{post.contentTag}</span>
+              <br />
+
+              <a href={post.contentLink}>{post.contentLink}</a>
+              <ContentPreview url={post.contentLink} />
               {(this.state.showPostDescription)
-                ?<div>{post.contentDescription}</div>
+                ?<div className='contentDescriptionBox'>{post.contentDescription}</div>
                 :''
               }
               <div>

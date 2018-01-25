@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import loadingSpinner from '../images/loadingSpinner.gif'
 
 class PostBox extends Component{
   constructor(props) {
@@ -100,7 +101,7 @@ class PostBox extends Component{
         </div>
         <div>
           {(this.props.pendingPostState === 'pending')
-            ?'Pending'
+            ?<div className='loader'></div>
             :<button onClick={this.submitPost} className="w-button">Submit</button>
           }
         </div>

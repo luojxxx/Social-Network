@@ -28,14 +28,15 @@ class Settings extends Component{
     return (
       <div>
         <div className="content-block w-container">
-          Settings <br/><br/>
-          Username: 
+          Change username to:{' '}
           <input type='text' 
           defaultValue={userAccount.userName}
           onChange={this.updateUserName} 
           maxLength="32" /> 
-          <button onClick={this.submitUserName}>Submit</button> <br/>
-          You can change your username to anything that hasn't already been taken <br/><br/>
+          <button
+          onClick={this.submitUserName}
+          className='w-button'>Submit</button> <br/>
+          Note: You can change your username to anything that hasn't already been taken. And you also give up your old username. <br/><br/>
         </div>
       </div>
       )}

@@ -18,7 +18,7 @@ class Notifications extends Component {
     if (notification.notificationType === 'reply') {
       let data = notification.data
       return (
-        <div key={data.newPostId} style={{backgroundColor:'#C2C3C5', margin:'3px'}}>
+        <div key={data.newPostId} className='notification'>
           <Link to={'/userprofile/'+data.newPostUserId+'/submitted'}>
             {data.newPostUserName}
           </Link>

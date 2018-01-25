@@ -95,12 +95,15 @@ class ContentPreview extends Component{
 
   render() {
     var url = this.props.url
+    if (url === '') {
+      return ''
+    } 
+
     return (
       <div>
-      {this.renderThumbnail(url)}
-      {(url!=='')
-        ?<button onClick={this.updateShowPreview}>Show</button>
-        :''}
+        <div onClick={this.updateShowPreview}>
+          {this.renderThumbnail(url)}
+        </div>
       {(this.state.showPreview===true)
         ?this.renderContent(url)
         :''}

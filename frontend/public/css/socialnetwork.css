@@ -319,12 +319,54 @@
   margin-left: 10px;
 }
 
-.fontawesome {
-  font-family: 'Fontawesome webfont', sans-serif;
+
+
+
+.w-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+}
+.w-container:before,
+.w-container:after {
+  content: " ";
+  display: table;
+}
+.w-container:after {
+  clear: both;
 }
 
-.setfontcolor {
-  color: #313131;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flexRowCluster {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex: 0 0 auto;
+}
+
+.padding_small {
+  padding: 5px;
+  margin: 0px;
+}
+
+.notification {
+  margin: 1%;
+  padding: 10px;
+  border-left: 2px dotted #313131;
+}
+
+
+.fontawesome {
+  font-family: 'Fontawesome webfont', sans-serif;
 }
 
 .centerJustify {
@@ -335,6 +377,10 @@
   text-align: right;
 }
 
+.contentDescriptionBox {
+  background-color: #EDEEEF;
+}
+
 body {
   color: #313131;
   background: #F5F4F5;
@@ -342,11 +388,13 @@ body {
 
 button {
   background-color: transparent;
+  margin-right: 10px;
+  padding: 0px;
 }
 
-/*input {
-  background-color: #6F7071;
-}*/
+input {
+  height: 100%;
+}
 
 a {
   text-decoration: none;
@@ -362,13 +410,14 @@ a:visited {
   font-weight: bold;
 }
 
-a:active {
-
-}
-
 button:focus, button:active, button:focus:active {
   box-shadow: none;
   outline: none;
+}
+
+h1, h2, h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 @font-face {
@@ -378,4 +427,65 @@ button:focus, button:active, button:focus:active {
        url('../fonts/fontawesome-webfont.ttf')  format('truetype');
   font-weight: 400;
   font-style: normal;
+}
+
+/* ANIMATIONS */
+.loader,
+.loader:before,
+.loader:after {
+  background: #ffffff;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #ffffff;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
 }

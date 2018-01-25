@@ -25,7 +25,7 @@ class SearchResults extends Component {
 
     return (
       <div>
-        Showing search results for "{this.props.location.query.q}"
+        <h3>Showing search results for "{this.props.location.query.q}"</h3>
         <List />
         <Pagination
           urlStem='search' 

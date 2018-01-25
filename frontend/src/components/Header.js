@@ -23,14 +23,14 @@ class Header extends Component {
   render() {
     var props = this.props
     return (
-      <div className="header">
-        <div className="heading-inner w-row">
-          <div className="site-logo-title w-col w-col-4">
+      <div>
+        <div className="header">
+          <div className='flexRowCluster'>
             <Link to='/'>
               <img src={logo} max-width="40px" max-height="40px" width="40px" height="40px" />
             </Link>
             <Link to='/'>
-              <h1 className="heading ">GEDDIT</h1>
+              <h1 className="">GEDDIT</h1>
             </Link>
             <h3 className=''>{props.subheading}</h3>
           </div>
@@ -56,3 +56,5 @@ class Header extends Component {
 }
 
 export default Header
+
+

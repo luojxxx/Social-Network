@@ -71,7 +71,6 @@ class UserProfile extends Component {
               <Link to={'/userprofile/'+userId+'/upvoted'}>Upvoted posts</Link><br />
               <Link to={'/userprofile/'+userId+'/downvoted'}>Downvoted Posts</Link><br />
               <Link to={'/userprofile/'+userId+'/saved'}>Saved Posts</Link><br />
-              <div><Link to='/settings'>Settings</Link></div>
               </div>
               :''
             }
