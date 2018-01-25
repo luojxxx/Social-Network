@@ -1,1 +1,1 @@
-exports.pageSize = 5;
+exports.pageSize = 10;

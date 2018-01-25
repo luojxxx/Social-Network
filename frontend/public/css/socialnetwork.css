@@ -322,6 +322,60 @@
 
 
 
+
+
+
+
+
+body {
+  color: #313131;
+  background: #F5F4F5;
+}
+
+button {
+  background-color: transparent;
+  margin-right: 10px;
+  padding: 0px;
+}
+
+input {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #202C34;
+  font-weight: bold;
+}
+
+a:visited {
+  color: #313131;
+  font-weight: bold;
+}
+
+button:focus, button:active, button:focus:active {
+  box-shadow: none;
+  outline: none;
+}
+
+h1, h2, h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@font-face {
+  font-family: 'Fontawesome webfont';
+  src: url('../fonts/fontawesome-webfont.woff2') format('woff2'), 
+       url('../fonts/fontawesome-webfont.woff') format('woff'), 
+       url('../fonts/fontawesome-webfont.ttf')  format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .w-container {
   margin-left: auto;
   margin-right: auto;
@@ -381,53 +435,11 @@
   background-color: #EDEEEF;
 }
 
-body {
-  color: #313131;
-  background: #F5F4F5;
+.highlighted {
+  color:#F67D29;
 }
 
-button {
-  background-color: transparent;
-  margin-right: 10px;
-  padding: 0px;
-}
 
-input {
-  height: 100%;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:link {
-  color: #202C34;
-  font-weight: bold;
-}
-
-a:visited {
-  color: #313131;
-  font-weight: bold;
-}
-
-button:focus, button:active, button:focus:active {
-  box-shadow: none;
-  outline: none;
-}
-
-h1, h2, h3 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-@font-face {
-  font-family: 'Fontawesome webfont';
-  src: url('../fonts/fontawesome-webfont.woff2') format('woff2'), 
-       url('../fonts/fontawesome-webfont.woff') format('woff'), 
-       url('../fonts/fontawesome-webfont.ttf')  format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
 
 /* ANIMATIONS */
 .loader,

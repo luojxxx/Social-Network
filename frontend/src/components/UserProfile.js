@@ -58,19 +58,36 @@ class UserProfile extends Component {
     var userProfile = this.props.userProfile
     var userId = this.props.params.userId
     var currentUser = userId === this.props.userAccount.userId
+    var currentSubField = this.props.params.subField
 
     return (
       <div className="w-container">
         <div className="userprofilemetrics w-row">
           <div className="w-col w-col-4">
             <h1>{userProfile.userName}</h1>
-            <Link to={'/userprofile/'+userId+'/submitted'}>Submitted Posts</Link>
+            <Link 
+              to={'/userprofile/'+userId+'/submitted'}
+              style={(currentSubField==='submitted')?{color:'#F67D29'}:{}}>
+              Submitted Posts
+            </Link>
             {(currentUser)
               ?
               <div>
-              <Link to={'/userprofile/'+userId+'/upvoted'}>Upvoted posts</Link><br />
-              <Link to={'/userprofile/'+userId+'/downvoted'}>Downvoted Posts</Link><br />
-              <Link to={'/userprofile/'+userId+'/saved'}>Saved Posts</Link><br />
+              <Link 
+                to={'/userprofile/'+userId+'/upvoted'}
+                style={(currentSubField==='upvoted')?{color:'#F67D29'}:{}}>
+                Upvoted posts
+              </Link><br />
+              <Link 
+                to={'/userprofile/'+userId+'/downvoted'}
+                style={(currentSubField==='downvoted')?{color:'#F67D29'}:{}}>
+                Downvoted Posts
+              </Link><br />
+              <Link 
+                to={'/userprofile/'+userId+'/saved'}
+                style={(currentSubField==='saved')?{color:'#F67D29'}:{}}>
+                Saved Posts
+              </Link><br />
               </div>
               :''
             }
