@@ -9,8 +9,8 @@ import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import { persistStore, persistCombineReducers } from 'redux-persist'
-// import { PersistGate } from 'redux-persist/lib/integration/react'
-import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/lib/integration/react'
+import localForage from "localforage"
 
 import reducers from './reducers'
 
@@ -24,12 +24,12 @@ import Settings from './containers/SettingsContainer'
 import Notifications from './containers/NotificationsContainer'
 import Page404 from './components/Page404'
 
-const config = {
+const persistConfig = {
   key: 'root',
-  storage,
+  storage: localForage,
 }
 
-const reducer = persistCombineReducers(config, reducers)
+const reducer = persistCombineReducers(persistConfig, reducers)
 
 function configureStore () {
   let middleware = applyMiddleware(thunk, createLogger())
