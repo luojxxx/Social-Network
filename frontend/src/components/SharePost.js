@@ -19,15 +19,6 @@ const {
   TumblrShareButton,
 } = ShareButtons;
 
-const {
-  FacebookShareCount,
-  GooglePlusShareCount,
-  LinkedinShareCount,
-  PinterestShareCount,
-  RedditShareCount,
-  TumblrShareCount,
-} = ShareCounts;
-
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 const GooglePlusIcon = generateShareIcon('google');

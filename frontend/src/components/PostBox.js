@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Textarea from "react-textarea-autosize"
-import loadingSpinner from '../images/loadingSpinner.gif'
 
 class PostBox extends Component{
   constructor(props) {

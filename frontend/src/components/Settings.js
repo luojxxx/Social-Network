@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Header from '../containers/HeaderContainer'
 
 class Settings extends Component{
   constructor(props) {
