@@ -81,10 +81,6 @@ class SharePost extends Component {
                     size={32}
                     round />
                 </TwitterShareButton>
-
-                <div className="Demo__some-network__share-count">
-                  &nbsp;
-                </div>
               </div>
 
               <div className="Demo__some-network">
