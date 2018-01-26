@@ -37,12 +37,14 @@ class PostBox extends Component{
 
   submitPost = (e)=>{
     e.preventDefault()
-    var data = Object.assign({}, this.state, {parent:this.props.parent})
-    if (this.props.newOrEdit==='new'){
-      this.props.newPost(data)
-    }
-    if (this.props.newOrEdit==='edit'){
-      this.props.editPost(this.props.post._id, data)
+    if (this.state.contentTitle !== '') {
+      var data = Object.assign({}, this.state, {parent:this.props.parent})
+      if (this.props.newOrEdit==='new'){
+        this.props.newPost(data)
+      }
+      if (this.props.newOrEdit==='edit'){
+        this.props.editPost(this.props.post._id, data)
+      }
     }
   }
 
@@ -51,7 +53,7 @@ class PostBox extends Component{
       <div className="postFormCol margin_medium">
         <div className="">
           <div className="">
-            <label htmlFor="Title">Title</label>
+            <label htmlFor="Title">Title *required</label>
             <Textarea 
               onChange={this.updateTitleField} 
               value={this.state.contentTitle} 

@@ -24,6 +24,8 @@ import Settings from './containers/SettingsContainer'
 import Notifications from './containers/NotificationsContainer'
 import Page404 from './components/Page404'
 
+// localForage.clear()
+
 const persistConfig = {
   key: 'root',
   storage: localForage,

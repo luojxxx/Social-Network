@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { apiUrl } from '../config'
+import { updateBanner } from './generalActions'
 
 // PAGE LOADING FUNCTIONS
 export const setTotalPages = (data) => ({
@@ -38,6 +39,9 @@ export function loadFrontPageData(page) {
       dispatch(setTotalPages(response.data.pages))
       dispatch(pageLoaded(response.data.docs))
     })
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
+    })
   }
 }
 
@@ -51,6 +55,9 @@ export function loadPost(postId) {
     })
     .then( (response) => {
       dispatch(pageLoaded(response.data))
+    })
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -77,6 +84,9 @@ export function loadNotifications(page) {
     .then((response)=>{
       dispatch(setTotalPages(response.data.pages))
       dispatch(loadedNotifications(response.data.docs))
+    })
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -110,6 +120,7 @@ export function loadUserData() {
     })
     .catch( (err) => {
       dispatch(userDataLoadFailed())
+      dispatch(updateBanner('Error - Please try logging in again'))
     })
   }
 }
@@ -140,8 +151,8 @@ export function loadUserProfile(userId, page) {
       dispatch(userProfileLoaded(response.data))
       dispatch(pageLoadedInOrder(response.data.docs))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -161,8 +172,8 @@ export function loadUserHistoryByField(userId, field, page)  {
       dispatch(setTotalPages(response.data.pages))
       dispatch(pageLoadedInOrder(response.data.docs))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -180,8 +191,8 @@ export function search(searchQuery, page)  {
       dispatch(setTotalPages(response.data.pages))
       dispatch(pageLoadedInOrder(response.data.docs))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }

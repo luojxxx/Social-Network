@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
 import MenuBar from './MenuBar'
+import HeaderModal from './HeaderModal'
 import PostBox from '../containers/PostBoxContainer'
 import logo from '../images/logo.png'
 
@@ -20,10 +21,19 @@ class Header extends Component {
     }
   }
 
+  componentDidMount() {
+    setTimeout(()=>{this.props.updateBanner('Welcome')}, 2000)
+  }
+
   render() {
     var props = this.props
     return (
       <div>
+        {(props.bannerMsg !== '')
+          ?<HeaderModal 
+            updateBanner={this.props.updateBanner} 
+            bannerMsg={this.props.bannerMsg} />
+          :''}
         <div className="header">
           <div className='flexRowCluster'>
             <Link to='/'>

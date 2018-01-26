@@ -3,6 +3,7 @@ export const displayState = (state = {
   subheading: '',
   pages: 0,
   pendingPostState: '', 
+  bannerMsg: ''
 }, action) => {
   switch (action.type) {
 
@@ -58,6 +59,12 @@ export const displayState = (state = {
     return {
       ...state,
       pendingPostState: 'success'
+    }
+
+    case 'UPDATE_BANNER_MESSAGE':
+    return {
+      ...state,
+      bannerMsg: action.payload
     }
 
     default:

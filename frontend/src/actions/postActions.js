@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { apiUrl } from '../config'
+import { updateBanner } from './generalActions'
 
 // NEW POST FUNCTIONS
 export const pendingPost = (parentId) => ({
@@ -25,9 +26,10 @@ export function newPost(data) {
     })
     .then( (response) => {
       dispatch(addPostToState(response.data))
+      dispatch(updateBanner('Sucessfully Added New Post'))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -54,10 +56,10 @@ export function editPost(postId, data) {
     })
     .then( (response) => {
       dispatch(editPostInState(postId, data))
-      // dispatch(closePostBox())
+      dispatch(updateBanner('Sucessfully Edited Post'))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -79,8 +81,8 @@ export function vote(postId, priorVote, currentVote) {
     .then( (response) => {
       dispatch(updateNewVote(postId, priorVote, currentVote))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -107,8 +109,8 @@ export function deletePost(postId) {
     .then( (response) => {
       dispatch(updateNewDeletedPost(postId))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -132,8 +134,8 @@ export function savePost(postId) {
     .then( (response) => {
       dispatch(updateNewSavedPost(postId))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
@@ -156,8 +158,8 @@ export function reportPost(postId) {
     .then( (response) => {
       // dispatch(showReportConfirmation(postId))
     })
-    .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+    .catch((err)=>{
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }
