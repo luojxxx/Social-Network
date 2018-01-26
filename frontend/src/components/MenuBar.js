@@ -14,6 +14,13 @@ class MenuBar extends Component{
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.pathname.includes('search') &&
+      nextProps.location.pathname.includes('search')===false) {
+      this.setState({searchQuery: ''})
+    }
+  }
+
   updateSearchField = (e) => {
     this.setState({searchQuery: e.target.value})
   }
@@ -68,6 +75,7 @@ class MenuBar extends Component{
       <div className='flexRowCluster menubar'>
         <div className='searchBox' id='searchBox'>
           <input 
+            value={this.state.searchQuery}
             onChange={this.updateSearchField} 
             onKeyPress={this.onEnter} 
             type='text' 
