@@ -43,6 +43,7 @@ class Header extends Component {
           <MenuBar 
             userAccount={props.userAccount} 
             logout={props.logout} 
+            showPostForm={this.state.showPostForm}
             togglePostForm={this.togglePostForm} />
         </div>
         {this.state.showPostForm
