@@ -40,8 +40,31 @@ class MenuBar extends Component{
     }
   }
 
+  checkPage = (icon) => {
+    if (icon === 'settings') {
+      if (this.props.location.pathname.includes('settings')) {
+        return true
+      }
+    }
+
+    if (icon === 'notifications') {
+      if (this.props.location.pathname.includes('notification')) {
+        return true
+      }
+    }
+
+    if (icon === 'userprofile') {
+      if (this.props.location.pathname.includes('userprofile') &&
+        this.props.location.pathname.includes(this.props.userAccount.userId)) {
+        return true
+      }
+    }
+
+  }
+
   render() {
     var userAccount = this.props.userAccount
+    console.log(this.props.location)
     return (
       <div className='flexRowCluster menubar'>
         <div className='searchBox' id='searchBox'>
@@ -65,13 +88,22 @@ class MenuBar extends Component{
             className="fontawesome padding_small">
             &#xf067;{' '}Post
           </button>
-          <Link to='/notifications' className="fontawesome padding_small">
+          <Link 
+            to='/notifications' 
+            className="fontawesome padding_small"
+            style={(this.checkPage('notifications')?{color:'#F67D29'}:{})}>
             &#xf003;{' '}
           </Link>
-          <Link to='/settings' className="fontawesome padding_small">
+          <Link 
+            to='/settings' 
+            className="fontawesome padding_small"
+            style={(this.checkPage('settings')?{color:'#F67D29'}:{})}>
             &#xf013;{' '}
           </Link>
-          <Link to={'/userprofile/'+userAccount.userId+'/submitted'} className="padding_small">
+          <Link 
+            to={'/userprofile/'+userAccount.userId+'/submitted'} 
+            className="padding_small"
+            style={(this.checkPage('userprofile')?{color:'#F67D29'}:{})}>
             {userAccount.userName}
           </Link>
           {' '}
