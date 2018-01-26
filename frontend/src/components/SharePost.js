@@ -3,7 +3,6 @@ import { hostUrl } from '../config'
 
 import {
   ShareButtons,
-  ShareCounts,
   generateShareIcon,
 } from 'react-share';
 
