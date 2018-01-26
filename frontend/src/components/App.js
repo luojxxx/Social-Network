@@ -3,7 +3,9 @@ import Header from '../containers/HeaderContainer'
 
 class App extends Component {
   componentWillMount() {
-    this.props.loadUserData()
+    if (localStorage.getItem('token') !== null) {
+      this.props.loadUserData()
+    }
   }
 
   render() {
