@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { setSubHeading } from '../actions/pageActions'
-import { changeUserName } from '../actions/pageActions'
+import { changeUserName } from '../actions/userActions'
 import Settings from '../components/Settings'
 
 const mapStateToProps = (state, ownProps) => ({
