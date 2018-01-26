@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Textarea from "react-textarea-autosize"
 import loadingSpinner from '../images/loadingSpinner.gif'
 
 class PostBox extends Component{
@@ -51,11 +52,11 @@ class PostBox extends Component{
         <div className="">
           <div className="">
             <label htmlFor="Title">Title</label>
-            <input 
+            <Textarea 
               onChange={this.updateTitleField} 
               value={this.state.contentTitle} 
               type="text" 
-              className="w-input" 
+              className="w-input textAreaNoResizeHandle" 
               maxLength="256" 
               autoFocus="true" />
           </div>
@@ -80,12 +81,12 @@ class PostBox extends Component{
         </div>
         <div>
           <label htmlFor="description">Description</label>
-          <textarea 
+          <Textarea 
             onChange={this.updateDescriptionField}
             value={this.state.contentDescription}
             type="text" 
-            className="w-input" 
-            maxLength="10000" ></textarea>
+            className="w-input textAreaNoResizeHandle" 
+            maxLength="10000" />
         </div>
         <div>
           {(this.props.pendingPostState === 'pending')

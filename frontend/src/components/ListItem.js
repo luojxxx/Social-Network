@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
+import ReactMarkdown from 'react-markdown'
 
 import {convertToTimePassed} from '../libraryHelper'
 import PostBox from '../containers/PostBoxContainer'
@@ -175,7 +176,9 @@ class ListItem extends Component{
               <a href={post.contentLink}>{post.contentLink}</a>
               <ContentPreview url={post.contentLink} />
               {(this.state.showPostDescription)
-                ?<div className='contentDescriptionBox'>{post.contentDescription}</div>
+                ?<div className='contentDescriptionBox'>
+                <ReactMarkdown source={post.contentDescription} />
+                  </div>
                 :''
               }
               <div>
