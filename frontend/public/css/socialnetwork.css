@@ -122,24 +122,21 @@ h1, h2, h3, h4 {
 }
 
 .headerModal {
-  position: fixed; /* Stay in place */
+  position: absolute; /* Stay in place */
   z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-}
-
-.headerModalContent {
+  top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+  right: 0px;
+  width: 25%;
   background-color: #95C3EE;
-  margin: 5px auto; /* 15% from the top and centered */
-  padding: 5px;
   border: 1px solid #308DE9;
   border-radius: 2px;
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  width: 25%; /* Could be more or less, depending on screen size */
+  padding: 5px;
 }
 
 .listItemRow {

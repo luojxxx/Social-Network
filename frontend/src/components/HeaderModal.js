@@ -23,10 +23,8 @@ class HeaderModal extends Component {
   render() {
     var props = this.props
     return (
-      <div className="headerModal" id='headerModal'>
-        <div className="headerModalContent" onClick={this.dismissBanner} >
-          {props.bannerMsg}
-        </div>
+      <div className="headerModal" id='headerModal' onClick={this.dismissBanner}>
+        {props.bannerMsg}
       </div>
   )}
 }

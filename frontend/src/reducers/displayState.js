@@ -49,6 +49,12 @@ export const displayState = (state = {
       pendingPostState: 'pending'
     }
 
+    case 'ERROR_POST':
+    return {
+      ...state,
+      pendingPostState: 'error'
+    }
+
     case 'UPDATE_NEW_POST':
     return {
       ...state,

@@ -8,6 +8,10 @@ export const pendingPost = (parentId) => ({
   payload: parentId
 })
 
+export const errorPost = () => ({
+  type: 'ERROR_POST'
+})
+
 export const addPostToState = (data) => ({
   type: 'UPDATE_NEW_POST',
   payload: data
@@ -30,6 +34,7 @@ export function newPost(data) {
     })
     .catch((err)=>{
       dispatch(updateBanner('Error - Could not contact server'))
+      dispatch(errorPost())
     })
   }
 }
@@ -60,6 +65,7 @@ export function editPost(postId, data) {
     })
     .catch((err)=>{
       dispatch(updateBanner('Error - Could not contact server'))
+      dispatch(errorPost())
     })
   }
 }
