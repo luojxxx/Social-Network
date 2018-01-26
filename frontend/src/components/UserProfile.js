@@ -10,11 +10,11 @@ class UserProfile extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      if (this.props.params !== nextProps.params ||
-          this.props.location.query !== nextProps.location.query) {
-        this.loadPageSwitch(nextProps.params.subField, nextProps)
-      }
+    if (this.props.params !== nextProps.params ||
+        this.props.location.query !== nextProps.location.query) {
+      this.loadPageSwitch(nextProps.params.subField, nextProps)
     }
+  }
 
   loadPageSwitch = (subField, props) => {
     var page = defaultPage(props.location.query.page)

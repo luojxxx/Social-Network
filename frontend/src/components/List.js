@@ -30,12 +30,12 @@ class List extends Component{
       voteState={voteState} 
       savedState={savedState} 
       submittedByCurrentUser={submittedByCurrentUser} 
+      loggedIn={props.loggedIn} 
       deletePost={props.deletePost} 
       savePost={props.savePost} 
       reportPost={props.reportPost} 
       vote={props.vote} 
-      updateBanner={props.updateBanner}
-      loggedIn={props.loggedIn} />
+      updateBanner={props.updateBanner} />
   }
 
   recursiveComponent = (dataDic, listOfList, depth) => {

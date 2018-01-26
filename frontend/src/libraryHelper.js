@@ -214,6 +214,7 @@ export const insertIntoNestedList = (dataOrder, newPostParent, newPostId, added)
 //   }
 // }
 
+// MISC FUNCTIONS
 export const defaultPage = (page) => {
     return (typeof(page)!=='undefined')
               ?page
