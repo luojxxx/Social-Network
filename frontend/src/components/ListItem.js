@@ -125,7 +125,8 @@ class ListItem extends Component{
       <div className="content-block">
         <div className="listItemRow">
           <div 
-            style={{width:String(5*this.props.depth)+'%'}} 
+            // style={{width:String(5*this.props.depth)+'%'}} 
+            style={{width: '1%'}}
             className="">
           </div>
 
