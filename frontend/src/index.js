@@ -38,14 +38,14 @@ function configureStore () {
   return { persistor, store }
 }
 
-const persistorStore = configureStore()
+const { persistor, store } = configureStore()
 
-const history = syncHistoryWithStore(browserHistory, persistorStore.store)
+const history = syncHistoryWithStore(browserHistory, store)
 
 render(
-  <Provider store={persistorStore.store} persistor={persistorStore.persistor}>
+  <Provider store={store} persistor={persistor}>
       <Router history={history}>
-        
+        <PersistGate loading="loading..." persistor={persistor}>
         <Route path="/" component={App}>
           <IndexRoute component={HomePage}></IndexRoute>
           <Route path="/authtoken" component={Authtoken} />
@@ -56,11 +56,11 @@ render(
           <Route path="/notifications" component={Notifications} />
           <Route path="*" component={Page404} />
         </Route>
-        
+        </PersistGate>
       </Router>
   </Provider>,
   document.getElementById('root')
 )
 
-    // <PersistGate loading="loading..." persistor={persistorStore.persistor}>
-    //  </PersistGate>
+    
+     
