@@ -21,10 +21,6 @@ class Header extends Component {
     }
   }
 
-  componentDidMount() {
-    setTimeout(()=>{this.props.updateBanner('Welcome')}, 2000)
-  }
-
   render() {
     var props = this.props
     return (
