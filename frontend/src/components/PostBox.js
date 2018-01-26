@@ -85,7 +85,10 @@ class PostBox extends Component{
             maxLength="512" />
         </div>
         <div>
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">
+            Description{' '}
+            <span className="greyedOut">(Markdown supported)</span>
+          </label>
           <Textarea 
             onChange={this.updateDescriptionField}
             value={this.state.contentDescription}

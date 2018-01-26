@@ -64,7 +64,6 @@ class MenuBar extends Component{
 
   render() {
     var userAccount = this.props.userAccount
-    console.log(this.props.location)
     return (
       <div className='flexRowCluster menubar'>
         <div className='searchBox' id='searchBox'>
