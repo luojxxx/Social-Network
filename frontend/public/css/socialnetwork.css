@@ -238,7 +238,7 @@
   font-family: 'Fontawesome webfont', sans-serif;
 }
 */
-.newpost {
+/*.newpost {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -317,7 +317,7 @@
 
 .newposttagtext {
   margin-left: 10px;
-}
+}*/
 
 
 
@@ -401,6 +401,18 @@ h1, h2, h3, h4 {
   text-align: right;
 }
 
+.padding_small {
+  padding: 5px;
+  margin: 0px;
+}
+
+.margin_small {
+  margin: 5px;
+}
+
+.margin_medium {
+  margin: 2%;
+}
 
 .header {
   display: flex;
@@ -420,11 +432,6 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: space-evenly;
   flex: 0 0 auto;
-}
-
-.padding_small {
-  padding: 5px;
-  margin: 0px;
 }
 
 .transparentInputField, .transparentInputField:focus, .transparentInputField:active, .transparentInputField:focus:active {
@@ -451,6 +458,11 @@ h1, h2, h3, h4 {
 
 .listItemMargin {
   margin: 10px;
+}
+
+.listItemActionBar {
+  display: flex;
+  flex-direction: row;
 }
 
 .contentDescriptionBox {
@@ -491,6 +503,16 @@ h1, h2, h3, h4 {
     padding: 20px;
     border: 1px solid #313131;
     width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.postFormCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.postFormRow {
+  display: flex;
+  flex-direction: row;
 }
 
 /* ANIMATIONS */

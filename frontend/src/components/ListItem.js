@@ -187,7 +187,7 @@ class ListItem extends Component{
               </div>
             </div>
 
-            <div>
+            <div className="listItemActionBar">
               <button 
                 onClick={this.toggleReplyForm} 
                 style={(this.state.showReplyForm)?{color:'#F67D29'}:{}}

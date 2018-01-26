@@ -47,9 +47,9 @@ class PostBox extends Component{
 
   render() {
     return (
-      <div className="newpost w-container">
-        <div className="w-row">
-          <div className="w-col w-col-9">
+      <div className="postFormCol margin_medium">
+        <div className="">
+          <div className="">
             <label htmlFor="Title">Title</label>
             <input 
               onChange={this.updateTitleField} 
@@ -57,23 +57,16 @@ class PostBox extends Component{
               type="text" 
               className="w-input" 
               maxLength="256" 
-              autoFocus="true" 
-              name="Title" 
-              data-name="Title" 
-              id="Title" 
-              required="" />
+              autoFocus="true" />
           </div>
-          <div className="w-col w-col-3">
+          <div className="">
             <label htmlFor="tag">Tag</label>
             <input 
               onChange={this.updateTagField}
               value={this.state.contentTag}
               type="text" 
               className="w-input" 
-              maxLength="64" 
-              name="tag" 
-              data-name="tag" 
-              id="tag" />
+              maxLength="64" />
           </div>
         </div>
         <div>
@@ -83,21 +76,16 @@ class PostBox extends Component{
             value={this.state.contentLink}
             type="text" 
             className="w-input" 
-            maxLength="512" 
-            name="link" 
-            data-name="link" 
-            id="link" />
+            maxLength="512" />
         </div>
         <div>
           <label htmlFor="description">Description</label>
           <textarea 
             onChange={this.updateDescriptionField}
             value={this.state.contentDescription}
-            id="description" 
-            name="description" 
-            maxLength="10000" 
-            data-name="description" 
-            className="w-input"></textarea>
+            type="text" 
+            className="w-input" 
+            maxLength="10000" ></textarea>
         </div>
         <div>
           {(this.props.pendingPostState === 'pending')
