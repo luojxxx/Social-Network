@@ -53,7 +53,10 @@ class PostBox extends Component{
       <div className="postFormCol margin_medium">
         <div className="">
           <div className="">
-            <label htmlFor="Title">Title *required</label>
+            <label htmlFor="Title">
+              Title{' '}
+              <span className="greyedOut">(*required)</span>
+            </label>
             <Textarea 
               onChange={this.updateTitleField} 
               value={this.state.contentTitle} 

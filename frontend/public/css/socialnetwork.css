@@ -65,6 +65,10 @@ h1, h2, h3, h4 {
   font-family: 'Fontawesome webfont', sans-serif;
 }
 
+.greyedOut {
+  color: #999999;
+}
+
 .centerJustify {
   display: flex;
   flex-direction: row;
