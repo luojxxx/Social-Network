@@ -36,6 +36,10 @@ class ListItem extends Component{
   }
 
   toggleReplyForm = () => {
+    if (this.props.loggedIn === false) {
+      this.props.updateBanner('Please login to reply')
+      return
+    }
     if (this.state.showReplyForm === false) {
       this.setState({showReplyForm: true, showEditForm: false})
     } else {
@@ -66,11 +70,19 @@ class ListItem extends Component{
 
   savePost = (e) => {
     e.preventDefault()
+    if (this.props.loggedIn === false) {
+      this.props.updateBanner('Please login to save post')
+      return
+    }
     this.props.savePost(this.props.post._id)
   }
 
   showReportConfirmation = (e) => {
     e.preventDefault()
+    if (this.props.loggedIn === false) {
+      this.props.updateBanner('Please login to report post')
+      return
+    }
     this.setState({showReportConfirmation: true})
   }
 
