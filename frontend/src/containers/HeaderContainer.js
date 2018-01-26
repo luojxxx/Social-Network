@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { logout } from '../actions'
+import { logout } from '../actions/pageActions'
 import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => ({

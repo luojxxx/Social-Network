@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newPost, editPost } from '../actions'
+import { newPost, editPost } from '../actions/postActions'
 import PostBox from '../components/PostBox'
 
 const mapStateToProps = (state, ownProps) => ({

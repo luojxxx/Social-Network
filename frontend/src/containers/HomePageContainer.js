@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loadFrontPageData } from '../actions'
+import { loadFrontPageData } from '../actions/pageActions'
 import HomePage from '../components/HomePage'
 
 const mapStateToProps = (state, ownProps) => ({

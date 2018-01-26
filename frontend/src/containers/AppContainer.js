@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loadUserData } from '../actions'
+import { loadUserData } from '../actions/pageActions'
 import App from '../components/App'
 
 const mapStateToProps = (state, ownProps) => ({

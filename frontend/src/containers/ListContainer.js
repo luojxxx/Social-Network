@@ -3,7 +3,7 @@ import {
   vote, 
   deletePost, 
   savePost, 
-  reportPost} from '../actions'
+  reportPost} from '../actions/postActions'
 import List from '../components/List'
 
 const mapStateToProps = (state, ownProps) => ({

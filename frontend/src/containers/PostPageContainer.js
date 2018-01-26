@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loadPost, sortPosts } from '../actions'
+import { loadPost, sortPosts } from '../actions/pageActions'
 import PostPage from '../components/PostPage'
 
 const mapStateToProps = (state, ownProps) => ({

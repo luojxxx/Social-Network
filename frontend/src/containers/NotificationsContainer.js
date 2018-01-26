@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loadNotifications } from '../actions'
+import { loadNotifications } from '../actions/pageActions'
 import Notifications from '../components/Notifications'
 
 const mapStateToProps = (state, ownProps) => ({
