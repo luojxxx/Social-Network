@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { Link, browserHistory } from 'react-router'
-import {TweenLite, TimelineMax} from 'gsap'
+import {TweenLite} from 'gsap'
 
+import NotificationIcon from './NotificationIcon'
 import { hostUrl } from '../config'
 import {stringify} from 'query-string'
 import googleLoginButton from '../images/gbutton1.png'
@@ -12,20 +13,12 @@ class MenuBar extends Component{
     this.state={
       searchQuery: ''
     }
-    this.newNotificationsTween = new TimelineMax({repeat:-1, yoyo:true})
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname.includes('search') &&
       nextProps.location.pathname.includes('search')===false) {
       this.setState({searchQuery: ''})
-    }
-
-    var notificationsIcon = document.getElementById('notificationsIcon')
-    if (nextProps.userAccount.newNotifications === true) {
-      this.newNotificationsTween.to(notificationsIcon, 1.5, {color:'#F67D29'})
-    } else {
-      this.newNotificationsTween.kill()
     }
   }
 
@@ -105,9 +98,10 @@ class MenuBar extends Component{
           <Link 
             to='/notifications' 
             className="fontawesome padding_small"
-            id='notificationsIcon'
-            style={(this.checkPage('notifications')?{color:'#F67D29'}:{})}>
-            &#xf003;{' '}
+            id='notificationsIcon' >
+            {(this.checkPage('notifications'))
+              ?<div className='fontawesome' style={{color:'#F67D29'}}>&#xf003;</div>
+              :<NotificationIcon newNotifications={this.props.userAccount.newNotifications} />}
           </Link>
           <Link 
             to='/settings' 

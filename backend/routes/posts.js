@@ -105,13 +105,15 @@ router.post('/', passport.authenticate('bearer', { session: false }),
           .then((newNotification)=>{
             UserNotification.findOneAndUpdate(
               {userId: parentPost.submittedByUserId},
-              {$push: {
-                notifications: {
-                  $each: [newNotification._id],
-                  $position: 0
-                }
-              }
-            })
+              {
+                $push: {
+                  notifications: {
+                    $each: [newNotification._id],
+                    $position: 0
+                  }
+                },
+                newNotifications: true
+              })
             .then(()=>{
               res.status(200);
               res.send(createdPost);

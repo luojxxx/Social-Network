@@ -13,7 +13,7 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
     var userId = req.user._id;
     var page = parseInt(req.params.page);
 
-    UserNotification.findOne({userId: userId})
+    UserNotification.findOneAndUpdate({userId: userId}, {newNotifications: false})
     .then((userNotifications)=>{
       var notificationArray = userNotifications.notifications;
 
