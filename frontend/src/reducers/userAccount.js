@@ -6,7 +6,8 @@ export const userAccount = (state = {
   submitted: [],
   voteHistory: {},
   saved: [],
-  totalVotes: 0
+  totalVotes: 0,
+  newNotifications: false
 }, action) => {
   switch (action.type) {
 
@@ -29,7 +30,8 @@ export const userAccount = (state = {
       submitted: action.payload.submitted,
       voteHistory: voteHistory,
       saved: action.payload.saved,
-      totalVotes: action.payload.totalVotes
+      totalVotes: action.payload.totalVotes,
+      newNotifications: action.payload.newNotifications
     }
 
 
@@ -111,6 +113,12 @@ export const userAccount = (state = {
     return {
       ...state,
       userName: action.payload
+    }
+
+    case 'LOADED_NOTIFICATIONS':
+    return {
+      ...state,
+      newNotifications: false
     }
 
     default:

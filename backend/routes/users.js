@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 var User = require('../models/user');
+var UserNotification = require('../models/user_notification');
 var Post = require('../models/post');
 var config = require('../config');
 
@@ -12,18 +13,18 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
   function(req,res){
     var userProfile = req.user;
 
-    Post.find({submittedByUserId:userProfile._id}, 'score')
+    var mainProfile = Post.find({submittedByUserId:userProfile._id}, 'score')
     .then((results)=>{
       var totalVotes = 0;
       for (idx in results) {
         totalVotes += results[idx].score;
       }
 
-      User.findOneAndUpdate(
+      return User.findOneAndUpdate(
         {_id: userProfile._id},
         {totalVotes: totalVotes})
       .then(()=>{
-        var filteredUserProfile = {
+         var filteredUserProfile = {
           _id: userProfile._id,
           userName: userProfile.userName,
           email: userProfile.email,
@@ -33,8 +34,7 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
           saved: userProfile.saved,
           totalVotes: userProfile.totalVotes
         }
-        res.status(200);
-        res.json(filteredUserProfile);
+        return filteredUserProfile;
       })
       .catch((err)=>{
         res.status(400);
@@ -45,6 +45,24 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
       res.status(400);
       res.send(err);
     })
+
+    var newNotifications = UserNotification.findOne({userId: userProfile._id})
+    .then((results)=>{
+      return results.newNotifications
+    })
+
+    Promise.all([mainProfile, newNotifications])
+    .then((values)=>{
+      res.status(200);
+      res.send({
+        ...values[0],
+        newNotifications: values[1]
+      });
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
+    });
 })
 
 router.put('/saved/', passport.authenticate('bearer', { session: false }),

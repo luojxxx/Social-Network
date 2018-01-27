@@ -10,6 +10,10 @@ var userNotificationSchema = mongoose.Schema({
   notifications: {
     type: Array,
     default: []
+  },
+  newNotifications: {
+    type: Boolean,
+    default: false
   }
 });
 
