@@ -80,7 +80,7 @@ class MenuBar extends Component{
   render() {
     var userAccount = this.props.userAccount
     return (
-      <div className='flexRowCluster menubar'>
+      <div className='menubar'>
         <div className='searchBox' id='searchBox'>
           <input 
             value={this.state.searchQuery}
@@ -96,7 +96,7 @@ class MenuBar extends Component{
           </button>
         </div>
         {(userAccount.loggedIn)
-          ?<div className='flexRowCluster'>
+          ?<div className='menuBarActionCluster'>
           <button 
             onClick={this.props.togglePostForm} 
             style={(this.props.showPostForm)?{color:'#F67D29'}:{}}
@@ -126,8 +126,8 @@ class MenuBar extends Component{
           {' '}
           <button onClick={this.props.logout} className="padding_small">Logout</button>
           </div>
-          :<a href={hostUrl+'auth/google/'} className="padding_small">
-            <img src={googleLoginButton} height='38px' />
+          :<a href={hostUrl+'auth/google/'} >
+            <img src={googleLoginButton} height='38px' className="" />
           </a>}
       </div>
       )}

@@ -1,16 +1,13 @@
 body {
   color: #313131;
   background: #F5F4F5;
+  margin: 5px;
+  margin-bottom: 30px;
 }
 
 button {
   background-color: transparent;
-  margin-right: 10px;
   padding: 0px;
-}
-
-input {
-  height: 100%;
 }
 
 a {
@@ -99,18 +96,33 @@ h1, h2, h3, h4 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  align-content: flex-start;
 }
 
 .menubar {
+  display: flex;
+  flex-direction: column;
+/*  justify-content: flex-end;
+  align-items: center;
+  align-content: center;*/
+  margin-top: 10px;
   font-size: 16px;
+  text-align: right;
 }
 
 .flexRowCluster {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  flex: 0 0 auto;
+}
+
+.menuBarActionCluster {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   flex: 0 0 auto;
 }
 
@@ -120,10 +132,14 @@ h1, h2, h3, h4 {
   border: none;
   box-shadow: none;
   outline: none;
+  width: 100%;
 }
 
 .searchBox {
   border: 1px solid #313131;
+  margin-right: 2px;
+  display: flex;
+  flex-direction: row;
 }
 
 .headerModal {
@@ -164,6 +180,10 @@ h1, h2, h3, h4 {
   flex-direction: row;
 }
 
+.listItemActionBarItem {
+  margin-right: 10px;
+}
+
 .contentDescriptionBox {
   background-color: #EDEEEF;
 }
@@ -181,6 +201,8 @@ h1, h2, h3, h4 {
 
 .pageButtons {
   font-size: 20px;
+  padding: 10px;
+  margin: 5px;
 }
 
 .socialShareButtonBar {

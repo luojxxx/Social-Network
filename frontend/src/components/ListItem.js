@@ -27,11 +27,19 @@ class ListItem extends Component{
 
   upVote = (e) => {
     e.preventDefault()
+    if (this.props.loggedIn === false) {
+      this.props.updateBanner('Please login to vote')
+      return
+    }
     this.props.vote(this.props.post._id, this.props.voteState, 1)
   }
 
   downVote = (e) => {
     e.preventDefault()
+    if (this.props.loggedIn === false) {
+      this.props.updateBanner('Please login to vote')
+      return
+    }
     this.props.vote(this.props.post._id, this.props.voteState, -1)
   }
 
@@ -207,14 +215,18 @@ class ListItem extends Component{
               <button 
                 onClick={this.toggleReplyForm} 
                 style={(this.state.showReplyForm)?{color:'#F67D29'}:{}}
-                className="">
-                Reply
+                className="listItemActionBarItem">
+                  Reply
               </button>
               {(this.state.showSharePostPopup)
                 ?<SharePost postData={post} closeSharePostPopup={this.closeSharePostPopup} />
-                :<button onClick={this.showSharePostPopup}>Share</button>
+                :<button 
+                    onClick={this.showSharePostPopup}
+                    className='listItemActionBarItem'>
+                    Share
+                  </button>
               }
-              <button onClick={this.savePost} className="">
+              <button onClick={this.savePost} className="listItemActionBarItem">
                 {(this.props.savedState)
                   ?'Unsave'
                   :'Save'
@@ -222,21 +234,24 @@ class ListItem extends Component{
               </button>
               {(this.state.showReportConfirmation)
                 ?<span>
-                  <button onClick={this.reportPost} className="">
+                  <button onClick={this.reportPost} className="listItemActionBarItem">
                     Report Confirm?
                   </button>
-                  <button onClick={this.closeReportConfirmation} className="">
+                  <button onClick={this.closeReportConfirmation} className="listItemActionBarItem">
                     X
                   </button>
                   </span>
-                :<button onClick={this.showReportConfirmation} className="">
+                :<button onClick={this.showReportConfirmation} className="listItemActionBarItem">
                     Report
                   </button>
               }
               {(this.props.submittedByCurrentUser)
                 ?<button 
                   onClick={this.toggleEditForm}
-                  style={(this.state.showEditForm)?{color:'#F67D29'}:{}}>Edit</button>
+                  style={(this.state.showEditForm)?{color:'#F67D29'}:{}}
+                  className='listItemActionBarItem'>
+                    Edit
+                  </button>
                 :''
               }
               {(this.props.submittedByCurrentUser && this.state.showDeleteConfirmation===false
@@ -247,7 +262,7 @@ class ListItem extends Component{
               }
               {(this.state.showDeleteConfirmation)
                 ?<span>
-                  <button onClick={this.deletePost} className="">
+                  <button onClick={this.deletePost} className="listItemActionBarItem">
                     Delete Confirm?
                   </button>
                   <button onClick={this.closeDeleteConfirmation} className="">

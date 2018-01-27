@@ -82,13 +82,18 @@ class ContentPreview extends Component{
 
   renderYouTube = (url) => {
     var youtubePlayerUrl = 'https://www.youtube.com/embed/'
-    youtubePlayerUrl += this.getYouTubeVideoId(url)
+    youtubePlayerUrl += this.getYouTubeVideoId(url) 
+    youtubePlayerUrl += '?autoplay=1'
 
     return (
       <div>
         <iframe width="560" height="315" 
         src={youtubePlayerUrl}
-        frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+        frameBorder="0" 
+        gesture="media" 
+        allow="encrypted-media" 
+        allowFullScreen>
+        </iframe>
       </div>
       )
   }
