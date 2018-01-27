@@ -8,32 +8,22 @@ class NotificationIcon extends Component {
     this.newNotificationsTween = new TimelineMax({repeat:-1, yoyo:true})
   }
 
-  toggleAnimation = () => {
+  componentDidMount() {
     var notificationsIcon = document.getElementById('notificationsIcon')
-    if (this.props.newNotifications && notificationsIcon!==null) {
-      this.newNotificationsTween.to(notificationsIcon, 1.5, {color:'#F67D29'})
-    } else {
-      this.newNotificationsTween.kill()
-    }
+    this.newNotificationsTween.to(notificationsIcon, 1.5, {color:'#F67D29'})
+  }
+
+  componentWillUnmount() {
+    var notificationsIcon = document.getElementById('notificationsIcon')
+    this.newNotificationsTween.kill()
   }
 
   render() {
-    console.log(this.props.newNotifications)
-    console.log(document.getElementById('notificationsIcon'))
-    this.toggleAnimation()
-    if (this.props.newNotifications) {
-      return (
-        <div className='fontawesome' id='notificationsIcon'>
-          &#xf003;
-        </div>
-      )
-    } else {
-      return (
-        <div className='fontawesome' id='notificationsIcon' style={{color:'#313131'}}>
-          &#xf003;
-        </div>
-      )
-    }
+    return (
+      <div className='fontawesome' id='notificationsIcon'>
+        &#xf003;
+      </div>
+    )
   }
 }
 

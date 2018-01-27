@@ -69,6 +69,14 @@ class MenuBar extends Component{
     }
   }
 
+  renderNotificationIcon = () => {
+    if (this.props.userAccount.newNotifications===true) {
+      return <NotificationIcon newNotifications={this.props.userAccount.newNotifications} />
+    } else {
+      return <div className='fontawesome' style={{color:'#313131'}}>&#xf003;</div>
+    }
+  }
+
   render() {
     var userAccount = this.props.userAccount
     return (
@@ -101,7 +109,7 @@ class MenuBar extends Component{
             id='notificationsIcon' >
             {(this.checkPage('notifications'))
               ?<div className='fontawesome' style={{color:'#F67D29'}}>&#xf003;</div>
-              :<NotificationIcon newNotifications={this.props.userAccount.newNotifications} />}
+              :this.renderNotificationIcon()}
           </Link>
           <Link 
             to='/settings' 
