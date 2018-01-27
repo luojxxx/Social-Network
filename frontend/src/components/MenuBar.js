@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Link, browserHistory } from 'react-router'
-import {TweenLite, TweenMax} from 'gsap'
+import {TweenLite, TimelineMax} from 'gsap'
 
 import { hostUrl } from '../config'
 import {stringify} from 'query-string'
