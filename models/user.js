@@ -74,12 +74,17 @@ module.exports.findOrCreate = function(googleId, callback) {
   });
 };
 
-module.exports.authToken = function(googleId, token, callback) {
+module.exports.authToken = function(googleId, newToken, callback) {
   var query = {googleId: googleId};
-  var update = {
-    token: token
-  };
+  var update = {token: newToken};
 
-  User.findOneAndUpdate(query, update, callback);
+  User.findOne(query)
+  .then((userAccount)=>{
+    if (typeof(userAccount.token) !== 'string') {
+      User.findOneAndUpdate(query, update);
+      callback(newToken)
+    } else {
+      callback(userAccount.token)
+    }
+  })
 }
-

@@ -93,8 +93,8 @@ app.get('/auth/google/callback',
   function(req, res) {
     // Successful authentication, redirect to page that will record token
     var googleId = req.user.googleId;
-    var token = googleId+makeToken();
-    User.authToken(googleId, token, ()=>{
+    var newtoken = googleId+makeToken();
+    User.authToken(googleId, newtoken, (token)=>{
       res.redirect(process.env.OAUTH_CLIENT_CALLBACK_URL+'/authtoken?token='+token);
     })
   });
