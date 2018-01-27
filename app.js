@@ -2,7 +2,7 @@
 require('dotenv').config();
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
