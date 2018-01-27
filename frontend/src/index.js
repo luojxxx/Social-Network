@@ -12,7 +12,7 @@ import { persistStore, persistCombineReducers } from 'redux-persist'
 import { PersistGate } from 'redux-persist/lib/integration/react'
 import localForage from 'localforage'
 
-import reducers from './reducers'
+import reducers from './reducers/indexReducer'
 
 import Authtoken from './containers/AuthtokenContainer'
 import App from './containers/AppContainer'
@@ -30,7 +30,7 @@ const routerWare = routerMiddleware(browserHistory)
 
 const persistConfig = {
   key: 'root',
-  storage: localForage,
+  storage: localForage
 }
 
 const reducer = persistCombineReducers(persistConfig, reducers)
@@ -46,7 +46,7 @@ const { persistor, store } = configureStore()
 
 render(
   <Provider store={store} persistor={persistor}>
-  <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       <Router history={browserHistory}>
         
         <Route path="/" component={App}>
@@ -60,7 +60,8 @@ render(
           <Route path="*" component={Page404} />
         </Route>
         
-      </Router></PersistGate>
+      </Router>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 )
