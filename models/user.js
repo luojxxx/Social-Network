@@ -80,9 +80,11 @@ module.exports.authToken = function(googleId, newToken, callback) {
 
   User.findOne(query)
   .then((userAccount)=>{
-    if (typeof(userAccount.token) !== 'string') {
-      User.findOneAndUpdate(query, update);
-      callback(newToken)
+    if (typeof(userAccount.token) === 'undefined') {
+      User.findOneAndUpdate(query, update)
+      .then(()=>{
+        callback(newToken)
+      })
     } else {
       callback(userAccount.token)
     }
