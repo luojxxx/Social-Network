@@ -31,7 +31,7 @@ class Settings extends Component{
           Note: You can change your username to anything that hasn't already been taken.
           <br />
           And you also give up your old username.
-          <br />
+          <br /><br />
           <input type='text' 
           defaultValue={userAccount.userName}
           onChange={this.updateUserName} 

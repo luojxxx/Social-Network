@@ -154,7 +154,6 @@ router.get('/profile/:userId/:field/:page', passport.authenticate('bearer', { se
 
     var stack = [];
     for (var i = searchQuery.length - 1; i > 0; i--) {
-
         var rec = {
             "$cond": [
                 { "$eq": [ "$_id", searchQuery[i-1] ] },
@@ -170,7 +169,6 @@ router.get('/profile/:userId/:field/:page', passport.authenticate('bearer', { se
         }
 
         stack.push( rec );
-
     }
 
     var query = {'$match': {'_id': {$in: searchQuery}}};
@@ -181,7 +179,14 @@ router.get('/profile/:userId/:field/:page', passport.authenticate('bearer', { se
 
     var count = Post.aggregate([query, {'$count': 'total'}])
                 .then((result)=>{
+                  if (result.length === 0) {
+                    return 0;
+                  }
                   return result[0].total
+                })
+                .catch((err)=>{
+                  res.status(400);
+                  res.send(err);
                 })
     var paginatedResults = Post.aggregate([query, projection, skip, limit, sort]);
 
