@@ -69,11 +69,8 @@ class ListItem extends Component{
     this.setState({showSharePostPopup: true})
   }
 
-  closeSharePostPopup = (e) => {
-    e.preventDefault()
-    if (e.target.className === 'modal' || e.target.className === 'closeButton') {
-      this.setState({showSharePostPopup: false})
-    }
+  closeSharePostPopup = () => {
+    this.setState({showSharePostPopup: false})
   }
 
   savePost = (e) => {
