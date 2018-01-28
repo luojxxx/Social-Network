@@ -20,9 +20,16 @@
   }
 
   .socialShareButtonBar {
-    width: 50%;
-    margin-right: auto;
-    margin-left: auto;
+    width: 80%;
+  }
+
+  .modal-content {
+    padding: 20px;
+    width: 90%; /* Could be more or less, depending on screen size */
+  }
+
+  .socialButtons {
+    margin: 4px;
   }
 
   @media screen and (max-width: 370px) {

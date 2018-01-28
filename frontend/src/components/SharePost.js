@@ -60,103 +60,103 @@ class SharePost extends Component {
           {postData.contentLink}<br/><br/>
 
           <div className="socialShareButtonBar">
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <FacebookShareButton
                 url={shareUrl}
                 quote={title}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <FacebookIcon
                   size={32}
                   round />
               </FacebookShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <TwitterShareButton
                 url={shareUrl}
                 title={title}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <TwitterIcon
                   size={32}
                   round />
               </TwitterShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <RedditShareButton
                 url={shareUrl}
                 title={title}
                 windowWidth={660}
                 windowHeight={460}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <RedditIcon
                   size={32}
                   round />
               </RedditShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <WhatsappShareButton
                 url={shareUrl}
                 title={title}
                 separator=":: "
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <WhatsappIcon size={32} round />
               </WhatsappShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <GooglePlusShareButton
                 url={shareUrl}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
               <GooglePlusIcon
                 size={32}
                 round />
               </GooglePlusShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <LinkedinShareButton
                 url={shareUrl}
                 title={title}
                 windowWidth={750}
                 windowHeight={600}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <LinkedinIcon
                   size={32}
                   round />
               </LinkedinShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <PinterestShareButton
                 url={shareUrl}
                 windowWidth={1000}
                 windowHeight={730}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <PinterestIcon size={32} round />
               </PinterestShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <TumblrShareButton
                 url={shareUrl}
                 title={title}
                 windowWidth={660}
                 windowHeight={460}
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <TumblrIcon
                   size={32}
                   round />
               </TumblrShareButton>
             </div>
 
-            <div className="Demo__some-network">
+            <div className="socialButtons">
               <EmailShareButton
                 url={shareUrl}
                 subject={title}
                 body="body"
-                className="Demo__some-network__share-button">
+                className="socialButtons__share-button">
                 <EmailIcon
                   size={32}
                   round />
