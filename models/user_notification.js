@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-
 // User Schema
 var userNotificationSchema = mongoose.Schema({
   userId: {

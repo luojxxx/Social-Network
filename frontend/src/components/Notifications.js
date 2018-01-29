@@ -18,7 +18,7 @@ class Notifications extends Component {
     if (notification.notificationType === 'reply') {
       let data = notification.data
       return (
-        <div key={data.newPostId} className='notification'>
+        <div key={notification._id} className='notification'>
           <Link to={'/userprofile/'+data.newPostUserId+'/submitted'}>
             {data.newPostUserName}
           </Link>
@@ -36,11 +36,22 @@ class Notifications extends Component {
         </div>
         )
     }
+
+    if (notification.notificationType === 'message') {
+      let data = notification.data
+      return (<div key={notification._id} className='notification'>
+        {data.message}
+      </div>)
+    }
   }
 
   render() {
     if (this.props.pageLoading === true) {
       return ''
+    }
+
+    if (this.props.notifications.length === 0) {
+      return <div className=''><h3>No notifications</h3></div>
     }
 
     return (

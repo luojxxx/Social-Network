@@ -228,7 +228,7 @@ router.put('/changeusername', passport.authenticate('bearer', { session: false }
         })
       } else {
         res.status(200)
-        res.json({changed:'false', })
+        res.json({changed:'false'})
       }
     })
     .catch((err)=>{

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var UserNotification = require('./user_notification');
+var Notification = require('./notification');
 
 // User Schema
 var userSchema = mongoose.Schema({
@@ -58,20 +59,31 @@ var userSchema = mongoose.Schema({
 
 var User = module.exports = mongoose.model('user', userSchema);
 
-module.exports.findOrCreate = function(googleId, callback) {
-  var query = {googleId: googleId};
+module.exports.findOrCreate = function(googleIdObject, callback) {
+  User.find(googleIdObject, function(err, results) {
 
-  User.find(googleId, function(err, results){
-    if (results.length == 0) {
-      User.create(googleId)
+    if (results.length === 0) {
+      User.create(googleIdObject)
       .then((newUser)=>{
-        UserNotification.create({userId:newUser._id})
-        callback(err, googleId)
+        Notification.create({
+          notificationType: 'message',
+          data: {message: 'Welcome! Feel free to share whatever you like. Although please be mindful and respectful to others.'}
+        })
+        .then((newNotification)=>{
+          UserNotification.create({
+            userId:newUser._id,
+            notifications: [newNotification._id],
+            newNotifications: true
+          })
+          callback(err, googleIdObject)
+        })        
       })
+
     } else {
-      callback(err, googleId);
+      callback(err, googleIdObject);
     }
-  });
+
+  })
 };
 
 module.exports.authToken = function(googleId, newToken, callback) {
