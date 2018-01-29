@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { apiUrl } from '../config'
+import { updateBanner } from './generalActions'
 
 export function changeUserName(userName) {
   return function(dispatch){
@@ -14,10 +15,13 @@ export function changeUserName(userName) {
     .then( (response) => {
       if (response.data.changed === 'true') {
         dispatch(updateUserName(response.data.userName))
+        dispatch(updateBanner('Successfully updated Username'))
+      } else {
+        dispatch(updateBanner('Sorry already taken'))
       }
     })
     .catch( (err) => {
-      // dispatch(userDataLoadFailed())
+      dispatch(updateBanner('Error - Could not contact server'))
     })
   }
 }

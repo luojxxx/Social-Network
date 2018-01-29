@@ -4,7 +4,7 @@ class Settings extends Component{
   constructor(props) {
       super(props)
       this.state={
-          userName: ''
+        userName: this.props.userAccount.userName
       }
   }
 
@@ -19,7 +19,9 @@ class Settings extends Component{
 
   submitUserName = (e) => {
     e.preventDefault()
-    this.props.changeUserName(this.state.userName)
+    if (this.props.userAccount.userName !== this.state.userName) {
+      this.props.changeUserName(this.state.userName)
+    }
   }
 
   render() {
@@ -33,7 +35,7 @@ class Settings extends Component{
           And you also give up your old username.
           <br /><br />
           <input type='text' 
-          defaultValue={userAccount.userName}
+          value={this.state.userName}
           onChange={this.updateUserName} 
           maxLength="32"
           className='settingsInputField' /> 
