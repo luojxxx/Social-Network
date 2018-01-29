@@ -59,7 +59,7 @@ class List extends Component{
 
   render() {
     if (this.props.displayedPostsOrder.length === 0) {
-      return <div>No results</div>
+      return <div className=''><h3>No results</h3></div>
     }
     
     return (

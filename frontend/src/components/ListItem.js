@@ -149,10 +149,6 @@ class ListItem extends Component{
           </div>
 
           <div className="listItemMargin">
-            <h3 style={scoreColor}>{post.score}</h3>
-          </div>
-
-          <div className="listItemMargin">
             <div>
               <button 
                 onClick={this.upVote}
@@ -194,12 +190,13 @@ class ListItem extends Component{
               <ContentPreview url={post.contentLink} />
               {(this.state.showPostDescription)
                 ?<div className='contentDescriptionBox'>
-                <ReactMarkdown source={post.contentDescription} />
+                  <ReactMarkdown source={post.contentDescription} />
                   </div>
                 :''
               }
               <div>
-                Posted by{' '}
+                <span style={scoreColor}>{post.score} </span>
+                 points by{' '}
                 {(post.submittedByUserId != null)
                   ?<Link to={'/userprofile/'+post.submittedByUserId+'/submitted'}>{post.submittedByUserName}</Link>
                   :post.submittedByUserName 

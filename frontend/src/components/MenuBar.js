@@ -77,6 +77,11 @@ class MenuBar extends Component{
     }
   }
 
+  logout = () => {
+    this.props.logout()
+    browserHistory.replace('/')
+  }
+
   render() {
     var userAccount = this.props.userAccount
     return (
@@ -124,7 +129,7 @@ class MenuBar extends Component{
             {userAccount.userName}
           </Link>
           {' '}
-          <button onClick={this.props.logout} className="padding_small">Logout</button>
+          <button onClick={this.logout} className="padding_small">Logout</button>
           </div>
           :<a href={hostUrl+'auth/google/'} >
             <img src={googleLoginButton} height='38px' className="" />

@@ -168,7 +168,7 @@ h1, h2, h3, h4 {
 .listItemCol {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .listItemMargin {
@@ -222,7 +222,8 @@ h1, h2, h3, h4 {
   margin: 15% auto; /* 15% from the top and centered */
   padding: 40px;
   border-radius: 1px;
-  width: 40%; /* Could be more or less, depending on screen size */
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 700px;
 }
 
 .modalCloseButton {
@@ -230,6 +231,9 @@ h1, h2, h3, h4 {
 }
 
 .socialShareButtonBar {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
