@@ -5,6 +5,8 @@ import ReactMarkdown from 'react-markdown'
 import {convertToTimePassed} from '../libraryHelper'
 import PostBox from '../containers/PostBoxContainer'
 import ContentPreview from './ContentPreview'
+import LinkThumbnail from './LinkThumbnail'
+import LinkContent from './LinkContent'
 import SharePost from './SharePost'
 
 const highlighted = {color:'#F67D29'}
@@ -14,6 +16,7 @@ class ListItem extends Component{
   constructor(props){
     super(props)
     this.state={
+      showPreview: false,
       showReplyForm: false,
       showPostDescription: false,
       showSharePostPopup: false,
@@ -46,6 +49,15 @@ class ListItem extends Component{
     this.props.vote(this.props.post._id, this.props.voteState, -1)
   }
 
+  toggleContentPreview = () => {
+    console.log(this.state.showPreview)
+    if (this.state.showPreview === false) {
+      this.setState({showPreview: true})
+    } else {
+      this.setState({showPreview: false})
+    }
+  }
+
   toggleReplyForm = () => {
     if (this.props.loggedIn === false) {
       this.props.updateBanner('Please login to reply')
@@ -58,7 +70,7 @@ class ListItem extends Component{
     }
   }
 
-  postDescriptionToggle = (e) => {
+  togglePostDescription = (e) => {
     e.preventDefault()
     if (this.state.showPostDescription === false) {
       this.setState({showPostDescription: true})
@@ -171,6 +183,10 @@ class ListItem extends Component{
             </div>
           </div>
 
+          <div onClick={this.toggleContentPreview}>
+            <LinkThumbnail url={post.contentLink} />
+          </div>
+
           <div className="listItemCol">
             <div>
               {(post.parent != null)
@@ -183,7 +199,7 @@ class ListItem extends Component{
               <Link to={'/post/'+post._id}>{post.contentTitle}</Link>
               {' '}
               {(post.contentDescription!=='')
-                ?<button onClick={this.postDescriptionToggle} className='greyedOut'>
+                ?<button onClick={this.togglePostDescription} className='greyedOut'>
                   {this.state.showPostDescription?'[+collapse]':'[+expand]'}
                 </button>
                 :''
@@ -193,7 +209,9 @@ class ListItem extends Component{
               <br />
 
               <a href={post.contentLink}>{post.contentLink}</a>
-              <ContentPreview url={post.contentLink} />
+              {this.state.showPreview
+                ?<LinkContent url={post.contentLink} />
+                :''}
               {(this.state.showPostDescription)
                 ?<div className='contentDescriptionBox'>
                   <ReactMarkdown source={post.contentDescription} />

@@ -50,7 +50,7 @@ class PostBox extends Component{
   render() {
     return (
       <div className="postFormCol postFormSpacing">
-        <div className="postFormRow">
+        
           <Textarea 
             onChange={this.updateTitleField} 
             value={this.state.contentTitle} 
@@ -66,7 +66,7 @@ class PostBox extends Component{
             className="textField" 
             maxLength="64"
             placeholder="Tag" />
-        </div>
+     
         <input 
           onChange={this.updateLinkField}
           value={this.state.contentLink}
@@ -92,64 +92,6 @@ class PostBox extends Component{
       </div>
       )
   }
-
-  // render() {
-  //   return (
-  //     <div className="postFormCol margin_medium">
-  //       <div className="">
-  //         <div className="">
-  //           <label htmlFor="Title">
-  //             Title{' '}
-  //             <span className="greyedOut">(*required)</span>
-  //           </label>
-  //           <Textarea 
-  //             onChange={this.updateTitleField} 
-  //             value={this.state.contentTitle} 
-  //             type="text" 
-  //             className="textAreaNoResizeHandle postField" 
-  //             maxLength="256" 
-  //             autoFocus="true" />
-  //         </div>
-  //         <div className="">
-  //           <label htmlFor="tag">Tag</label>
-  //           <input 
-  //             onChange={this.updateTagField}
-  //             value={this.state.contentTag}
-  //             type="text" 
-  //             className="postField" 
-  //             maxLength="64" />
-  //         </div>
-  //       </div>
-  //       <div>
-  //         <label htmlFor="link">Link</label>
-  //         <input 
-  //           onChange={this.updateLinkField}
-  //           value={this.state.contentLink}
-  //           type="text" 
-  //           className="postField" 
-  //           maxLength="512" />
-  //       </div>
-  //       <div>
-  //         <label htmlFor="description">
-  //           Description{' '}
-  //           <span className="greyedOut">(Markdown supported)</span>
-  //         </label>
-  //         <Textarea 
-  //           onChange={this.updateDescriptionField}
-  //           value={this.state.contentDescription}
-  //           type="text" 
-  //           className="textAreaNoResizeHandle postField" 
-  //           maxLength="10000" />
-  //       </div>
-  //       <div>
-  //         {(this.props.pendingPostState === 'pending')
-  //           ?<div className='loader'></div>
-  //           :<button onClick={this.submitPost} className="w-button">Submit</button>
-  //         }
-  //       </div>
-  //     </div>
-  //     )
-  // }
 }
 
 export default PostBox
