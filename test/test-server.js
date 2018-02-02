@@ -14,11 +14,11 @@ chai.use(chaiHttp);
 
 // // User.create({googleId: 12345, token: 'abc123'})
 
-// describe('Blobs', function() {
-//   it('should list ALL blobs on /blobs GET', function(done){
+// describe('Blobs', () => {
+//   it('should list ALL blobs on /blobs GET', (done) => {
 //     chai.request(server)
 //       .get('/api/recommendations/0')
-//       .end(function(err,res){
+//       .end((err,res)=>{
 //         console.log(res.body)
 //         done()
 //       })
