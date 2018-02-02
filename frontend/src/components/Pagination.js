@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import {stringify} from 'query-string'
 
+const highlighted = {color:'#F67D29'}
+
 class Pagination extends Component {
   changePage = (value) => {
     var query = stringify(value)
@@ -18,7 +20,7 @@ class Pagination extends Component {
         {[...Array(this.props.pages).keys()].map((ele)=>{
           let style = {}
           if (page === ele) {
-            style = {color:'#F67D29'}
+            style = highlighted
           }
           return (
             <button 

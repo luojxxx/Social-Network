@@ -7,6 +7,9 @@ import PostBox from '../containers/PostBoxContainer'
 import ContentPreview from './ContentPreview'
 import SharePost from './SharePost'
 
+const highlighted = {color:'#F67D29'}
+const muted = {color:'#607184'}
+
 class ListItem extends Component{
   constructor(props){
     super(props)
@@ -134,9 +137,10 @@ class ListItem extends Component{
     var post = this.props.post
     var scoreColor = {}
     if (this.props.voteState === 1) {
-      scoreColor['color'] = '#F67D29'
-    } else if (this.props.voteState === -1) {
-      scoreColor['color'] = '#607184'
+      scoreColor = highlighted
+    }
+    if (this.props.voteState === -1) {
+      scoreColor = muted
     }
 
     return (
@@ -152,7 +156,7 @@ class ListItem extends Component{
             <div>
               <button 
                 onClick={this.upVote}
-                style={(this.props.voteState===1)?{color:'#F67D29'}:{}}
+                style={(this.props.voteState===1)?highlighted:{}}
                 className="fontawesome">
                 &#xf062;
               </button>
@@ -160,7 +164,7 @@ class ListItem extends Component{
             <div>
               <button 
                 onClick={this.downVote}
-                style={(this.props.voteState===-1)?{color:'#607184'}:{}}
+                style={(this.props.voteState===-1)?muted:{}}
                 className="fontawesome">
                 &#xf063;
               </button>
@@ -179,7 +183,9 @@ class ListItem extends Component{
               <Link to={'/post/'+post._id}>{post.contentTitle}</Link>
               {' '}
               {(post.contentDescription!=='')
-                ?<button onClick={this.postDescriptionToggle}>(...)</button>
+                ?<button onClick={this.postDescriptionToggle} className='greyedOut'>
+                  {this.state.showPostDescription?'[+collapse]':'[+expand]'}
+                </button>
                 :''
               }
               {' '}
@@ -208,7 +214,7 @@ class ListItem extends Component{
             <div className="listItemActionBar">
               <button 
                 onClick={this.toggleReplyForm} 
-                style={(this.state.showReplyForm)?{color:'#F67D29'}:{}}
+                style={(this.state.showReplyForm)?highlighted:{}}
                 className="listItemActionBarItem">
                   Reply
               </button>
@@ -242,7 +248,7 @@ class ListItem extends Component{
               {(this.props.submittedByCurrentUser)
                 ?<button 
                   onClick={this.toggleEditForm}
-                  style={(this.state.showEditForm)?{color:'#F67D29'}:{}}
+                  style={(this.state.showEditForm)?highlighted:{}}
                   className='listItemActionBarItem'>
                     Edit
                   </button>

@@ -4,6 +4,8 @@ import List from '../containers/ListContainer'
 import Pagination from '../containers/PaginationContainer'
 import {defaultPage} from '../libraryHelper'
 
+const highlighted = {color:'#F67D29'}
+
 class UserProfile extends Component {
   componentWillMount() {
     this.loadPageSwitch(this.props.params.subField, this.props)
@@ -67,7 +69,7 @@ class UserProfile extends Component {
             <h1>{userProfile.userName}</h1>
             <Link 
               to={'/userprofile/'+userId+'/submitted'}
-              style={(currentSubField==='submitted')?{color:'#F67D29'}:{}}>
+              style={(currentSubField==='submitted')?highlighted:{}}>
               Submitted Posts
             </Link>
             {(currentUser)
@@ -75,17 +77,17 @@ class UserProfile extends Component {
               <div>
               <Link 
                 to={'/userprofile/'+userId+'/upvoted'}
-                style={(currentSubField==='upvoted')?{color:'#F67D29'}:{}}>
+                style={(currentSubField==='upvoted')?highlighted:{}}>
                 Upvoted posts
               </Link><br />
               <Link 
                 to={'/userprofile/'+userId+'/downvoted'}
-                style={(currentSubField==='downvoted')?{color:'#F67D29'}:{}}>
+                style={(currentSubField==='downvoted')?highlighted:{}}>
                 Downvoted Posts
               </Link><br />
               <Link 
                 to={'/userprofile/'+userId+'/saved'}
-                style={(currentSubField==='saved')?{color:'#F67D29'}:{}}>
+                style={(currentSubField==='saved')?highlighted:{}}>
                 Saved Posts
               </Link><br />
               </div>

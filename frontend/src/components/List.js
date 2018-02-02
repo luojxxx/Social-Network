@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import ListItem from './ListItem'
 
+const threadStyle = {
+  margin: '3%',
+  borderLeft: '2px dotted #313131'
+}
+
 class List extends Component{
   listItem = (postId, depth) => {
     var props = this.props    
@@ -46,11 +51,7 @@ class List extends Component{
 
       return (<div 
         key={'wrapper'+postId}
-        style={{
-          margin: '3%',
-          borderLeft: '2px dotted #313131',
-          //backgroundColor: (depth%2===1)? '#C2C3C5': '#D7D7D5'
-        }}>
+        style={threadStyle}>
         {this.listItem(postId, depth)} 
         {(children.length > 0)?this.recursiveComponent(dataDic, children, depth+1):''}
         </div>)

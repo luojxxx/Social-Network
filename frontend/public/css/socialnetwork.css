@@ -5,9 +5,19 @@ body {
   margin-bottom: 30px;
 }
 
+h1, h2, h3, h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 button {
   background-color: transparent;
   padding: 0px;
+}
+
+button:focus, button:active, button:focus:active {
+  box-shadow: none;
+  outline: none;
 }
 
 a {
@@ -24,16 +34,6 @@ a:visited {
   font-weight: bold;
 }
 
-button:focus, button:active, button:focus:active {
-  box-shadow: none;
-  outline: none;
-}
-
-h1, h2, h3, h4 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 @font-face {
   font-family: 'Fontawesome webfont';
   src: url('../fonts/fontawesome-webfont.woff2') format('woff2'), 
@@ -42,7 +42,6 @@ h1, h2, h3, h4 {
   font-weight: 400;
   font-style: normal;
 }
-
 
 .w-container {
   margin-left: auto;
@@ -78,19 +77,8 @@ h1, h2, h3, h4 {
   text-align: right;
 }
 
-.padding_small {
-  padding: 5px;
-  margin: 0px;
-}
 
-.margin_small {
-  margin: 5px;
-}
-
-.margin_medium {
-  margin: 2%;
-}
-
+/*HEADER*/
 .header {
   display: flex;
   flex-direction: row;
@@ -103,19 +91,20 @@ h1, h2, h3, h4 {
 .menubar {
   display: flex;
   flex-direction: column;
-/*  justify-content: flex-end;
-  align-items: center;
-  align-content: center;*/
   margin-top: 10px;
   font-size: 16px;
   text-align: right;
 }
 
-.flexRowCluster {
+.headerImgTitlePageCluster {
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex: 0 0 auto;
+  flex: 1 0 auto;
+}
+
+.headerSpacer {
+  width: 2%;
 }
 
 .menuBarActionCluster {
@@ -126,8 +115,13 @@ h1, h2, h3, h4 {
   flex: 0 0 auto;
 }
 
+.menuBarActionSpacing {
+  padding: 5px;
+  margin: 0px;
+}
+
 .transparentInputField, .transparentInputField:focus, .transparentInputField:active, .transparentInputField:focus:active {
-  background-color: rgba(0,0,0,0);
+  background-color: transparent;
   color: #313131;
   border: none;
   box-shadow: none;
@@ -160,6 +154,7 @@ h1, h2, h3, h4 {
   padding: 5px;
 }
 
+/*LIST ITEMS*/
 .listItemRow {
   display: flex;
   flex-direction: row;
@@ -188,23 +183,8 @@ h1, h2, h3, h4 {
   background-color: #EDEEEF;
 }
 
-.textAreaNoResizeHandle {
-  resize: none;
-}
 
-.notification {
-  margin: 1%;
-  padding: 10px;
-  border-left: 2px dotted #313131;
-  overflow: hidden;
-}
-
-.pageButtons {
-  font-size: 20px;
-  padding: 10px;
-  margin: 5px;
-}
-
+/*SOCIAL SHARING POPUP*/
 .modal {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -246,6 +226,8 @@ h1, h2, h3, h4 {
   margin: 10px;
 }
 
+
+/*POSTBOX*/
 .postFormCol {
   display: flex;
   flex-direction: column;
@@ -254,7 +236,61 @@ h1, h2, h3, h4 {
 .postFormRow {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
+
+.postFormSpacing {
+  margin: 3%;
+}
+
+.textAreaNoResizeHandle {
+  resize: none;
+}
+
+.postTitleTagWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.textField, .textField:focus, .textField:active, .textField:focus:active {
+  flex: 1 1 auto;
+  background-color: transparent;
+  color: #313131;
+  border: 1px solid #313131;
+  box-shadow: none;
+  outline: none;
+  padding: 8px;
+  margin: 5px;
+}
+
+.formButton {
+  margin: 5px;
+}
+
+
+/*SETTTINGS PAGES*/
+.settingsField {
+  margin: 0px;
+}
+
+
+/*NOTIFICATIONS*/
+.notification {
+  margin: 1%;
+  padding: 10px;
+  border-left: 2px dotted #313131;
+  overflow: hidden;
+}
+
+
+/*PAGINATION BUTTONS*/
+.pageButtons {
+  font-size: 20px;
+  padding: 10px;
+  margin: 5px;
+}
+
 
 /* ANIMATIONS */
 .loader,

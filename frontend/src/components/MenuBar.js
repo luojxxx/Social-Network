@@ -7,6 +7,9 @@ import { hostUrl } from '../config'
 import {stringify} from 'query-string'
 import googleLoginButton from '../images/gbutton1.png'
 
+const notHighlighted = {color:'#313131'}
+const highlighted = {color:'#F67D29'}
+
 class MenuBar extends Component{
   constructor(props){
     super(props)
@@ -73,7 +76,7 @@ class MenuBar extends Component{
     if (this.props.userAccount.newNotifications===true) {
       return <NotificationIcon newNotifications={this.props.userAccount.newNotifications} />
     } else {
-      return <div className='fontawesome' style={{color:'#313131'}}>&#xf003;</div>
+      return <div className='fontawesome' style={notHighlighted}>&#xf003;</div>
     }
   }
 
@@ -93,10 +96,10 @@ class MenuBar extends Component{
             onKeyPress={this.onEnter} 
             type='text' 
             placeholder='Search'
-            className='padding_small transparentInputField' />
+            className='menuBarActionSpacing transparentInputField' />
           <button 
             onClick={this.searchResultsRedirect} 
-            className='fontawesome padding_small'>
+            className='fontawesome menuBarActionSpacing'>
             &#xf002;
           </button>
         </div>
@@ -104,32 +107,32 @@ class MenuBar extends Component{
           ?<div className='menuBarActionCluster'>
           <button 
             onClick={this.props.togglePostForm} 
-            style={(this.props.showPostForm)?{color:'#F67D29'}:{}}
-            className="fontawesome padding_small">
+            style={(this.props.showPostForm)?highlighted:{}}
+            className="fontawesome menuBarActionSpacing">
             &#xf067;{' '}Post
           </button>
           <Link 
             to='/notifications' 
-            className="fontawesome padding_small"
+            className="fontawesome menuBarActionSpacing"
             id='notificationsIcon' >
             {(this.checkPage('notifications'))
-              ?<div className='fontawesome' style={{color:'#F67D29'}}>&#xf003;</div>
+              ?<div className='fontawesome' style={highlighted}>&#xf003;</div>
               :this.renderNotificationIcon()}
           </Link>
           <Link 
             to='/settings' 
-            className="fontawesome padding_small"
-            style={(this.checkPage('settings')?{color:'#F67D29'}:{})}>
+            className="fontawesome menuBarActionSpacing"
+            style={(this.checkPage('settings')?highlighted:{})}>
             &#xf013;{' '}
           </Link>
           <Link 
             to={'/userprofile/'+userAccount.userId+'/submitted'} 
-            className="padding_small"
-            style={(this.checkPage('userprofile')?{color:'#F67D29'}:{})}>
+            className="menuBarActionSpacing"
+            style={(this.checkPage('userprofile')?highlighted:{})}>
             {userAccount.userName}
           </Link>
           {' '}
-          <button onClick={this.logout} className="padding_small">Logout</button>
+          <button onClick={this.logout} className="menuBarActionSpacing">Logout</button>
           </div>
           :<a href={hostUrl+'auth/google/'} >
             <img src={googleLoginButton} height='38px' className="" />

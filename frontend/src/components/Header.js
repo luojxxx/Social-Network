@@ -31,13 +31,14 @@ class Header extends Component {
             bannerMsg={this.props.bannerMsg} />
           :''}
         <div className="header">
-          <div className='flexRowCluster'>
+          <div className='headerImgTitlePageCluster'>
             <Link to='/'>
               <img src={logo} max-width="40px" max-height="40px" width="40px" height="40px" />
             </Link>
             <Link to='/'>
               <h1 className="">GEDDIT</h1>
             </Link>
+            <span className='headerSpacer'></span>
             <h3 className=''>{props.subheading}</h3>
           </div>
           <MenuBar 

@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+const marginZero = {margin: '0px'}
+
 class Settings extends Component{
   constructor(props) {
       super(props)
@@ -38,8 +40,9 @@ class Settings extends Component{
           value={this.state.userName}
           onChange={this.updateUserName} 
           maxLength="32"
-          className='settingsInputField' /> 
-          <br /> <br/>
+          className='textField'
+          style={marginZero} /> 
+          <br /><br/>
           <button
           onClick={this.submitUserName}
           className='w-button'>Submit</button> <br/>
