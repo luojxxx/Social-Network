@@ -76,7 +76,7 @@ module.exports.findOrCreate = function(googleIdObject, callback) {
             newNotifications: true
           })
           callback(err, googleIdObject)
-        })        
+        })
       })
 
     } else {
