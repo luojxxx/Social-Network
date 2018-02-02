@@ -166,8 +166,14 @@ a:visited {
   overflow: scroll;
 }
 
-.listItemMargin {
-  margin: 10px;
+.listItemSpacer {
+  flex: 0 0 auto;
+}
+
+.voteBlock {
+  margin-left: 10px;
+  margin-right: 10px;
+  flex: 0 0 auto;
 }
 
 .listItemActionBar {

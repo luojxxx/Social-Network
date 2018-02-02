@@ -50,7 +50,6 @@ class ListItem extends Component{
   }
 
   toggleContentPreview = () => {
-    console.log(this.state.showPreview)
     if (this.state.showPreview === false) {
       this.setState({showPreview: true})
     } else {
@@ -161,10 +160,10 @@ class ListItem extends Component{
           <div 
             // style={{width:String(5*this.props.depth)+'%'}} 
             style={{width: '1%'}}
-            className="">
+            className="listItemSpacer">
           </div>
 
-          <div className="listItemMargin">
+          <div className="voteBlock">
             <div>
               <button 
                 onClick={this.upVote}
@@ -181,10 +180,6 @@ class ListItem extends Component{
                 &#xf063;
               </button>
             </div>
-          </div>
-
-          <div onClick={this.toggleContentPreview}>
-            <LinkThumbnail url={post.contentLink} />
           </div>
 
           <div className="listItemCol">
@@ -209,6 +204,9 @@ class ListItem extends Component{
               <br />
 
               <a href={post.contentLink}>{post.contentLink}</a>
+              <div onClick={this.toggleContentPreview}>
+                <LinkThumbnail url={post.contentLink} />
+              </div>
               {this.state.showPreview
                 ?<LinkContent url={post.contentLink} />
                 :''}
@@ -218,6 +216,7 @@ class ListItem extends Component{
                   </div>
                 :''
               }
+              
               <div>
                 <span style={scoreColor}>{post.score} </span>
                  points by{' '}
