@@ -77,21 +77,20 @@ router.post('/', passport.authenticate('bearer', { session: false }),
 
     Post.create(newPost)
     .then((createdPost)=>{
-
-      User.update(
+      return User.update(
         {_id: userId},
         {$addToSet: {'submitted': createdPost._id}})
-      .catch((err)=>{
-        res.status(400);
-        res.send(err);
+      .then(()=>{
+        return createdPost
       })
-
+    })
+    .then((createdPost)=> {
       if (newPost.parent != null) {
-        Post.findOneAndUpdate(
+        return Post.findOneAndUpdate(
           {_id: createdPost.parent},
           {$addToSet: {'children': createdPost._id}})
         .then((parentPost)=>{
-          Notification.create({
+          var newNotification = Notification.create({
             notificationType: 'reply',
             data: {
               parentPostId: parentPost._id,
@@ -102,36 +101,33 @@ router.post('/', passport.authenticate('bearer', { session: false }),
               newPostUserName: userName
             }
           })
-          .then((newNotification)=>{
-            UserNotification.findOneAndUpdate(
-              {userId: parentPost.submittedByUserId},
-              {
-                $push: {
-                  notifications: {
-                    $each: [newNotification._id],
-                    $position: 0
-                  }
-                },
-                newNotifications: true
-              })
-            .then(()=>{
-              res.status(200);
-              res.send(createdPost);
+          return Promise.all([parentPost.submittedByUserId, newNotification])
+        })
+        .then((newNotificationDetails)=>{
+          return UserNotification.findOneAndUpdate(
+            {userId: newNotificationDetails[0]},
+            {
+              $push: {
+                notifications: {
+                  $each: [newNotificationDetails[1]._id],
+                  $position: 0
+                }
+              },
+              newNotifications: true
             })
-            .catch((err)=>{
-              res.status(400);
-              res.send(err);
-            })
-          })
-          .catch((err)=>{
-            res.status(400);
-            res.send(err);
-          })
+        })
+        .then(()=>{
+          res.status(200);
+          res.send(createdPost);
         })
       } else {
         res.status(200);
         res.send(createdPost);
       }
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
     })
 })
 
@@ -155,21 +151,20 @@ router.put('/:_id', passport.authenticate('bearer', { session: false }),
     Post.findOne({_id: postId})
     .then((post)=>{
       if (String(post.submittedByUserId) === String(userId)) {
-        Post.findOneAndUpdate({_id: postId}, updatePost)
+        return Post.findOneAndUpdate({_id: postId}, updatePost)
         .then(()=>{
           res.status(200);
           res.send('Completed update');
         })
       } else {
         res.status(401);
-        res.send('Unauthorized edit')
+        res.send('Unauthorized edit');
       }
     })
     .catch((err)=>{
       res.status(400);
       res.send(err);
     })
-
 })
 
 router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
@@ -207,19 +202,14 @@ router.put('/:_id/vote', passport.authenticate('bearer', { session: false }),
     User.findOneAndUpdate({_id: userId}, allUserInfo)
     .then(()=>{
       var updateScore = currentVote - userPriorVote;
-      Post.findOneAndUpdate({_id: postId},
+      return Post.findOneAndUpdate({_id: postId}, 
       {
         $inc: {score: updateScore}
       })
-      .then(()=>{
-        res.status(200);
-        res.send('Update complete');
-      })
-
-      .catch((err)=>{
-        res.status(400);
-        res.send(err);
-      })
+    })
+    .then(()=>{
+      res.status(200);
+      res.send('Update complete');
     })
     .catch((err)=>{
       res.status(400);
@@ -236,7 +226,7 @@ router.delete('/:_id', passport.authenticate('bearer', { session: false }),
     Post.findOne({_id: postId})
     .then((postToDelete)=>{
       if (String(postToDelete.submittedByUserId) === String(userId)) {
-        Post.findOneAndUpdate({_id: postId}, {
+        return Post.findOneAndUpdate({_id: postId}, {
           submittedByUserId: null,
           submittedByUserName: 'deleted',
           contentTitle: 'deleted',
@@ -248,21 +238,15 @@ router.delete('/:_id', passport.authenticate('bearer', { session: false }),
           res.status(204);
           res.send('Delete complete');
         })
-        .catch((err)=>{
-          res.status(400);
-          res.send(err);
-        })
       } else {
         res.status(401);
-        res.send(err);
+        res.send('Unauthorized delete');
       }
     })
     .catch((err)=>{
       res.status(400);
       res.send(err);
-    })
-
-    
+    })    
 })
 
 module.exports = router;

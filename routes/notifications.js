@@ -28,15 +28,16 @@ router.get('/:page', passport.authenticate('bearer', { session: false }),
       var count = Notification.find(filter).count();
       var filteredResults = Notification.find(filter, projection, options);
 
-      Promise.all([count, filteredResults])
+      return Promise.all([count, filteredResults])
       .then((values)=>{
         res.status(200);
         res.send({pages: Math.ceil(values[0]/config.pageSize), docs: values[1]});
       })
-      .catch((err)=>{
-        res.status(400);
-        res.send(err);
-      })
+      
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
     })
 });
 

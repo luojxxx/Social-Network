@@ -23,27 +23,18 @@ router.get('/verify', passport.authenticate('bearer', { session: false }),
       return User.findOneAndUpdate(
         {_id: userProfile._id},
         {totalVotes: totalVotes})
-      .then(()=>{
-         var filteredUserProfile = {
-          _id: userProfile._id,
-          userName: userProfile.userName,
-          email: userProfile.email,
-          submitted: userProfile.submitted,
-          upvotes: userProfile.upvotes,
-          downvotes: userProfile.downvotes,
-          saved: userProfile.saved,
-          totalVotes: userProfile.totalVotes
-        }
-        return filteredUserProfile;
-      })
-      .catch((err)=>{
-        res.status(400);
-        res.send(err);
-      })
     })
-    .catch((err)=>{
-      res.status(400);
-      res.send(err);
+    .then(()=>{
+       return {
+        _id: userProfile._id,
+        userName: userProfile.userName,
+        email: userProfile.email,
+        submitted: userProfile.submitted,
+        upvotes: userProfile.upvotes,
+        downvotes: userProfile.downvotes,
+        saved: userProfile.saved,
+        totalVotes: userProfile.totalVotes
+      }
     })
 
     var newNotifications = UserNotification.findOne({userId: userProfile._id})
@@ -152,23 +143,23 @@ router.get('/profile/:userId/:field/:page', passport.authenticate('bearer', { se
       res.send('Non-valid subfield');
     }
 
-    var stack = [];
+    var stack = []; //Used to guarantee order for posts in array
     for (var i = searchQuery.length - 1; i > 0; i--) {
-        var rec = {
-            "$cond": [
-                { "$eq": [ "$_id", searchQuery[i-1] ] },
-                i
-            ]
-        };
+      var rec = {
+          "$cond": [
+              { "$eq": [ "$_id", searchQuery[i-1] ] },
+              i
+          ]
+      };
 
-        if ( stack.length == 0 ) {
-            rec["$cond"].push( i+1 );
-        } else {
-            var lval = stack.pop();
-            rec["$cond"].push( lval );
-        }
+      if ( stack.length == 0 ) {
+          rec["$cond"].push( i+1 );
+      } else {
+          var lval = stack.pop();
+          rec["$cond"].push( lval );
+      }
 
-        stack.push( rec );
+      stack.push( rec );
     }
 
     var query = {'$match': {'_id': {$in: searchQuery}}};
@@ -183,10 +174,6 @@ router.get('/profile/:userId/:field/:page', passport.authenticate('bearer', { se
                     return 0;
                   }
                   return result[0].total
-                })
-                .catch((err)=>{
-                  res.status(400);
-                  res.send(err);
                 })
     var paginatedResults = Post.aggregate([query, projection, skip, limit, sort]);
 
@@ -215,16 +202,12 @@ router.put('/changeusername', passport.authenticate('bearer', { session: false }
 
     User.find({userName: newUserName})
     .then((results)=>{
-      if (results.length ===0) {
-        User.findOneAndUpdate({_id: userId},
+      if (results.length === 0) {
+        return User.findOneAndUpdate({_id: userId},
           {userName: newUserName})
         .then((success)=>{
           res.status(200)
           res.json({changed:'true', userName: newUserName})
-        })
-        .catch((err)=>{
-          res.status(400)
-          res.send(err)
         })
       } else {
         res.status(200)

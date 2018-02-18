@@ -16,7 +16,7 @@ router.post('/:_id', passport.authenticate('bearer', { session: false }),
     Report.findOne(query)
     .then((searchResults)=>{
       if (searchResults === null){
-        Report.create({
+        return Report.create({
           postId: postId,
           submittedByUserIds: [userId]
         })
@@ -24,23 +24,19 @@ router.post('/:_id', passport.authenticate('bearer', { session: false }),
           res.status(204);
           res.send('Post has been reported');
         })
-        .catch((err)=>{
-          res.status(400);
-          res.send(err);
-        })
       } else {
-        Report.update(query, {
+        return Report.update(query, {
           $addToSet: {'submittedByUserIds': userId}
         })
         .then(()=>{
           res.status(204);
           res.send('Post has been reported');
         })
-        .catch((err)=>{
-          res.status(400);
-          res.send(err);
-        })
       }
+    })
+    .catch((err)=>{
+      res.status(400);
+      res.send(err);
     })
 })
 
