@@ -63,18 +63,20 @@ module.exports.findOrCreate = function(googleIdObject, callback) {
   User.find(googleIdObject, function(err, results) {
 
     if (results.length === 0) {
-      User.create(googleIdObject)
+      return User.create(googleIdObject)
       .then((newUser)=>{
-        Notification.create({
+        return Notification.create({
           notificationType: 'message',
           data: {message: 'Welcome! Feel free to share whatever you like. Although please be mindful and respectful to others.'}
         })
         .then((newNotification)=>{
-          UserNotification.create({
+          return UserNotification.create({
             userId:newUser._id,
             notifications: [newNotification._id],
             newNotifications: true
           })
+        })
+        .then(()=>{
           callback(err, googleIdObject)
         })
       })
@@ -83,6 +85,10 @@ module.exports.findOrCreate = function(googleIdObject, callback) {
       callback(err, googleIdObject);
     }
 
+  })
+  .catch((err)=>{
+    res.status(400);
+    res.send(err);
   })
 };
 
@@ -93,12 +99,16 @@ module.exports.authToken = function(googleId, newToken, callback) {
   User.findOne(query)
   .then((userAccount)=>{
     if (typeof(userAccount.token) === 'undefined') {
-      User.findOneAndUpdate(query, update)
+      return User.findOneAndUpdate(query, update)
       .then(()=>{
         callback(newToken)
       })
     } else {
       callback(userAccount.token)
     }
+  })
+  .catch((err)=>{
+    res.status(400);
+    res.send(err);
   })
 }
