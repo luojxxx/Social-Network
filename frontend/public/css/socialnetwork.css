@@ -154,6 +154,7 @@ a:visited {
   padding: 5px;
 }
 
+
 /*LIST ITEMS*/
 .listItemRow {
   display: flex;
@@ -164,6 +165,8 @@ a:visited {
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .listItemSpacer {
