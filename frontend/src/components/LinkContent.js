@@ -22,7 +22,8 @@ class LinkContent extends Component{
     if (this.extractHostname(url).includes('imgur')) {
       return this.renderImgur(url)
     }
-    if (this.extractHostname(url).includes('youtube')) {
+    if (this.extractHostname(url).includes('youtube')
+      || this.extractHostname(url).includes('youtu')) {
       return this.renderYouTube(url)
     }
   }
