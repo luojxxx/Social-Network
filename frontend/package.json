@@ -22,7 +22,7 @@
     "redux": "^3.7.2",
     "redux-action-buffer": "^1.2.0",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^5.5.0",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
