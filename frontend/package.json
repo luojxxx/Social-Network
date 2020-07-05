@@ -3,23 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "1.0.17"
+    "snyk": "^1.360.0"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.19.2",
     "gsap": "^1.20.3",
     "history": "^4.7.2",
     "localforage": "^1.5.6",
     "query-string": "^5.0.1",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-markdown": "^3.1.4",
-    "react-redux": "^5.0.6",
-    "react-router": "^3.2.0",
+    "react-dom": "^16.13.1",
     "react-router-redux": "^4.0.8",
-    "react-share": "^1.19.0",
-    "react-textarea-autosize": "^5.2.1",
-    "redux": "^3.7.2",
     "redux-action-buffer": "^1.2.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.5.0",
@@ -28,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "snyk test && react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }
