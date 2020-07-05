@@ -33,7 +33,7 @@ mongoose.connect(databaseConnectionString)
 var db = mongoose.connection;
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID+'.apps.googleusercontent.com',
+    clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.OAUTH_SERVER_CALLBACK_URL+'/auth/google/callback'
   },
