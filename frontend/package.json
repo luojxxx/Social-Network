@@ -2,9 +2,7 @@
   "name": "sn_frontend",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "snyk": "^1.360.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "axios": "^0.19.2",
     "gsap": "^1.20.3",
@@ -24,13 +22,16 @@
     "redux-action-buffer": "^1.2.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.5.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "snyk": "^1.360.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "CI= react-scripts build",
     "test": "snyk test && react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "browserslist": {
     "production": [
@@ -43,5 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "snyk": true
 }
