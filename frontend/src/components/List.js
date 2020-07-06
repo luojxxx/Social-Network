@@ -4,7 +4,7 @@ import ListItem from './ListItem'
 const threadStyle = {
   margin: '3%',
   borderLeft: '2px dotted #313131',
-  backgroundColor: 'rgba(247,199,68,0.2)',
+  backgroundColor: 'rgba(200,200,200,0.2)',
   paddingBottom: '1.5%'
 }
 
