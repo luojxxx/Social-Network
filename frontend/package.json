@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "snyk": "^1.360.0"
+    "snyk": "^1.996.0"
   },
   "dependencies": {
     "axios": "^0.19.2",
